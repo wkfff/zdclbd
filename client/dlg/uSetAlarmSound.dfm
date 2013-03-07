@@ -1,0 +1,981 @@
+object SetAlarmSound: TSetAlarmSound
+  Left = 319
+  Top = 128
+  Width = 687
+  Height = 452
+  BorderIcons = [biSystemMenu, biMinimize]
+  Caption = #35774#32622#25253#35686#22768#38899
+  Color = clBtnFace
+  Font.Charset = GB2312_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -13
+  Font.Name = #23435#20307
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 679
+    Height = 375
+    Align = alClient
+    BevelInner = bvLowered
+    BevelOuter = bvNone
+    TabOrder = 0
+    object GroupBox1: TGroupBox
+      Left = 12
+      Top = 15
+      Width = 323
+      Height = 63
+      Caption = #21496#26426#25353#38190#32039#24613#25253#35686#22768#38899
+      Font.Charset = GB2312_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = #23435#20307
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      object SpeedButton1: TSpeedButton
+        Left = 294
+        Top = 36
+        Width = 22
+        Height = 22
+        Hint = #25171#24320#22768#38899#25991#20214
+        Flat = True
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        Glyph.Data = {
+          F6000000424DF600000000000000760000002800000010000000100000000100
+          04000000000080000000CE0E0000C40E00001000000000000000000000000000
+          80000080000000808000800000008000800080800000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          77777777777777777777000000000007777700333333333077770B0333333333
+          07770FB03333333330770BFB0333333333070FBFB000000000000BFBFBFBFB07
+          77770FBFBFBFBF0777770BFB0000000777777000777777770007777777777777
+          7007777777770777070777777777700077777777777777777777}
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = SpeedButton1Click
+      end
+      object Label1: TLabel
+        Left = 9
+        Top = 17
+        Width = 65
+        Height = 13
+        Caption = #22768#38899#25991#20214#65306
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+      end
+      object Edit_DevAlarmSound: TEdit
+        Left = 4
+        Top = 36
+        Width = 290
+        Height = 21
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        Text = 'Edit_DevAlarmSound'
+      end
+      object listen_btn: TBitBtn
+        Left = 225
+        Top = 8
+        Width = 69
+        Height = 25
+        Caption = #39044#21548
+        TabOrder = 1
+        OnClick = listen_btnClick
+        Glyph.Data = {
+          42010000424D4201000000000000760000002800000011000000110000000100
+          040000000000CC00000000000000000000001000000010000000000000000000
+          BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          777770000000777777000007777770000000777700BBBBB00777700000007770
+          BBBBBBBBB07770000000770BBBBBBBBBBB0770000000770BBB00000BBB077000
+          000070BBB0BBBBB0BBB07000000070BB0BBBBBBB0BB07000000070BBBBBBBBBB
+          BBB07000000070BBBBBBBBBBBBB07000000070BBB00BBB00BBB070000000770B
+          B00BBB00BB0770000000770BBBBBBBBBBB07700000007770BBBBBBBBB0777000
+          0000777700BBBBB0077770000000777777000007777770000000777777777777
+          777770000000}
+      end
+    end
+    object GroupBox2: TGroupBox
+      Left = 343
+      Top = 87
+      Width = 323
+      Height = 64
+      Caption = #36710#36742#36827#20986#21306#22495'/'#36335#32447#25253#35686#22768#38899
+      Font.Charset = GB2312_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = #23435#20307
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 1
+      object SpeedButton2: TSpeedButton
+        Left = 294
+        Top = 37
+        Width = 22
+        Height = 22
+        Hint = #25171#24320#22768#38899#25991#20214
+        Flat = True
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        Glyph.Data = {
+          F6000000424DF600000000000000760000002800000010000000100000000100
+          04000000000080000000CE0E0000C40E00001000000000000000000000000000
+          80000080000000808000800000008000800080800000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          77777777777777777777000000000007777700333333333077770B0333333333
+          07770FB03333333330770BFB0333333333070FBFB000000000000BFBFBFBFB07
+          77770FBFBFBFBF0777770BFB0000000777777000777777770007777777777777
+          7007777777770777070777777777700077777777777777777777}
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = SpeedButton2Click
+      end
+      object Label2: TLabel
+        Left = 9
+        Top = 18
+        Width = 65
+        Height = 13
+        Caption = #22768#38899#25991#20214#65306
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+      end
+      object Edit_InOutAreaAlarmSound: TEdit
+        Left = 4
+        Top = 37
+        Width = 290
+        Height = 21
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        Text = 'Edit_InOutAreaAlarmSound'
+      end
+      object Listen_Btn2: TBitBtn
+        Left = 225
+        Top = 9
+        Width = 69
+        Height = 25
+        Caption = #39044#21548
+        TabOrder = 1
+        OnClick = Listen_Btn2Click
+        Glyph.Data = {
+          42010000424D4201000000000000760000002800000011000000110000000100
+          040000000000CC00000000000000000000001000000010000000000000000000
+          BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          777770000000777777000007777770000000777700BBBBB00777700000007770
+          BBBBBBBBB07770000000770BBBBBBBBBBB0770000000770BBB00000BBB077000
+          000070BBB0BBBBB0BBB07000000070BB0BBBBBBB0BB07000000070BBBBBBBBBB
+          BBB07000000070BBBBBBBBBBBBB07000000070BBB00BBB00BBB070000000770B
+          B00BBB00BB0770000000770BBBBBBBBBBB07700000007770BBBBBBBBB0777000
+          0000777700BBBBB0077770000000777777000007777770000000777777777777
+          777770000000}
+      end
+    end
+    object GroupBox3: TGroupBox
+      Left = 12
+      Top = 158
+      Width = 323
+      Height = 64
+      Caption = #36710#36742#20559#31163#36335#32447#25253#35686#22768#38899
+      Font.Charset = GB2312_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = #23435#20307
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 2
+      object SpeedButton3: TSpeedButton
+        Left = 294
+        Top = 37
+        Width = 22
+        Height = 22
+        Hint = #25171#24320#22768#38899#25991#20214
+        Flat = True
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        Glyph.Data = {
+          F6000000424DF600000000000000760000002800000010000000100000000100
+          04000000000080000000CE0E0000C40E00001000000000000000000000000000
+          80000080000000808000800000008000800080800000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          77777777777777777777000000000007777700333333333077770B0333333333
+          07770FB03333333330770BFB0333333333070FBFB000000000000BFBFBFBFB07
+          77770FBFBFBFBF0777770BFB0000000777777000777777770007777777777777
+          7007777777770777070777777777700077777777777777777777}
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = SpeedButton3Click
+      end
+      object Label3: TLabel
+        Left = 9
+        Top = 18
+        Width = 65
+        Height = 13
+        Caption = #22768#38899#25991#20214#65306
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+      end
+      object Edit_DeviateAlarmSound: TEdit
+        Left = 4
+        Top = 37
+        Width = 290
+        Height = 21
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        Text = 'Edit_DeviateAlarmSound'
+      end
+      object BitBtnListenInAlarmCASound: TBitBtn
+        Left = 225
+        Top = 9
+        Width = 69
+        Height = 25
+        Caption = #39044#21548
+        TabOrder = 1
+        OnClick = BitBtnListenInAlarmCASoundClick
+        Glyph.Data = {
+          42010000424D4201000000000000760000002800000011000000110000000100
+          040000000000CC00000000000000000000001000000010000000000000000000
+          BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          777770000000777777000007777770000000777700BBBBB00777700000007770
+          BBBBBBBBB07770000000770BBBBBBBBBBB0770000000770BBB00000BBB077000
+          000070BBB0BBBBB0BBB07000000070BB0BBBBBBB0BB07000000070BBBBBBBBBB
+          BBB07000000070BBBBBBBBBBBBB07000000070BBB00BBB00BBB070000000770B
+          B00BBB00BB0770000000770BBBBBBBBBBB07700000007770BBBBBBBBB0777000
+          0000777700BBBBB0077770000000777777000007777770000000777777777777
+          777770000000}
+      end
+    end
+    object GroupBox4: TGroupBox
+      Left = 343
+      Top = 15
+      Width = 323
+      Height = 64
+      Caption = #36229#36895#25253#35686#22768#38899
+      Font.Charset = GB2312_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = #23435#20307
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 3
+      object SpeedButton4: TSpeedButton
+        Left = 294
+        Top = 37
+        Width = 22
+        Height = 22
+        Hint = #25171#24320#22768#38899#25991#20214
+        Flat = True
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        Glyph.Data = {
+          F6000000424DF600000000000000760000002800000010000000100000000100
+          04000000000080000000CE0E0000C40E00001000000000000000000000000000
+          80000080000000808000800000008000800080800000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          77777777777777777777000000000007777700333333333077770B0333333333
+          07770FB03333333330770BFB0333333333070FBFB000000000000BFBFBFBFB07
+          77770FBFBFBFBF0777770BFB0000000777777000777777770007777777777777
+          7007777777770777070777777777700077777777777777777777}
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = SpeedButton4Click
+      end
+      object Label4: TLabel
+        Left = 9
+        Top = 18
+        Width = 65
+        Height = 13
+        Caption = #22768#38899#25991#20214#65306
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+      end
+      object Edit_OverSpeedAlarmSound: TEdit
+        Left = 4
+        Top = 37
+        Width = 290
+        Height = 21
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        Text = 'Edit_OverSpeedAlarmSound'
+      end
+      object BitBtn1: TBitBtn
+        Left = 225
+        Top = 9
+        Width = 69
+        Height = 25
+        Caption = #39044#21548
+        TabOrder = 1
+        OnClick = BitBtn1Click
+        Glyph.Data = {
+          42010000424D4201000000000000760000002800000011000000110000000100
+          040000000000CC00000000000000000000001000000010000000000000000000
+          BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          777770000000777777000007777770000000777700BBBBB00777700000007770
+          BBBBBBBBB07770000000770BBBBBBBBBBB0770000000770BBB00000BBB077000
+          000070BBB0BBBBB0BBB07000000070BB0BBBBBBB0BB07000000070BBBBBBBBBB
+          BBB07000000070BBBBBBBBBBBBB07000000070BBB00BBB00BBB070000000770B
+          B00BBB00BB0770000000770BBBBBBBBBBB07700000007770BBBBBBBBB0777000
+          0000777700BBBBB0077770000000777777000007777770000000777777777777
+          777770000000}
+      end
+    end
+    object GroupBox5: TGroupBox
+      Left = 12
+      Top = 86
+      Width = 323
+      Height = 64
+      Caption = #35774#22791#25925#38556#25253#35686#22768#38899
+      Font.Charset = GB2312_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = #23435#20307
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 4
+      object SpeedButton5: TSpeedButton
+        Left = 294
+        Top = 37
+        Width = 22
+        Height = 22
+        Hint = #25171#24320#22768#38899#25991#20214
+        Flat = True
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        Glyph.Data = {
+          F6000000424DF600000000000000760000002800000010000000100000000100
+          04000000000080000000CE0E0000C40E00001000000000000000000000000000
+          80000080000000808000800000008000800080800000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          77777777777777777777000000000007777700333333333077770B0333333333
+          07770FB03333333330770BFB0333333333070FBFB000000000000BFBFBFBFB07
+          77770FBFBFBFBF0777770BFB0000000777777000777777770007777777777777
+          7007777777770777070777777777700077777777777777777777}
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = SpeedButton5Click
+      end
+      object Label5: TLabel
+        Left = 9
+        Top = 18
+        Width = 65
+        Height = 13
+        Caption = #22768#38899#25991#20214#65306
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+      end
+      object Edit_DevFaultAlarmSound: TEdit
+        Left = 4
+        Top = 37
+        Width = 290
+        Height = 21
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        Text = 'Edit_DevFaultAlarmSound'
+      end
+      object BitBtn4: TBitBtn
+        Left = 225
+        Top = 9
+        Width = 69
+        Height = 25
+        Caption = #39044#21548
+        TabOrder = 1
+        OnClick = BitBtn4Click
+        Glyph.Data = {
+          42010000424D4201000000000000760000002800000011000000110000000100
+          040000000000CC00000000000000000000001000000010000000000000000000
+          BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          777770000000777777000007777770000000777700BBBBB00777700000007770
+          BBBBBBBBB07770000000770BBBBBBBBBBB0770000000770BBB00000BBB077000
+          000070BBB0BBBBB0BBB07000000070BB0BBBBBBB0BB07000000070BBBBBBBBBB
+          BBB07000000070BBBBBBBBBBBBB07000000070BBB00BBB00BBB070000000770B
+          B00BBB00BB0770000000770BBBBBBBBBBB07700000007770BBBBBBBBB0777000
+          0000777700BBBBB0077770000000777777000007777770000000777777777777
+          777770000000}
+      end
+    end
+    object GroupBox6: TGroupBox
+      Left = 343
+      Top = 158
+      Width = 323
+      Height = 64
+      Caption = #30130#21171#39550#39542#25253#35686#22768#38899
+      Font.Charset = GB2312_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = #23435#20307
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 5
+      object SpeedButton6: TSpeedButton
+        Left = 294
+        Top = 37
+        Width = 22
+        Height = 22
+        Hint = #25171#24320#22768#38899#25991#20214
+        Flat = True
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        Glyph.Data = {
+          F6000000424DF600000000000000760000002800000010000000100000000100
+          04000000000080000000CE0E0000C40E00001000000000000000000000000000
+          80000080000000808000800000008000800080800000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          77777777777777777777000000000007777700333333333077770B0333333333
+          07770FB03333333330770BFB0333333333070FBFB000000000000BFBFBFBFB07
+          77770FBFBFBFBF0777770BFB0000000777777000777777770007777777777777
+          7007777777770777070777777777700077777777777777777777}
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = SpeedButton6Click
+      end
+      object Label6: TLabel
+        Left = 9
+        Top = 18
+        Width = 65
+        Height = 13
+        Caption = #22768#38899#25991#20214#65306
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+      end
+      object Edit_FatigueAlarmSound: TEdit
+        Left = 4
+        Top = 37
+        Width = 290
+        Height = 21
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        Text = 'Edit_FatigueAlarmSound'
+      end
+      object BitBtn5: TBitBtn
+        Left = 225
+        Top = 9
+        Width = 69
+        Height = 25
+        Caption = #39044#21548
+        TabOrder = 1
+        OnClick = BitBtn5Click
+        Glyph.Data = {
+          42010000424D4201000000000000760000002800000011000000110000000100
+          040000000000CC00000000000000000000001000000010000000000000000000
+          BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          777770000000777777000007777770000000777700BBBBB00777700000007770
+          BBBBBBBBB07770000000770BBBBBBBBBBB0770000000770BBB00000BBB077000
+          000070BBB0BBBBB0BBB07000000070BB0BBBBBBB0BB07000000070BBBBBBBBBB
+          BBB07000000070BBBBBBBBBBBBB07000000070BBB00BBB00BBB070000000770B
+          B00BBB00BB0770000000770BBBBBBBBBBB07700000007770BBBBBBBBB0777000
+          0000777700BBBBB0077770000000777777000007777770000000777777777777
+          777770000000}
+      end
+    end
+    object GroupBox7: TGroupBox
+      Left = 12
+      Top = 230
+      Width = 323
+      Height = 64
+      Caption = #26029#30005#25253#35686#22768#38899
+      Font.Charset = GB2312_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = #23435#20307
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 6
+      object SpeedButton7: TSpeedButton
+        Left = 294
+        Top = 37
+        Width = 22
+        Height = 22
+        Hint = #25171#24320#22768#38899#25991#20214
+        Flat = True
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        Glyph.Data = {
+          F6000000424DF600000000000000760000002800000010000000100000000100
+          04000000000080000000CE0E0000C40E00001000000000000000000000000000
+          80000080000000808000800000008000800080800000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          77777777777777777777000000000007777700333333333077770B0333333333
+          07770FB03333333330770BFB0333333333070FBFB000000000000BFBFBFBFB07
+          77770FBFBFBFBF0777770BFB0000000777777000777777770007777777777777
+          7007777777770777070777777777700077777777777777777777}
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = SpeedButton7Click
+      end
+      object Label7: TLabel
+        Left = 9
+        Top = 18
+        Width = 65
+        Height = 13
+        Caption = #22768#38899#25991#20214#65306
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+      end
+      object Edit_PowerDownAlarmsound: TEdit
+        Left = 4
+        Top = 37
+        Width = 290
+        Height = 21
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        Text = 'Edit_PowerDownAlarmsound'
+      end
+      object BitBtn6: TBitBtn
+        Left = 225
+        Top = 9
+        Width = 69
+        Height = 25
+        Caption = #39044#21548
+        TabOrder = 1
+        OnClick = BitBtn6Click
+        Glyph.Data = {
+          42010000424D4201000000000000760000002800000011000000110000000100
+          040000000000CC00000000000000000000001000000010000000000000000000
+          BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          777770000000777777000007777770000000777700BBBBB00777700000007770
+          BBBBBBBBB07770000000770BBBBBBBBBBB0770000000770BBB00000BBB077000
+          000070BBB0BBBBB0BBB07000000070BB0BBBBBBB0BB07000000070BBBBBBBBBB
+          BBB07000000070BBBBBBBBBBBBB07000000070BBB00BBB00BBB070000000770B
+          B00BBB00BB0770000000770BBBBBBBBBBB07700000007770BBBBBBBBB0777000
+          0000777700BBBBB0077770000000777777000007777770000000777777777777
+          777770000000}
+      end
+    end
+    object GroupBox8: TGroupBox
+      Left = 343
+      Top = 230
+      Width = 323
+      Height = 64
+      Caption = #27424#21387#25253#35686#22768#38899
+      Font.Charset = GB2312_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = #23435#20307
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 7
+      object SpeedButton8: TSpeedButton
+        Left = 294
+        Top = 37
+        Width = 22
+        Height = 22
+        Hint = #25171#24320#22768#38899#25991#20214
+        Flat = True
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        Glyph.Data = {
+          F6000000424DF600000000000000760000002800000010000000100000000100
+          04000000000080000000CE0E0000C40E00001000000000000000000000000000
+          80000080000000808000800000008000800080800000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          77777777777777777777000000000007777700333333333077770B0333333333
+          07770FB03333333330770BFB0333333333070FBFB000000000000BFBFBFBFB07
+          77770FBFBFBFBF0777770BFB0000000777777000777777770007777777777777
+          7007777777770777070777777777700077777777777777777777}
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = SpeedButton8Click
+      end
+      object Label8: TLabel
+        Left = 9
+        Top = 18
+        Width = 65
+        Height = 13
+        Caption = #22768#38899#25991#20214#65306
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+      end
+      object Edit_UndervoltageAlarmsound: TEdit
+        Left = 4
+        Top = 37
+        Width = 290
+        Height = 21
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        Text = 'Edit_UndervoltageAlarmsound'
+      end
+      object BitBtn7: TBitBtn
+        Left = 225
+        Top = 9
+        Width = 69
+        Height = 25
+        Caption = #39044#21548
+        TabOrder = 1
+        OnClick = BitBtn7Click
+        Glyph.Data = {
+          42010000424D4201000000000000760000002800000011000000110000000100
+          040000000000CC00000000000000000000001000000010000000000000000000
+          BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          777770000000777777000007777770000000777700BBBBB00777700000007770
+          BBBBBBBBB07770000000770BBBBBBBBBBB0770000000770BBB00000BBB077000
+          000070BBB0BBBBB0BBB07000000070BB0BBBBBBB0BB07000000070BBBBBBBBBB
+          BBB07000000070BBBBBBBBBBBBB07000000070BBB00BBB00BBB070000000770B
+          B00BBB00BB0770000000770BBBBBBBBBBB07700000007770BBBBBBBBB0777000
+          0000777700BBBBB0077770000000777777000007777770000000777777777777
+          777770000000}
+      end
+    end
+    object GroupBox9: TGroupBox
+      Left = 12
+      Top = 302
+      Width = 323
+      Height = 64
+      Caption = #36229#26102#20572#36710#25253#35686#22768#38899
+      Font.Charset = GB2312_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = #23435#20307
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 8
+      object SpeedButton9: TSpeedButton
+        Left = 294
+        Top = 37
+        Width = 22
+        Height = 22
+        Hint = #25171#24320#22768#38899#25991#20214
+        Flat = True
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        Glyph.Data = {
+          F6000000424DF600000000000000760000002800000010000000100000000100
+          04000000000080000000CE0E0000C40E00001000000000000000000000000000
+          80000080000000808000800000008000800080800000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          77777777777777777777000000000007777700333333333077770B0333333333
+          07770FB03333333330770BFB0333333333070FBFB000000000000BFBFBFBFB07
+          77770FBFBFBFBF0777770BFB0000000777777000777777770007777777777777
+          7007777777770777070777777777700077777777777777777777}
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = SpeedButton9Click
+      end
+      object Label9: TLabel
+        Left = 9
+        Top = 18
+        Width = 65
+        Height = 13
+        Caption = #22768#38899#25991#20214#65306
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+      end
+      object Edit_TimeoutStopAlarmSound: TEdit
+        Left = 4
+        Top = 37
+        Width = 290
+        Height = 21
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        Text = 'Edit_TimeoutStopAlarmSound'
+      end
+      object BitBtn8: TBitBtn
+        Left = 225
+        Top = 9
+        Width = 69
+        Height = 25
+        Caption = #39044#21548
+        TabOrder = 1
+        OnClick = BitBtn8Click
+        Glyph.Data = {
+          42010000424D4201000000000000760000002800000011000000110000000100
+          040000000000CC00000000000000000000001000000010000000000000000000
+          BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          777770000000777777000007777770000000777700BBBBB00777700000007770
+          BBBBBBBBB07770000000770BBBBBBBBBBB0770000000770BBB00000BBB077000
+          000070BBB0BBBBB0BBB07000000070BB0BBBBBBB0BB07000000070BBBBBBBBBB
+          BBB07000000070BBBBBBBBBBBBB07000000070BBB00BBB00BBB070000000770B
+          B00BBB00BB0770000000770BBBBBBBBBBB07700000007770BBBBBBBBB0777000
+          0000777700BBBBB0077770000000777777000007777770000000777777777777
+          777770000000}
+      end
+    end
+    object GroupBox10: TGroupBox
+      Left = 348
+      Top = 302
+      Width = 323
+      Height = 64
+      Caption = #24179#21488#26381#21153#22120#36830#25509#26029#24320#25253#35686#22768#38899
+      Font.Charset = GB2312_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = #23435#20307
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 9
+      object SpeedButton10: TSpeedButton
+        Left = 294
+        Top = 37
+        Width = 22
+        Height = 22
+        Hint = #25171#24320#22768#38899#25991#20214
+        Flat = True
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        Glyph.Data = {
+          F6000000424DF600000000000000760000002800000010000000100000000100
+          04000000000080000000CE0E0000C40E00001000000000000000000000000000
+          80000080000000808000800000008000800080800000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          77777777777777777777000000000007777700333333333077770B0333333333
+          07770FB03333333330770BFB0333333333070FBFB000000000000BFBFBFBFB07
+          77770FBFBFBFBF0777770BFB0000000777777000777777770007777777777777
+          7007777777770777070777777777700077777777777777777777}
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = SpeedButton10Click
+      end
+      object Label10: TLabel
+        Left = 9
+        Top = 18
+        Width = 65
+        Height = 13
+        Caption = #22768#38899#25991#20214#65306
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+      end
+      object edtServerDisconnectAlarmSound: TEdit
+        Left = 4
+        Top = 37
+        Width = 290
+        Height = 21
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        Text = 'Edit_TimeoutStopAlarmSound'
+      end
+      object BitBtn9: TBitBtn
+        Left = 225
+        Top = 9
+        Width = 69
+        Height = 25
+        Caption = #39044#21548
+        TabOrder = 1
+        OnClick = BitBtn9Click
+        Glyph.Data = {
+          42010000424D4201000000000000760000002800000011000000110000000100
+          040000000000CC00000000000000000000001000000010000000000000000000
+          BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+          777770000000777777000007777770000000777700BBBBB00777700000007770
+          BBBBBBBBB07770000000770BBBBBBBBBBB0770000000770BBB00000BBB077000
+          000070BBB0BBBBB0BBB07000000070BB0BBBBBBB0BB07000000070BBBBBBBBBB
+          BBB07000000070BBBBBBBBBBBBB07000000070BBB00BBB00BBB070000000770B
+          B00BBB00BB0770000000770BBBBBBBBBBB07700000007770BBBBBBBBB0777000
+          0000777700BBBBB0077770000000777777000007777770000000777777777777
+          777770000000}
+      end
+    end
+  end
+  object Panel2: TPanel
+    Left = 0
+    Top = 375
+    Width = 679
+    Height = 43
+    Align = alBottom
+    BevelInner = bvLowered
+    BevelOuter = bvNone
+    TabOrder = 1
+    object BitBtn2: TBitBtn
+      Left = 215
+      Top = 10
+      Width = 93
+      Height = 25
+      Caption = #30830#23450
+      Default = True
+      ModalResult = 1
+      TabOrder = 0
+      Glyph.Data = {
+        DE010000424DDE01000000000000760000002800000024000000120000000100
+        0400000000006801000000000000000000001000000000000000000000000000
+        80000080000000808000800000008000800080800000C0C0C000808080000000
+        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333333333
+        3333333333333333333333330000333333333333333333333333F33333333333
+        00003333344333333333333333388F3333333333000033334224333333333333
+        338338F3333333330000333422224333333333333833338F3333333300003342
+        222224333333333383333338F3333333000034222A22224333333338F338F333
+        8F33333300003222A3A2224333333338F3838F338F33333300003A2A333A2224
+        33333338F83338F338F33333000033A33333A222433333338333338F338F3333
+        0000333333333A222433333333333338F338F33300003333333333A222433333
+        333333338F338F33000033333333333A222433333333333338F338F300003333
+        33333333A222433333333333338F338F00003333333333333A22433333333333
+        3338F38F000033333333333333A223333333333333338F830000333333333333
+        333A333333333333333338330000333333333333333333333333333333333333
+        0000}
+      NumGlyphs = 2
+    end
+    object BitBtn3: TBitBtn
+      Left = 387
+      Top = 10
+      Width = 93
+      Height = 25
+      Cancel = True
+      Caption = #21462#28040
+      ModalResult = 2
+      TabOrder = 1
+      Glyph.Data = {
+        DE010000424DDE01000000000000760000002800000024000000120000000100
+        0400000000006801000000000000000000001000000000000000000000000000
+        80000080000000808000800000008000800080800000C0C0C000808080000000
+        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333333333
+        333333333333333333333333000033338833333333333333333F333333333333
+        0000333911833333983333333388F333333F3333000033391118333911833333
+        38F38F333F88F33300003339111183911118333338F338F3F8338F3300003333
+        911118111118333338F3338F833338F3000033333911111111833333338F3338
+        3333F8330000333333911111183333333338F333333F83330000333333311111
+        8333333333338F3333383333000033333339111183333333333338F333833333
+        00003333339111118333333333333833338F3333000033333911181118333333
+        33338333338F333300003333911183911183333333383338F338F33300003333
+        9118333911183333338F33838F338F33000033333913333391113333338FF833
+        38F338F300003333333333333919333333388333338FFF830000333333333333
+        3333333333333333333888330000333333333333333333333333333333333333
+        0000}
+      NumGlyphs = 2
+    end
+  end
+  object OpenDialog1: TOpenDialog
+    DefaultExt = '.wav'
+    Filter = '*.wav|*.wav'
+    Left = 232
+    Top = 158
+  end
+end

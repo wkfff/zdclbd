@@ -1,0 +1,73 @@
+object FrmRefreshProgress: TFrmRefreshProgress
+  Left = 470
+  Top = 328
+  BorderIcons = []
+  BorderStyle = bsDialog
+  Caption = #21047#26032#36827#24230
+  ClientHeight = 47
+  ClientWidth = 379
+  Color = clBtnFace
+  Font.Charset = GB2312_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -13
+  Font.Name = #23435#20307
+  Font.Style = []
+  FormStyle = fsStayOnTop
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 55
+    Top = 32
+    Width = 203
+    Height = 13
+    Caption = #27491#22312#37325#26032#36733#20837#36710#36742#20449#24687#65292#35831#31245#31561'...'
+    Font.Charset = GB2312_CHARSET
+    Font.Color = clNavy
+    Font.Height = -13
+    Font.Name = #23435#20307
+    Font.Style = []
+    ParentFont = False
+  end
+  object AdvWiiProgressBar1: TAdvWiiProgressBar
+    Left = 5
+    Top = 0
+    Width = 44
+    Height = 44
+    Appearance.BlockBorderColorActive = clNone
+    Appearance.BlockColor = 15650560
+    Padding = 4
+  end
+  object Panel1: TPanel
+    Left = 54
+    Top = 8
+    Width = 315
+    Height = 19
+    BevelInner = bvLowered
+    BevelOuter = bvNone
+    TabOrder = 0
+    object Gauge1: TGauge
+      Left = 1
+      Top = 1
+      Width = 313
+      Height = 17
+      Align = alClient
+      BackColor = clBtnHighlight
+      BorderStyle = bsNone
+      ForeColor = clNavy
+      Progress = 0
+    end
+  end
+  object Animate1: TAnimate
+    Left = 55
+    Top = -25
+    Width = 32
+    Height = 32
+    Color = 16773091
+    ParentColor = False
+    StopFrame = 16
+    Visible = False
+  end
+end

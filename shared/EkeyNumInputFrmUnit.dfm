@@ -1,0 +1,92 @@
+object FrmInputEkeyNum: TFrmInputEkeyNum
+  Left = 335
+  Top = 362
+  BorderIcons = []
+  BorderStyle = bsDialog
+  Caption = #30830#35748#29992#25143
+  ClientHeight = 181
+  ClientWidth = 293
+  Color = clBtnFace
+  Font.Charset = GB2312_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -13
+  Font.Name = #23435#20307
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 293
+    Height = 140
+    Align = alClient
+    BevelInner = bvLowered
+    BevelOuter = bvNone
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 13
+      Top = 29
+      Width = 195
+      Height = 13
+      Caption = #22312#20351#29992#26412#36719#20214#30340#36807#31243#20013#65292#35831#24744#25554#20837
+      Font.Charset = GB2312_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = #23435#20307
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label2: TLabel
+      Left = 12
+      Top = 54
+      Width = 130
+      Height = 13
+      Caption = #35831#36755#20837#24744#30340#19978#30340#21495#30721#65306
+      Font.Charset = GB2312_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = #23435#20307
+      Font.Style = []
+      ParentFont = False
+    end
+    object EditEKeyNum: TEdit
+      Left = 15
+      Top = 75
+      Width = 265
+      Height = 21
+      MaxLength = 32
+      TabOrder = 0
+    end
+  end
+  object Panel2: TPanel
+    Left = 0
+    Top = 140
+    Width = 293
+    Height = 41
+    Align = alBottom
+    BevelInner = bvLowered
+    BevelOuter = bvNone
+    TabOrder = 1
+    object BitBtn1: TBitBtn
+      Left = 51
+      Top = 8
+      Width = 96
+      Height = 25
+      Caption = #30830#23450
+      TabOrder = 0
+      OnClick = BitBtn1Click
+    end
+    object BitBtn2: TBitBtn
+      Left = 146
+      Top = 8
+      Width = 96
+      Height = 25
+      Caption = #36864#20986#26412#31995#32479
+      TabOrder = 1
+      OnClick = BitBtn2Click
+    end
+  end
+end

@@ -1,0 +1,277 @@
+object EmptyWordFrm: TEmptyWordFrm
+  Left = 219
+  Top = 212
+  Width = 515
+  Height = 389
+  Caption = #35774#32622#37325#36710#25552#31034#35821#38899
+  Color = clBtnFace
+  Font.Charset = ANSI_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -13
+  Font.Name = #23435#20307
+  Font.Style = []
+  OldCreateOrder = False
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 48
+    Width = 507
+    Height = 262
+    Align = alClient
+    BevelInner = bvLowered
+    BevelOuter = bvNone
+    TabOrder = 0
+    object Panel3: TPanel
+      Left = 377
+      Top = 1
+      Width = 129
+      Height = 260
+      Align = alRight
+      TabOrder = 0
+      object BitBtn5: TBitBtn
+        Left = 39
+        Top = 237
+        Width = 60
+        Height = 20
+        Caption = #37325#26032#36873#25321
+        TabOrder = 0
+        OnClick = BitBtn5Click
+      end
+      object ListView1: TListView
+        Left = 1
+        Top = 1
+        Width = 127
+        Height = 234
+        Align = alTop
+        Columns = <
+          item
+            Caption = #36710#29260#21495
+            Width = 100
+          end>
+        GridLines = True
+        TabOrder = 1
+        ViewStyle = vsReport
+      end
+    end
+    object CheckBox1: TCheckBox
+      Left = 12
+      Top = 69
+      Width = 129
+      Height = 17
+      Caption = #36827#20837#37325#36710#25552#31034#35821#38899
+      Checked = True
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = #23435#20307
+      Font.Style = []
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 1
+      OnClick = CheckBox1Click
+    end
+    object memo2: TMemo
+      Left = 1
+      Top = 96
+      Width = 376
+      Height = 164
+      Lines.Strings = (
+        'memo2')
+      ScrollBars = ssVertical
+      TabOrder = 2
+    end
+    object RadioGroup1: TRadioGroup
+      Left = 2
+      Top = 6
+      Width = 373
+      Height = 56
+      Caption = #32534#30721#26041#24335
+      TabOrder = 3
+    end
+    object RadioButton1: TRadioButton
+      Left = 24
+      Top = 23
+      Width = 113
+      Height = 17
+      Caption = 'GB2312 '
+      Checked = True
+      TabOrder = 4
+      TabStop = True
+    end
+    object RadioButton2: TRadioButton
+      Left = 176
+      Top = 22
+      Width = 113
+      Height = 17
+      Caption = 'GBK '
+      TabOrder = 5
+    end
+    object RadioButton3: TRadioButton
+      Left = 24
+      Top = 40
+      Width = 73
+      Height = 17
+      Caption = 'BIG5'
+      TabOrder = 6
+    end
+    object RadioButton4: TRadioButton
+      Left = 176
+      Top = 41
+      Width = 113
+      Height = 17
+      Caption = 'UNICODE'
+      TabOrder = 7
+    end
+    object CheckBox2: TCheckBox
+      Left = 179
+      Top = 68
+      Width = 185
+      Height = 17
+      Hint = #36827#20837#31354#36710
+      Caption = #31163#24320#37325#36710#25552#31034#35821#38899
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 8
+      OnClick = CheckBox2Click
+    end
+  end
+  object Panel2: TPanel
+    Left = 0
+    Top = 0
+    Width = 507
+    Height = 48
+    Align = alTop
+    BevelInner = bvLowered
+    BevelOuter = bvNone
+    Caption = #35774#32622#36827#20837#25110#31163#24320#37325#36710#25552#31034#30340#35821#38899
+    Color = clMoneyGreen
+    Font.Charset = GB2312_CHARSET
+    Font.Color = 4227072
+    Font.Height = -24
+    Font.Name = #23435#20307
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+  end
+  object Panel4: TPanel
+    Left = 0
+    Top = 310
+    Width = 507
+    Height = 52
+    Align = alBottom
+    BevelInner = bvLowered
+    BevelOuter = bvNone
+    Color = clMoneyGreen
+    Font.Charset = ANSI_CHARSET
+    Font.Color = 16774631
+    Font.Height = -13
+    Font.Name = #23435#20307
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
+    object BitBtn3: TBitBtn
+      Left = 336
+      Top = 13
+      Width = 75
+      Height = 27
+      Caption = #20851#38381
+      Font.Charset = GB2312_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = #23435#20307
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 1
+      OnClick = BitBtn3Click
+      Glyph.Data = {
+        F6000000424DF600000000000000760000002800000010000000100000000100
+        0400000000008000000000000000000000001000000000000000000000000000
+        80000080000000808000800000008000800080800000C0C0C000808080000000
+        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777700777777
+        77777770E07777777777770EE0777777777700EEE0000000000070EEE0888077
+        777770EEE0888077777770EEE0888077777770EEE0888077777770EEE0888077
+        707770EEE0888077007770EEE0888070000070EEE0888077007770EEE0888077
+        707770EE08888077777770E08888807777777000000000777777}
+    end
+    object BitBtn4: TBitBtn
+      Left = 96
+      Top = 13
+      Width = 75
+      Height = 27
+      Caption = #28165#31354
+      Font.Charset = GB2312_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = #23435#20307
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 2
+      OnClick = BitBtn4Click
+      Glyph.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000000000000000000000000000000000000FF00FF00FF00
+        FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+        FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+        FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+        FF00FF00FF00FF00FF00FF00FF00FF00FF000000FF00FF00FF00FF00FF00FF00
+        FF000000FF00FF00FF00FF00FF00848484008484840084848400848484008484
+        84008484840084848400848484000000FF00FF00FF00FF00FF00FF00FF00FF00
+        FF000000FF000000FF0000000000000000000000000000000000000000000000
+        000000000000000000000000FF000000FF00FF00FF00FF00FF00FF00FF00FF00
+        FF000000FF000000FF000000000000FFFF00FFFFFF00FFFFFF0000FFFF00FFFF
+        FF00FFFFFF000000FF000000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+        FF00FF00FF000000FF000000FF00FFFFFF00FF000000FF000000FF000000FF00
+        0000FFFFFF000000FF0084848400FF00FF00FF00FF00FF00FF00FF00FF00FF00
+        FF00FF00FF00FF00FF000000FF000000FF00FF000000FF000000FF0000000000
+        FF000000FF000000000084848400FF00FF00FF00FF00FF00FF00FF00FF00FF00
+        FF00FF00FF00FF00FF00000000000000FF000000FF00FFFFFF0000FFFF000000
+        FF00FFFFFF000000000084848400FF00FF00FF00FF00FF00FF00FF00FF00FF00
+        FF00FF00FF00FF00FF0000000000FFFFFF000000FF000000FF000000FF000000
+        FF00FFFFFF000000000084848400FF00FF00FF00FF00FF00FF00FF00FF00FF00
+        FF00FF00FF00FF00FF0000000000FFFFFF000000FF000000FF000000FF000000
+        FF00FFFFFF000000000084848400FF00FF00FF00FF00FF00FF00FF00FF00FF00
+        FF00FF00FF00FF00FF000000000000FFFF000000FF00FFFFFF00000000000000
+        FF00FFFFFF000000000084848400FF00FF00FF00FF00FF00FF00FF00FF00FF00
+        FF00FF00FF00FF00FF00000000000000FF000000FF00FFFFFF00000000000000
+        FF000000FF000000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+        FF00FF00FF000000FF000000FF000000FF0000FFFF00FFFFFF0000000000FFFF
+        FF00FF00FF000000FF000000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+        FF000000FF000000FF000000FF00000000000000000000000000000000000000
+        0000FF00FF00FF00FF000000FF000000FF00FF00FF00FF00FF00FF00FF00FF00
+        FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+        FF00FF00FF00FF00FF00FF00FF00FF00FF000000FF00FF00FF00FF00FF00FF00
+        FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+        FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00}
+    end
+    object BitBtn1: TBitBtn
+      Left = 216
+      Top = 13
+      Width = 75
+      Height = 27
+      Caption = #35774#32622
+      Font.Charset = GB2312_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = #23435#20307
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      OnClick = BitBtn1Click
+      Glyph.Data = {
+        66010000424D6601000000000000760000002800000014000000140000000100
+        040000000000F000000000000000000000001000000010000000000000000000
+        BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
+        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333333333
+        3333333300003333333333333333333300003333000333333333333300003333
+        08803333333333330000333330F8033333333333000033333307803333333333
+        00003333330F700333333333000033333330780380333333000033333300F700
+        0803333300003333330F0F700780333300003333300F0FF70080333300003333
+        30F0F0FF7078033300003333300F0F0F777703330000333330F0F07FF7770333
+        00003333330F07FFFF770333000033333330FF7FFFF703330000333333330FFF
+        FFF7033300003333333330F7FFFF703300003333333333000000003300003333
+        33333333333333330000}
+    end
+  end
+end
