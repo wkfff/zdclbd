@@ -20,15 +20,18 @@ type
     ListView1: TListView;
     procedure RzBitBtn3Click(Sender: TObject);
     procedure RzBitBtn4Click(Sender: TObject);
+    procedure RzBitBtn2Click(Sender: TObject);
   private
     { Private declarations }
+  protected
+    function isConditionValid: Boolean; virtual;
   public
     { Public declarations }
   end;
 
 implementation
 uses
-  uFrmSelectDevs, Carunit;
+  uFrmSelectDevs, Carunit, uGloabVar;
 
 {$R *.dfm}
 
@@ -66,6 +69,21 @@ begin
     exit;
   end;
   ListView1.DeleteSelected ;
+end;
+
+procedure TfrmBase.RzBitBtn2Click(Sender: TObject);
+begin
+  ModalResult := mrCancel;
+end;
+
+function TfrmBase.isConditionValid: Boolean;
+begin
+  Result := True;
+  if (ListView1.Items.Count <= 0) then
+  begin
+    Result := False;
+    FGlobalTip.ShowHint('请至少选择一辆车', ListView1);
+  end;  
 end;
 
 end.

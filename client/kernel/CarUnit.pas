@@ -1985,6 +1985,49 @@ type
     property Count: Integer read GetCount;
   end;
 
+  TTerminalUpgradeVer = class(TObject)
+  private
+    FUpgradeTypeId: Byte;
+    FId: Integer;
+    FTerFactId: string;
+    FTerFactName: string;
+    FUpgradeTypeName: string;
+    FVer: string;
+    procedure SetId(const Value: Integer);
+    procedure SetTerFactId(const Value: string);
+    procedure SetTerFactName(const Value: string);
+    procedure SetUpgradeTypeId(const Value: Byte);
+    procedure SetUpgradeTypeName(const Value: string);
+    procedure SetVer(const Value: string);
+  public
+    constructor Create;
+    destructor Destroy; override;
+    property Id: Integer read FId write SetId;
+    property UpgradeTypeId: Byte read FUpgradeTypeId write SetUpgradeTypeId;
+    property UpgradeTypeName: string read FUpgradeTypeName write SetUpgradeTypeName;
+    property TerFactId: string read FTerFactId write SetTerFactId;
+    property TerFactName: string read FTerFactName write SetTerFactName;
+    property Ver: string read FVer write SetVer;
+  end;
+
+  TTerminalUpgradeVerManage = class(TObject)
+  private
+    FList: TIntegerList;
+
+    function GetItem(index: Integer): TTerminalUpgradeVer;
+    function GetCount: Integer;
+  public
+    constructor Create;
+    destructor Destroy; override;
+
+    function Add(Id: Integer): TTerminalUpgradeVer;
+    procedure Delete(Id: Integer);
+    procedure Clear;
+
+    property Items[Index:Integer]: TTerminalUpgradeVer read GetItem;
+    property Count: Integer read GetCount;
+  end;
+
 implementation
 uses
   uGloabVar, geome, Dialogs, SystemLog, DateUtils, MapMeasureCalc,MemFormatUnit;
@@ -7522,6 +7565,113 @@ procedure TDeviceManage.SetDevOnFatigueAlarm(
   const Value: TDevOnFatigueAlarm);
 begin
   FDevOnFatigueAlarm := Value;
+end;
+
+{ TTerminalUpgradeVer }
+
+constructor TTerminalUpgradeVer.Create;
+begin
+
+end;
+
+destructor TTerminalUpgradeVer.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TTerminalUpgradeVer.SetId(const Value: Integer);
+begin
+  FId := Value;
+end;
+
+procedure TTerminalUpgradeVer.SetTerFactId(const Value: string);
+begin
+  FTerFactId := Value;
+end;
+
+procedure TTerminalUpgradeVer.SetTerFactName(const Value: string);
+begin
+  FTerFactName := Value;
+end;
+
+procedure TTerminalUpgradeVer.SetUpgradeTypeId(const Value: Byte);
+begin
+  FUpgradeTypeId := Value;
+end;
+
+procedure TTerminalUpgradeVer.SetUpgradeTypeName(const Value: string);
+begin
+  FUpgradeTypeName := Value;
+end;
+
+procedure TTerminalUpgradeVer.SetVer(const Value: string);
+begin
+  FVer := Value;
+end;
+
+{ TTerminalUpgradeVerManage }
+
+function TTerminalUpgradeVerManage.Add(Id: Integer): TTerminalUpgradeVer;
+var
+  i: Integer;
+begin
+  i := FList.IndexOf(Id);
+  if i < 0 then
+  begin
+    Result := TTerminalUpgradeVer.Create;
+    Result.Id := Id;
+    FList.AddData(Id, Result);
+  end
+  else
+  begin
+    Result := Items[i];
+  end;
+end;
+
+procedure TTerminalUpgradeVerManage.Clear;
+begin
+  while FList.Count > 0 do
+    Delete(Items[0].Id);
+end;
+
+constructor TTerminalUpgradeVerManage.Create;
+begin
+  FList := TIntegerList.Create;
+end;
+
+procedure TTerminalUpgradeVerManage.Delete(Id: Integer);
+var
+  obj: TTerminalUpgradeVer;
+  i: Integer;
+begin
+  i := FList.IndexOf(Id);
+  if i >= 0 then
+  begin
+    obj := Items[i];
+    FList.Delete(i);
+    obj.Free;
+  end;
+end;
+
+destructor TTerminalUpgradeVerManage.Destroy;
+begin
+  Clear;
+  FList.Free;
+  inherited;
+end;
+
+function TTerminalUpgradeVerManage.GetCount: Integer;
+begin
+  Result := FList.Count;
+end;
+
+function TTerminalUpgradeVerManage.GetItem(
+  index: Integer): TTerminalUpgradeVer;
+begin
+  Result := nil;
+  if (index >= 0) and (index < FList.Count) then
+    Result := TTerminalUpgradeVer(FList.Datas[index]);
 end;
 
 end.
