@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ComCtrls, RzButton, ExtCtrls, RzPanel;
+  Dialogs, ComCtrls, RzButton, ExtCtrls, RzPanel, Carunit;
 
 type
   TfrmBase = class(TForm)
@@ -26,12 +26,12 @@ type
   protected
     function isConditionValid: Boolean; virtual;
   public
-    { Public declarations }
+    procedure addADev(Dev: TDevice);
   end;
 
 implementation
 uses
-  uFrmSelectDevs, Carunit, uGloabVar;
+  uFrmSelectDevs, uGloabVar;
 
 {$R *.dfm}
 
@@ -84,6 +84,18 @@ begin
     Result := False;
     FGlobalTip.ShowHint('请至少选择一辆车', ListView1);
   end;  
+end;
+
+procedure TfrmBase.addADev(Dev: TDevice);
+begin
+  if (Dev <> nil) then
+  begin
+    with ListView1.Items.Add do
+    begin
+      Caption := Dev.Car.No;
+      Data := Dev;
+    end;
+  end;
 end;
 
 end.

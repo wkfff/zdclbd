@@ -858,6 +858,8 @@ type
     N246: TMenuItem;
     fun_setCarRunStatePlan: TAction;
     N247: TMenuItem;
+    fun_upgradeterminal: TAction;
+    N249: TMenuItem;
 
 
 
@@ -1171,6 +1173,7 @@ type
     procedure ck_queryDevMileageExecute(Sender: TObject);
     procedure ck_querySetCarRunStatePlanExecute(Sender: TObject);
     procedure fun_setCarRunStatePlanExecute(Sender: TObject);
+    procedure fun_upgradeterminalExecute(Sender: TObject);
 
 
   private
@@ -1572,7 +1575,7 @@ CancelOrderMenu2FrmUnit, OrderUnit, uControl_Switch,SetUpdateDevFrmUnit,
   FrmDealEmgcyAlarmUnit, FrmSetDevEventUnit, FrmSetDevTelListUnit, FrmInfoOrderUnit,
   FrmInfoTypeUnit, FrmInfoUnit, FrmQueryVideoUnit, FrmExchangeGpsDataFromGovUnit,
   ThreadLoadMapConfigUnit, FrmSelOrderVideoChannelUnit, FrmFeedbackUnit, jpeg,
-  ActiveX, FrmSetCarRunStatePlanUnit
+  ActiveX, FrmSetCarRunStatePlanUnit, FrmUpgradeTerminalUnit
 {$IFDEF ForAddEKey}, EKeyUseUnit{$ENDIF}
 {$IFDEF ForTestUser}, GetIdeNumUnit, UserRegFrmUnit{$ENDIF};
 
@@ -5835,7 +5838,7 @@ begin
 
     tmpStr := '-';
     //北斗新增状态位、报警位处理
-    if Pos('北斗',Device.TerminalTypeName) > 0 then
+    if IsBeiDouDev(Device) then
     begin
       //8-9  00：空车；01：半载；10：保留；11：满载
       if Device.Switch[MSG_STATE_8] then
@@ -14764,7 +14767,29 @@ begin
     finally
       dlg.Free;
     end;
-  end;  
+  end;
+end;
+
+procedure TMainf.fun_upgradeterminalExecute(Sender: TObject);
+var
+  dlg: TfrmUpgradeTerminal;
+begin
+  if GCurSelectDev <> nil then
+  begin
+    if not IsBeiDouDev(GCurSelectDev) then
+    begin
+      showTipMsgBox('该命令只能对北斗类型的终端下发');
+      Exit;
+    end;
+    Bs.QueryUpgradeTerminalVer;
+    dlg := TfrmUpgradeTerminal.Create(nil);
+    try
+      dlg.addADev(GCurSelectDev);
+      dlg.ShowModal;
+    finally
+      dlg.Free;
+    end;
+  end;
 end;
 
 end.

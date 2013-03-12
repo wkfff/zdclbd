@@ -77,6 +77,7 @@ var
 //  PassengerManage : TPassengerManage;  //乘客信息管理器
 
   FNoticeManage: TNoticeManage;
+  FTerminalUgpradeVerManage: TTerminalUpgradeVerManage;
 
   GCurSelectGroupID: integer;        //当前选中的车辆分组的ID ..另：报警车辆-2，所有监控车辆-1
   GCurSelectDev    : TDevice;        //当前选中的车辆
@@ -206,6 +207,7 @@ var
   function getMD5Str(sourc: string): string;
   procedure InitStr(var AStr: string; len: Word);
   procedure FillStr(var source: string; destLen: Integer; fillChar: string);
+  function GetFormattedLenStr(const srcStr: string; dstLen: Integer; fillChar: string; isFillLeft: Boolean = True; isTruncateFromRight: Boolean = True): string;
   function DevId_StrToBCD(Value: string): TDEV_ID_BCD_ZDCL; //将整形数转换为BCD码
   function DevId_StrToBCDHRB(Value: string): TDEV_ID_BCD_HRB; //将整形数转换为BCD码
   function GetAlarmTypeName(alarmTypeId: Byte): string;
@@ -248,7 +250,10 @@ var
 
   procedure group_list(AParant_ID: integer; Anode: TTreenode; Acurrent_cnt: integer;Treeview1:TTreeView);
   procedure addSysLog(sLog: string);
-
+  function IsBeiDouDev(dev: TDevice): Boolean;
+  procedure showTipMsgBox(msg: string);
+  function GetUpgradeTypeName(upgradeType: Integer): string;
+  function GetUpgradeTerminalRetStr(upgradeRet: Integer): string;
 
 implementation
 uses umainf,Dialogs,elog, Math, DateUtils, ZLib;
@@ -435,6 +440,46 @@ begin
       source := fillChar + source;
     end;
   end;
+end;
+
+//获取指定长度的字符串，不足填充，过长截取，isFillLeft=true 左填充  isTruncateFromRight=true从右截取
+function GetFormattedLenStr(const srcStr: string; dstLen: Integer; fillChar: string; isFillLeft: Boolean = True; isTruncateFromRight: Boolean = True): string;
+var
+  dstStr: string;
+  srcLen: Integer;
+  i: Integer;
+begin
+  dstStr := srcStr;
+  srcLen := Length(srcStr);
+  if dstLen > srcLen then//填充
+  begin
+    if isFillLeft then
+    begin
+      for i := 1 to (dstLen - srcLen) do
+      begin
+        dstStr := fillChar + dstStr;
+      end;  
+    end
+    else
+    begin
+      for i := 1 to (dstLen - srcLen) do
+      begin
+        dstStr := dstStr + fillChar;
+      end;
+    end;    
+  end
+  else if dstLen < srcLen then//截取
+  begin
+    if isTruncateFromRight then
+    begin
+      dstStr := Copy(srcStr, 1, dstLen);
+    end
+    else
+    begin
+      dstStr := Copy(srcStr, srcLen - dstLen + 1, dstLen);
+    end;  
+  end;
+  Result := dstStr;
 end;
 
 function DevId_StrToBCD(Value: string): TDEV_ID_BCD_ZDCL; //将整形数转换为BCD码
@@ -1638,6 +1683,39 @@ procedure addSysLog(sLog: string);
 begin
   SystemLog.AddLog(FormatDateTime('hh:nn:ss.zzz', Now) + ' ' + sLog);
 end;
+function IsBeiDouDev(dev: TDevice): Boolean;
+begin
+  Result := False;
+  if (dev <> nil) then
+  begin
+    Result := Pos(BEIDOU, dev.TerminalTypeName) > 0;
+  end;  
+end;  
+
+procedure showTipMsgBox(msg: string);
+begin
+  Application.MessageBox(PChar(msg), '提示', MB_OK + MB_ICONINFORMATION);
+end;
+
+function GetUpgradeTypeName(upgradeType: Integer): string;
+begin
+  Result := '未知类型(' + IntToStr(upgradeType) + ')';
+  case upgradeType of
+    0:  Result := '终端';
+    12: Result := '道路运输证 IC 卡读卡器';
+    52: Result := '北斗卫星定位模块';
+  end;
+end;
+
+function GetUpgradeTerminalRetStr(upgradeRet: Integer): string;
+begin
+  Result := '结果未知(' + IntToStr(upgradeRet) + ')';
+  case upgradeRet of
+    0:  Result := '成功';
+    1: Result := '失败';
+    2: Result := '取消';
+  end;
+end;
 
 initialization
   CoInitialize(nil);
@@ -1656,6 +1734,7 @@ initialization
   GAreaManage:= TAreaManage.Create;
   ADriverManage:= TDriverManage.Create;
   FNoticeManage := TNoticeManage.Create;
+  FTerminalUgpradeVerManage := TTerminalUpgradeVerManage.Create;
 //  AOrderManage:= TOrderManage.Create;
   AddressName:= MapAddressName.Create;
   FamilyName:= TFamilyName.Create;
@@ -1743,6 +1822,7 @@ finalization
   ACarManage.Free;
   ADriverManage.Free;
   FNoticeManage.Free;
+  FTerminalUgpradeVerManage.Free;
 //  AOrderManage.Free;
 //  FreeSendOrderFrm;
   AddressName.Free;

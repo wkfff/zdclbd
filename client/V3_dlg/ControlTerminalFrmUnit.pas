@@ -53,6 +53,7 @@ type
     Edit10: TComboBox;
     Label14: TLabel;
     Edit14: TComboBox;
+    Label15: TLabel;
     procedure Edit5KeyPress(Sender: TObject; var Key: Char);
     procedure BitBtn1Click(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
@@ -101,6 +102,16 @@ begin
     PanProgress.Visible := True;
     ProgressBar1.Max:=ListView1.Items.Count*5*10;
     TbitBtn(Sender).Enabled:=false;
+    if RadioButton6.Checked then
+    begin
+      //"拨号点名称;拨号用户名;拨号密码;地址;端口;制造商ID"
+      s:= GetWirelessUpgradeParam;
+    end
+    else if RadioButton7.Checked then
+    begin
+      s := GetConnServerParam(D);
+    end;
+                              
     for i:=0 to ListView1.Items.Count -1 do
     begin
       if Cancel then
@@ -119,13 +130,11 @@ begin
       ProgressBar1.StepIt;
       if RadioButton6.Checked then
       begin
-        //"拨号点名称;拨号用户名;拨号密码;地址;端口;制造商ID"
-        s:= GetWirelessUpgradeParam;
+        if not IsBeiDouDev(D) then
         DataServer.SendControlTerminal_V3(D,1,s);
       end
       else if RadioButton7.Checked then
       begin
-        s := GetConnServerParam(D);
         DataServer.SendControlTerminal_V3(D, 2, s);
       end
       else if RadioButton1.Checked then

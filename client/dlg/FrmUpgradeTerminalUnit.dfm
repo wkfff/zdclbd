@@ -56,7 +56,7 @@ inherited frmUpgradeTerminal: TfrmUpgradeTerminal
       TabOrder = 0
       Transparent = True
       object Label2: TLabel
-        Left = 14
+        Left = 11
         Top = 32
         Width = 63
         Height = 13
@@ -64,7 +64,7 @@ inherited frmUpgradeTerminal: TfrmUpgradeTerminal
         Transparent = True
       end
       object Label3: TLabel
-        Left = 15
+        Left = 12
         Top = 76
         Width = 62
         Height = 13
@@ -72,7 +72,7 @@ inherited frmUpgradeTerminal: TfrmUpgradeTerminal
         Transparent = True
       end
       object Label4: TLabel
-        Left = 14
+        Left = 11
         Top = 120
         Width = 63
         Height = 13
@@ -80,32 +80,41 @@ inherited frmUpgradeTerminal: TfrmUpgradeTerminal
         Transparent = True
       end
       object cbxUpgradeType: TRzComboBox
-        Left = 77
+        Left = 79
         Top = 28
         Width = 152
         Height = 21
+        Style = csDropDownList
         Ctl3D = False
         FrameVisible = True
         ItemHeight = 13
         ParentCtl3D = False
         TabOrder = 0
+        OnChange = cbxUpgradeTypeChange
+        Items.Strings = (
+          #32456#31471
+          #36947#36335#36816#36755#35777'IC'#21345#35835#21345#22120
+          #21271#26007#21355#26143#23450#20301#27169#22359)
       end
       object cbxMID: TRzComboBox
-        Left = 77
+        Left = 79
         Top = 72
         Width = 152
         Height = 21
+        Style = csDropDownList
         Ctl3D = False
         FrameVisible = True
         ItemHeight = 13
         ParentCtl3D = False
         TabOrder = 1
+        OnChange = cbxMIDChange
       end
       object cbxUpgradeVer: TRzComboBox
-        Left = 77
+        Left = 79
         Top = 116
         Width = 152
         Height = 21
+        Style = csDropDownList
         Ctl3D = False
         FrameVisible = True
         ItemHeight = 13

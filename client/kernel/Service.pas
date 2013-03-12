@@ -571,6 +571,7 @@ type
 
     function  QueryDevCarryKmAndOil_condition_Page(const PageSize: Integer; const CurrPageIndex: Integer; const dev_Id: WideString; const group_Id: Integer; const groupList: WideString; const starttime: WideString; const endtime: WideString; const condition: Integer): WideString; stdcall;
     function  QueryDevCarryKmAndOil_Page(const PageSize: Integer; const CurrPageIndex: Integer; const dev_Id: WideString; const group_Id: Integer; const groupList: WideString; const starttime: WideString; const endtime: WideString): WideString; stdcall;
+    function  QueryDevUpdateBaseInfo_beidou(const devtype: Integer; const devfactId: WideString): WideString; stdcall;
 
   end;
 

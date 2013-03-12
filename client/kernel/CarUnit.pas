@@ -2021,6 +2021,7 @@ type
     destructor Destroy; override;
 
     function Add(Id: Integer): TTerminalUpgradeVer;
+    function Find(UpgradeTypeId: Integer; TerFactName: string; Ver: string): TTerminalUpgradeVer;
     procedure Delete(Id: Integer);
     procedure Clear;
 
@@ -7659,6 +7660,25 @@ begin
   Clear;
   FList.Free;
   inherited;
+end;
+
+function TTerminalUpgradeVerManage.Find(UpgradeTypeId: Integer;
+  TerFactName, Ver: string): TTerminalUpgradeVer;
+var
+  i: Integer;
+  tuv: TTerminalUpgradeVer;
+begin
+  Result := nil;
+  for i := 0 to Count - 1 do
+  begin
+    tuv := Items[i];
+    if (tuv.UpgradeTypeId = UpgradeTypeId)
+      and (tuv.TerFactName = TerFactName) and (tuv.Ver = Ver) then
+    begin
+      Result := tuv;
+      Break;
+    end;  
+  end;  
 end;
 
 function TTerminalUpgradeVerManage.GetCount: Integer;

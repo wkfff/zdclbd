@@ -969,6 +969,7 @@ type
     function DeleteSetCarRunStatePlan(Id: Integer): Boolean;
     function QuerySetCarRunstatePlanCount(sTime, eTime, devId: string; groupId: Integer; groupIdList: string): Integer;
     function QuerySetCarRunStatePlanData(sTime, eTime, devId: string; groupId: Integer; groupIdList: string; pageSize, currPageIndex: Integer): string;
+    function QueryUpgradeTerminalVer(): Boolean;
   public
     property UserId: integer read FUserId write SetUserId;
     property UserName: string read FUserName write SetUserName;
@@ -9511,6 +9512,50 @@ begin
     begin
       Result := False;
     end;
+  end;
+end;
+
+function TBusinessSevercom.QueryUpgradeTerminalVer: Boolean;
+var
+  FTemp: TClientDataSet;
+  i: Integer;
+  info: string;
+  tuv: TTerminalUpgradeVer;
+begin
+  try
+    FTemp := Tclientdataset.Create(nil);
+    try
+      info := Web.QueryDevUpdateBaseInfo_beidou(-1, '');
+      FTemp.XMLData := info;
+      FTemp.Open;
+
+      FTemp.First;
+      FTerminalUgpradeVerManage.Clear;
+      for i := 0 to FTemp.RecordCount - 1 do
+      begin
+        try
+          tuv := FTerminalUgpradeVerManage.Add(FTemp.FieldByName('UPDATE_ID').AsInteger);
+          tuv.UpgradeTypeId := FTemp.FieldByName('DEVTYPE').AsInteger;
+          tuv.UpgradeTypeName := Trim(FTemp.FieldByName('typename').AsString);
+          tuv.TerFactId := Trim(FTemp.FieldByName('DEVFACTID').AsString);
+          tuv.TerFactName := Trim(FTemp.FieldByName('factname').AsString);
+          tuv.Ver := Trim(FTemp.FieldByName('devversion').AsString);
+        except
+          on E: Exception do
+          begin
+            AddSysLog('QueryUpgradeTerminalVer 循环处理异常:' + E.Message);
+          end;
+        end;
+        FTemp.Next;
+      end;
+
+      Result := True;
+    except on E: Exception do
+      AddSysLog('QueryDevCarInfo异常:' + E.Message);
+    end;
+  finally
+    FTemp.Close;
+    FTemp.free;
   end;
 end;
 

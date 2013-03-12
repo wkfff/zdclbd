@@ -1,8 +1,8 @@
 inherited ControlTerminalFrm: TControlTerminalFrm
-  Left = 736
-  Top = 151
+  Left = 423
+  Top = 121
   Caption = #32456#31471#25511#21046
-  ClientHeight = 548
+  ClientHeight = 522
   ClientWidth = 522
   Font.Charset = GB2312_CHARSET
   Font.Height = -13
@@ -14,9 +14,9 @@ inherited ControlTerminalFrm: TControlTerminalFrm
   TextHeight = 13
   inherited Panel1: TPanel
     Width = 522
-    Height = 548
+    Height = 522
     inherited Panel2: TPanel
-      Top = 510
+      Top = 484
       Width = 522
       inherited BitBtn1: TBitBtn
         Left = 155
@@ -29,16 +29,16 @@ inherited ControlTerminalFrm: TControlTerminalFrm
     inherited Panel3: TPanel
       Left = 383
       Width = 139
-      Height = 510
+      Height = 484
       inherited ListView1: TListView
         Width = 137
-        Height = 451
+        Height = 425
       end
       inherited Panel4: TPanel
         Width = 137
       end
       inherited Panel6: TPanel
-        Top = 481
+        Top = 455
         Width = 137
         inherited BitBtnSel: TBitBtn
           Width = 66
@@ -51,14 +51,14 @@ inherited ControlTerminalFrm: TControlTerminalFrm
     end
     inherited Panel5: TPanel
       Width = 383
-      Height = 510
+      Height = 484
       inherited Panel7: TPanel
         Width = 383
         Height = 33
         Caption = #32456#31471#25511#21046
       end
       inherited PanProgress: TPanel
-        Top = 487
+        Top = 461
         Width = 383
         TabOrder = 7
         inherited ProgressBar1: TProgressBar
@@ -69,7 +69,7 @@ inherited ControlTerminalFrm: TControlTerminalFrm
         Left = 30
         Top = 37
         Width = 320
-        Height = 365
+        Height = 332
         TabOrder = 8
         object Label1: TLabel
           Left = 19
@@ -170,6 +170,22 @@ inherited ControlTerminalFrm: TControlTerminalFrm
           Width = 91
           Height = 13
           Caption = #30417#31649#24179#21488#37492#26435#30721
+          Visible = False
+        end
+        object Label15: TLabel
+          Left = 19
+          Top = 306
+          Width = 278
+          Height = 13
+          Caption = #35828#26126#65306#26080#32447#21319#32423#21629#20196#21482#38024#23545#21271#26007#20197#21069#30340#32769#35774#22791#19979#21457
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clRed
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          WordWrap = True
         end
         object Edit88: TEdit
           Left = 297
@@ -341,22 +357,24 @@ inherited ControlTerminalFrm: TControlTerminalFrm
         end
         object RadioButton8: TRadioButton
           Left = 7
-          Top = 307
+          Top = 333
           Width = 140
           Height = 17
           Caption = #20999#25442#21040#25351#23450#30417#31649#24179#21488
           Checked = True
           TabOrder = 18
           TabStop = True
+          Visible = False
           OnClick = RadioButton8Click
         end
         object RadioButton9: TRadioButton
           Left = 149
-          Top = 307
+          Top = 333
           Width = 166
           Height = 17
           Caption = #20999#25442#22238#21040#21407#32570#30465#30417#25511#24179#21488
           TabOrder = 19
+          Visible = False
           OnClick = RadioButton8Click
         end
         object Edit10: TComboBox
@@ -375,12 +393,13 @@ inherited ControlTerminalFrm: TControlTerminalFrm
           Enabled = False
           ItemHeight = 13
           TabOrder = 21
+          Visible = False
           OnExit = Edit12Exit
         end
       end
       object RadioButton1: TRadioButton
         Left = 38
-        Top = 411
+        Top = 379
         Width = 113
         Height = 17
         Caption = #32456#31471#20851#26426
@@ -389,7 +408,7 @@ inherited ControlTerminalFrm: TControlTerminalFrm
       end
       object RadioButton2: TRadioButton
         Left = 38
-        Top = 435
+        Top = 403
         Width = 113
         Height = 17
         Caption = #32456#31471#22797#20301
@@ -398,7 +417,7 @@ inherited ControlTerminalFrm: TControlTerminalFrm
       end
       object RadioButton3: TRadioButton
         Left = 38
-        Top = 459
+        Top = 427
         Width = 135
         Height = 17
         Caption = #32456#31471#24674#22797#20986#21378#35774#32622
@@ -407,7 +426,7 @@ inherited ControlTerminalFrm: TControlTerminalFrm
       end
       object RadioButton4: TRadioButton
         Left = 209
-        Top = 411
+        Top = 379
         Width = 113
         Height = 17
         Caption = #20851#38381#25968#25454#36890#20449
@@ -416,7 +435,7 @@ inherited ControlTerminalFrm: TControlTerminalFrm
       end
       object RadioButton5: TRadioButton
         Left = 209
-        Top = 435
+        Top = 403
         Width = 137
         Height = 17
         Caption = #20851#38381#25152#26377#26080#32447#36890#20449
@@ -439,6 +458,7 @@ inherited ControlTerminalFrm: TControlTerminalFrm
         Height = 17
         Caption = #36830#25509#25511#21046
         TabOrder = 9
+        Visible = False
         OnClick = RadioButton6Click
       end
     end

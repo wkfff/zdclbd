@@ -6550,6 +6550,25 @@ type
   end;
   PCmdTermSrvSetRunRecParamTSP_V3 = ^TCmdTermSrvSetRunRecParamTSP_V3;
 
+  //********************************北斗新增********************************
+  TCmdTermSrvUpgradeTerminalTSP_BD = packed record
+    Header: TCmdTSPHead_V3;
+    UpgradeType: Byte;
+    MID: array[0..4] of Byte;
+    VerLen: Byte;
+    //Ver: string;
+    //剩余升级包数据由前置填充，监控端发送该命令时忽略该数据
+  end;
+  PCmdTermSrvUpgradeTerminalTSP_BD = ^TCmdTermSrvUpgradeTerminalTSP_BD;
+
+  TCmdSrvTermUpgradeTerminalRetTSP_BD = packed record
+    Header: TCmdTSPHead_V3;
+    UpgradeType: Byte;//升级类型  0：终端，12：道路运输证 IC 卡读卡器，52：北斗卫星定位模块。
+    UpgradeRet: Byte;//升级结果	BYTE	0：成功；1：失败；2：取消
+  end;
+  PCmdSrvTermUpgradeTerminalRetTSP_BD = ^TCmdSrvTermUpgradeTerminalRetTSP_BD;
+  //********************************北斗新增********************************
+
   //透传命令
   TCmdTSP_V3 = packed record
     Header: THead_V3;

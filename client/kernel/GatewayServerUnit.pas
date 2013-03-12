@@ -501,7 +501,11 @@ type
 
     function UpdateDevFirmware(ATargetID: string; AUpdateDevType: byte; AURL: string; AURLLen: Integer): boolean; {升级车机固件程序}
 
+    //********************************北斗新增********************************
+    function UpgradeTerminal(dev: TDevice; upgradeVer: TTerminalUpgradeVer): Boolean;//升级终端
 
+    procedure DealUpgradeTerminalRet_BD(ABuf: PByte; cmdNo: Integer);
+    //********************************北斗新增********************************
   public //-------------for V2 ------------------------//
 
     procedure SendHeart;
@@ -6021,6 +6025,11 @@ begin
       SRVTERM_DRIVERLOGOUT_V3: DealDriverLogout_V3(PtrAdd(ABuf, 1), cmdNo);              //司机签退
       SRVTERM_TRANSPORTSTART_V3: DealTransportStart_V3(PtrAdd(ABuf, 1), cmdNo);          //运输开始
       SRVTERM_TRANSPORTEND_V3: DealTransportEnd_V3(PtrAdd(ABuf, 1), cmdNo);              //运输结束
+
+      //*******************************北斗新增*********************************
+      SRVTERM_UPGRADETERMINAL_RET_BD: DealUpgradeTerminalRet_BD(PtrAdd(ABuf, 1), cmdNo); //升级终端结果通知
+      //*******************************北斗新增*********************************
+
     end;
   except
     on E: Exception do
@@ -9045,6 +9054,79 @@ begin
   escapByteBuf := EscapeByteBuf(@tspBuf[0], Length(tspBuf), 0);
   info := SendCmdTSP_V3(dev, escapByteBuf);
   info^.Desc := Dev.Car.No + ' 设置记录仪车辆特征系数';
+end;
+
+function TGateWayServerCom.UpgradeTerminal(dev: TDevice;
+  upgradeVer: TTerminalUpgradeVer): Boolean;
+var
+  cmd: TCmdTermSrvUpgradeTerminalTSP_BD;
+  buf: TByteDynArray;
+  info: PCmdinfo;
+  tspBuf: array of Byte;//透传的完整包
+  tspPackSize: Word;
+  offSet: Integer;
+  escapByteBuf: TByteDynArray;
+  mid: string;
+begin
+  Result := false;
+  if not isActive then exit;
+  tspPackSize := SizeOf(TCmdTermSrvUpgradeTerminalTSP_BD)  + 1;//加1位校验码
+  if upgradeVer.Ver <> '' then
+    tspPackSize := tspPackSize + Length(upgradeVer.Ver);
+  InitTSPHeader(cmd.Header, tspPackSize - TSPHEADERLEN - 1, TERSRV_UPGRADETERMINAL_BD, Dev.Id);
+  cmd.UpgradeType := upgradeVer.UpgradeTypeId;
+  mid := GetFormattedLenStr(upgradeVer.TerFactId, 5, '0');
+  //buf := StrToBCD(mid, 5);
+  CopyMemory(@cmd.MID[0], @mid[1], Length(cmd.MID));
+  cmd.VerLen := Length(upgradeVer.Ver);
+
+  SetLength(tspBuf, tspPackSize + 2);//整个完整的包需在包两端加标识位
+  offSet := 0;
+  tspBuf[offset] := FLAGTSP;//标识位
+  Inc(offSet);
+
+
+  CopyMemory(@tspBuf[offset], @cmd, SizeOf(TCmdTermSrvUpgradeTerminalTSP_BD));
+  Inc(offSet, SizeOf(TCmdTermSrvUpgradeTerminalTSP_BD));
+
+  if upgradeVer.Ver <> '' then
+  begin
+    CopyMemory(@tspBuf[offset], @upgradeVer.Ver[1], Length(upgradeVer.Ver));
+    Inc(offSet, Length(upgradeVer.Ver));
+  end;
+
+  tspBuf[offSet] := GetXorSum(@tspBuf[1], tspPackSize - 1);//从消息头开始，不包括标识位
+  Inc(offSet);
+
+  tspBuf[offSet] := FLAGTSP;//标识位
+  escapByteBuf := EscapeByteBuf(@tspBuf[0], Length(tspBuf), 0);
+  info := SendCmdTSP_V3(Dev, escapByteBuf);
+
+  info^.Desc := '发送升级终端指令：' + dev.Car.No+' 升级信息(' + upgradeVer.UpgradeTypeName + '_' + upgradeVer.TerFactName + '_' + upgradeVer.Ver + ')';
+end;
+
+procedure TGateWayServerCom.DealUpgradeTerminalRet_BD(ABuf: PByte;
+  cmdNo: Integer);
+var
+  pCmd: PCmdSrvTermUpgradeTerminalRetTSP_BD;
+  upgradeType: Byte;
+  upgradeRet: Byte;
+  upgradeTypeName: string;
+  upgradeRetName: string;
+begin
+  try
+    pCmd := PCmdSrvTermUpgradeTerminalRetTSP_BD(ABuf);
+    upgradeType := pCmd^.UpgradeType;
+    upgradeRet := pCmd^.UpgradeRet;
+    upgradeTypeName := GetUpgradeTypeName(upgradeType);
+    upgradeRetName := GetUpgradeTerminalRetStr(upgradeRet);
+    PopMsg('终端升级结果通知', upgradeTypeName + #13#10 + '升级:' + upgradeRetName);
+  except
+    on E: Exception do
+    begin
+      addSysLog('DealUpgradeTerminalRet_BD异常' + E.Message);
+    end;
+  end;
 end;
 
 { TCmdManage }
