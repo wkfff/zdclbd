@@ -79,17 +79,16 @@ begin
       begin
         dev := TDevice(ListView1.Items.Item[i].Data);
         DataServer.SetAllDevParam_V3(dev, paramData, paramCount);
-      end;  
+      end;
+      Close; 
     end;
-    Close;
-    Exit;
   finally
     BitBtnSet.Enabled := True;
   end;
 
   //-------------以下不执行了，设参数改为一次性设置所有的 2012.1
 
-  Cancel := False;
+ { Cancel := False;
   BitBtnSet.Enabled:=false;
   CheckBoxList.Clear;
   if not CheckEmpty then
@@ -116,18 +115,18 @@ begin
 
 
 
-  {for i:=0 to Self.ComponentCount-1 do
-  begin
-    if (Self.Components[i] is  TCheckBox) then
-    begin
-        if TCheckBox(Self.Components[i]).Checked then
-        begin
-          inc(j);
-          //LastComp:=i;
-          CheckBoxList.Add(TCheckBox(Self.Components[i]).Name);
-        end;
-    end;
-  end;   }
+//  for i:=0 to Self.ComponentCount-1 do
+//  begin
+//    if (Self.Components[i] is  TCheckBox) then
+//    begin
+//        if TCheckBox(Self.Components[i]).Checked then
+//        begin
+//          inc(j);
+//          //LastComp:=i;
+//          CheckBoxList.Add(TCheckBox(Self.Components[i]).Name);
+//        end;
+//    end;
+//  end;
   LastComp := CheckBoxList.Count;
   if (j=1)and(ListView1.Items.Count=1) then
   begin
@@ -192,7 +191,7 @@ begin
     Timer1.Enabled:=true;
     HaveErrorIsSet:=false;
     Timer1Timer(Timer1);
-  end;
+  end; }
 end;
 
 procedure TParamAllFrm.SetAllDevParam;

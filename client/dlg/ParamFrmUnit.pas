@@ -241,7 +241,6 @@ type
     Label67: TLabel;
     Label68: TLabel;
     Label69: TLabel;
-    RzCheckBoxSelectPageElse: TRzCheckBox;
     Label70: TLabel;
     CheckBox32: TCheckBox;
     Edit32: TComboBox;
@@ -423,7 +422,7 @@ type
     Edit104: TEdit;
     CheckBox105: TCheckBox;
     Edit105: TEdit;
-    Label90: TLabel;
+    Label109: TLabel;
     CheckBox106: TCheckBox;
     Edit106: TEdit;
     CheckBox107: TCheckBox;
@@ -447,14 +446,53 @@ type
     Label98: TLabel;
     rbTimeUnitSecond: TRadioButton;
     rbTimeUnitMinute: TRadioButton;
-    Edit38: TEdit;
+    Edit110: TEdit;
     cxCheckListBox6: TcxCheckListBox;
     CheckBox111: TCheckBox;
     Label99: TLabel;
     Label100: TLabel;
     rbDisUnitMeter: TRadioButton;
     rbDisUnitKilometer: TRadioButton;
-    Edit43: TEdit;
+    Edit111: TEdit;
+    RzCheckBoxSelectPageElse: TRzCheckBox;
+    GroupBox12: TGroupBox;
+    Label101: TLabel;
+    Label102: TLabel;
+    CheckBox112: TCheckBox;
+    cxCheckListBox7: TcxCheckListBox;
+    CheckBox113: TCheckBox;
+    Edit113: TComboBox;
+    CheckBox114: TCheckBox;
+    CheckBox115: TCheckBox;
+    CheckBox116: TCheckBox;
+    Edit114: TComboBox;
+    Edit115: TEdit;
+    Edit116: TComboBox;
+    Edit45: TEdit;
+    GroupBox13: TGroupBox;
+    CheckBox117: TCheckBox;
+    CheckBox118: TCheckBox;
+    CheckBox119: TCheckBox;
+    CheckBox120: TCheckBox;
+    Edit117: TEdit;
+    Edit119: TEdit;
+    Edit120: TEdit;
+    Edit118: TEdit;
+    GroupBox14: TGroupBox;
+    Label103: TLabel;
+    Label104: TLabel;
+    Label105: TLabel;
+    Label106: TLabel;
+    Label107: TLabel;
+    Label108: TLabel;
+    ComboBox4: TComboBox;
+    ComboBox5: TComboBox;
+    ComboBox6: TComboBox;
+    Edit58: TEdit;
+    Edit77: TEdit;
+    CheckBox121: TCheckBox;
+    CheckBox122: TCheckBox;
+    Edit122: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
     procedure Edit1KeyPress(Sender: TObject; var Key: Char);
@@ -514,6 +552,11 @@ type
     procedure Edit35Change(Sender: TObject);
     procedure CheckBox110Click(Sender: TObject);
     procedure CheckBox111Click(Sender: TObject);
+    procedure Edit116Change(Sender: TObject);
+    procedure CheckBox112Click(Sender: TObject);
+    procedure Edit41Change(Sender: TObject);
+    procedure Edit110Change(Sender: TObject);
+    procedure Edit77Change(Sender: TObject);
   private
     //字节数据转成 十六进制表示的字符串，一个字节转成2位字符。如：0x01 0x02 转成'0102'
     function BytesToHexString(ABuff: Pointer; ALen: integer): string;
@@ -653,6 +696,14 @@ implementation
 uses UGloabVar, CmdStructUnit,GatewayServerUnit;
 {$R *.dfm}
 //---------------------------------//
+
+function GetCheckListItemVal(cxCheckListBox: TcxCheckListBox; ItemIndex: Byte): Byte;
+begin
+  if cxCheckListBox.Items[ItemIndex].Checked then
+    Result := 1
+  else
+    Result := 0;
+end;
 
 function TParamFrm.SetParam0600(ATargetID: string): boolean; //预约订单转换即时订单时间
 begin
@@ -889,8 +940,12 @@ end;
 function TParamFrm.SetParam(ATargetID: string; ParamNO: integer): boolean;
 var
   str: string;
+  b: Byte;
+  bb: Byte;
   w: Word;
   lw: LongWord;
+  lwt: LongWord;
+  i: Integer;
 begin
   case ParamNO of
     12 : Result := SetParam0001(ATargetID);
@@ -915,16 +970,10 @@ begin
     15 : Result := SetParam0301(ATargetID);
 
     351: Result := SetParam0A0A(ATargetID, $0022, Edit351.Text);
-    //353: Result := SetParam0A0A(ATargetID, $0023, Edit353.Text);
-    //355: Result := SetParam0A0A(ATargetID, $0024, Edit355.Text);
-//    357: Result := SetParam0A0A(ATargetID, $0025, Edit357.Text);
-//    359: Result := SetParam0A0A(ATargetID, $0026, Edit359.Text);
     361: Result := SetParam0A0A(ATargetID, $0027, Edit361.Text);
     362: Result := SetParam0A0A(ATargetID, $0028, Edit362.Text);
 
     90 : Result := SetParam0A0A(ATargetID, $0029, Edit90.Text);
-    //354: Result := SetParam0A0A(ATargetID, $002A, Edit354.Text);
-    //356: Result := SetParam0A0A(ATargetID, $002B, Edit356.Text);
     91 : Result := SetParam0A0A(ATargetID, $002C, Edit91.Text);
     352: Result := SetParam0A0A(ATargetID, $002D, Edit352.Text);
     364: Result := SetParam0A0A(ATargetID, $002E, Edit364.Text);
@@ -940,7 +989,6 @@ begin
     57 : Result := SetParam0A0A(ATargetID, $0045, IntToStr(Edit57.ItemIndex));
     55 : Result := SetParam0A0A(ATargetID, $0046, Edit55.Text);
     68 : Result := SetParam0A0A(ATargetID, $0047, Edit68.Text);
-    //36: Result := SetParam0A0A(ATargetID, $0048, Edit36.Text);
     2  : Result := SetParam0A0B(ATargetID, $0048, Edit2.Text);
     92 : Result := SetParam0A0B(ATargetID, $0049, Edit92.Text);
 
@@ -1028,7 +1076,7 @@ begin
         w := ByteOderConvert_Word(w);
         CopyMemory(@str[3], @w, 2);
         Result := SetAStrParam(ATargetID, $F005, str);
-      end;  
+      end;
     97 :
       begin
         str := Trim(Edit97.Text);
@@ -1036,7 +1084,129 @@ begin
         str := FormatDateTime('yyMMdd', date97.DateTime) + str;
         Result := SetStrBCDParam(ATargetID, $F003, str, 7, '0');
       end;
+    102: Result := SetStrParam(ATargetID, $001A, Edit102.Text);
+    103: Result := SetStrParam(ATargetID, $001D, Edit103.Text);
+    104: Result := SetLongWordParam(ATargetID, $001B, Edit104.Text);
+    105: Result := SetLongWordParam(ATargetID, $001C, Edit105.Text);
+    106: Result := SetWordParam(ATargetID, $005B, Edit106.Text);
+    107: Result := SetWordParam(ATargetID, $005C, Edit107.Text);
+    108:
+      begin
+        w := $0000;
+        b := StrToInt(Trim(Edit41.Text));
+        w := w + b;
+        b := StrToInt(Trim(Edit42.Text));
+        w := w xor (b shl 8);
+        Result := SetWordParam(ATargetID, $005D, IntToStr(w));
+      end;
+    109: Result := SetWordParam(ATargetID, $005E, Edit109.Text);
+    110:
+      begin
+        lw := 0;
+        for i := 0 to 15 do
+        begin
+          b := GetCheckListItemVal(cxCheckListBox5, i);
+          lw := lw + (($0000 xor b) shl i);
+        end;
 
+        if rbTimeUnitMinute.Checked then
+        begin
+          lw := lw xor $10000;
+        end;
+
+        w := StrToInt(Trim(Edit110.Text));
+        lw := lw + w shl 17;
+
+        Result := SetLongWordParam(ATargetID, $0064, IntToStr(lw));
+      end;
+    111:
+      begin
+        lw := 0;
+        for i := 0 to 15 do
+        begin
+          b := GetCheckListItemVal(cxCheckListBox6, i);
+          lw := lw + (($0000 xor b) shl i);
+        end;
+
+        if rbDisUnitKilometer.Checked then
+        begin
+          lw := lw xor $10000;
+        end;
+
+        w := StrToInt(Trim(Edit111.Text));
+        lw := lw + w shl 17;
+
+        Result := SetLongWordParam(ATargetID, $0065, IntToStr(lw));
+      end;
+    112:
+      begin
+        b := 0;
+        for i := 0 to 3 do
+        begin
+          bb := GetCheckListItemVal(cxCheckListBox7, i);
+          b := b + (($00 xor bb) shl i);
+        end;
+
+        Result := SetByteParam(ATargetID, $0090, IntToStr(b));
+      end;
+    113:
+      begin
+        b := Edit113.ItemIndex;
+        Result := SetByteParam(ATargetID, $0091, IntToStr(b));
+      end;
+    114:
+      begin
+        b := Edit114.ItemIndex;
+        Result := SetByteParam(ATargetID, $0092, IntToStr(b));
+      end;
+    115: Result := SetLongWordParam(ATargetID, $0093, Edit115.Text);
+    116:
+      begin
+        b := 0;
+        case Edit116.ItemIndex of
+          0: b := $00;
+          1: b := $01;
+          2: b := $02;
+          3: b := $0B;
+          4: b := $0C;
+          5: b := $0D;
+        end;
+        if b = 0 then
+        begin
+          Result := SetByteParam(ATargetID, $0094, IntToStr(b));
+        end
+        else
+        begin
+          Result := SetByteParam(ATargetID, $0094, IntToStr(b)) and SetLongWordParam(ATargetID, $0095, Edit45.Text);
+        end;    
+      end;
+    117: Result := SetLongWordParam(ATargetID, $0100, Edit117.Text);
+    118: Result := SetWordParam(ATargetID, $0101, Edit118.Text);
+    119: Result := SetLongWordParam(ATargetID, $0102, Edit119.Text);
+    120: Result := SetWordParam(ATargetID, $0103, Edit120.Text);
+    121:
+      begin
+        SetLength(str, 8);
+        lw := StrToInt64(Trim(Edit58.Text));
+        lw := ByteOderConvert_LongWord(lw);
+        CopyMemory(@str[1], @lw, 4);
+
+        lw := 0;
+        if ComboBox4.ItemIndex = 1 then
+          lw := lw + (1 shl 31);
+
+        if ComboBox5.ItemIndex = 1 then
+          lw := lw + (1 shl 30);
+
+        if ComboBox6.ItemIndex = 1 then
+          lw := lw + (1 shl 29);
+
+        lwt := StrToInt64(Trim(Edit77.Text));
+        lw := lw + lwt;
+        lw := ByteOderConvert_LongWord(lw);
+        CopyMemory(@str[5], @lw, 4);
+        Result := SetAStrParam(ATargetID, $0110, str);
+      end;
   else
     Result := false;
   end;
@@ -1163,7 +1333,68 @@ begin
       date97.Color := clBtnFace;
       date97.Enabled := false;
     end;
-  end;
+  end
+  else if CheckBoxName = 'CheckBox108' then
+  begin
+    if TCheckBox(Sender).Checked then
+    begin
+      Edit41.Color := clWindow;
+      Edit41.Enabled := true;
+      Edit42.Color := clWindow;
+      Edit42.Enabled := true;
+    end
+    else
+    begin
+      Edit41.Color := clBtnFace;
+      Edit41.Enabled := false;
+      Edit42.Color := clBtnFace;
+      Edit42.Enabled := false;
+    end;
+  end
+  else if CheckBoxName = 'CheckBox116' then
+  begin
+    if TCheckBox(Sender).Checked then
+    begin
+      Edit45.Color := clWindow;
+      Edit45.Enabled := true;
+    end
+    else
+    begin
+      Edit45.Color := clBtnFace;
+      Edit45.Enabled := false;
+    end;
+  end
+  else if CheckBoxName = 'CheckBox121' then
+  begin
+    if TCheckBox(Sender).Checked then
+    begin
+      ComboBox4.Enabled := True;
+      ComboBox5.Enabled := True;
+      ComboBox6.Enabled := True;
+      Edit58.Enabled := True;
+      Edit77.Enabled := True;
+
+      ComboBox4.Color := clWindow;
+      ComboBox5.Color := clWindow;
+      ComboBox6.Color := clWindow;
+      Edit58.Color := clWindow;
+      Edit77.Color := clWindow;
+    end
+    else
+    begin
+      ComboBox4.Enabled := False;
+      ComboBox5.Enabled := False;
+      ComboBox6.Enabled := False;
+      Edit58.Enabled := False;
+      Edit77.Enabled := False;
+
+      ComboBox4.Color := clBtnFace;
+      ComboBox5.Color := clBtnFace;
+      ComboBox6.Color := clBtnFace;
+      Edit58.Color := clBtnFace;
+      Edit77.Color := clBtnFace;
+    end;
+  end;  
 
 end;
 
@@ -4377,6 +4608,42 @@ begin
           exit;
         end;
         //Continue;
+      end
+      else if checkNo = '116' then
+      begin
+        if (Edit116.ItemIndex > 0) and (Trim(Edit45.Text) = '') then
+        begin
+          MessageBox(Handle, ' GNSS参数中定位数据上传频率不能为空！', '提示', MB_OK + MB_ICONINFORMATION);
+          Exit;
+        end;  
+      end
+      else if checkNo = '121' then
+      begin
+        if Trim(ComboBox4.Text) = '' then
+        begin
+          showMyMsgBox(Handle, 'CAN总线ID设置中 通道号不能为空');
+          Exit;
+        end;
+        if Trim(ComboBox5.Text) = '' then
+        begin
+           showMyMsgBox(Handle, 'CAN总线ID设置中 帧类型不能为空');
+          Exit;
+        end;
+        if Trim(ComboBox6.Text) = '' then
+        begin
+           showMyMsgBox(Handle, 'CAN总线ID设置中 采集方式不能为空');
+          Exit;
+        end;
+        if Trim(Edit58.Text) = '' then
+        begin
+           showMyMsgBox(Handle, 'CAN总线ID设置中 采集间隔不能为空');
+          Exit;
+        end;
+        if Trim(Edit77.Text) = '' then
+        begin
+           showMyMsgBox(Handle, 'CAN总线ID设置中 总线ID不能为空');
+          Exit;
+        end;        
       end;
 
       tempComponent := self.FindComponent('Edit' + checkNo);
@@ -4654,7 +4921,11 @@ begin
   cxCheckListBox5.Enabled := checked;
   rbTimeUnitSecond.Enabled := checked;
   rbTimeUnitMinute.Enabled := checked;
-  Edit38.Enabled := checked;
+  Edit110.Enabled := checked;
+  if checked then
+    Edit110.Color := clWindow
+  else
+    Edit110.Color := clBtnFace;
 end;
 
 procedure TParamFrm.CheckBox111Click(Sender: TObject);
@@ -4665,7 +4936,45 @@ begin
   cxCheckListBox6.Enabled := checked;
   rbDisUnitMeter.Enabled := checked;
   rbDisUnitKilometer.Enabled := checked;
-  Edit43.Enabled := checked;
+  Edit111.Enabled := checked;
+  if checked then
+    Edit111.Color := clWindow
+  else
+    Edit111.Color := clBtnFace;
+end;
+
+procedure TParamFrm.Edit116Change(Sender: TObject);
+begin
+  case Edit116.ItemIndex of
+    1, 3: Label102.Caption := '秒 ';
+    2, 4: Label102.Caption := '米 ';
+    5:    Label102.Caption := '条 ';
+  end;
+  Edit45.Enabled := Edit116.ItemIndex > 0;
+  if Edit45.Enabled then
+    Edit45.Color := clWindow
+  else
+    Edit45.Color := clBtnFace;
+end;
+
+procedure TParamFrm.CheckBox112Click(Sender: TObject);
+begin
+  cxCheckListBox7.Enabled := CheckBox112.Checked;
+end;
+
+procedure TParamFrm.Edit41Change(Sender: TObject);
+begin
+  CheckNum(Sender, 255, 0);
+end;
+
+procedure TParamFrm.Edit110Change(Sender: TObject);
+begin
+  CheckNum(Sender, 32767, 0);
+end;
+
+procedure TParamFrm.Edit77Change(Sender: TObject);
+begin
+  CheckNum(Sender, $1FFFFFFF, 0);
 end;
 
 end.

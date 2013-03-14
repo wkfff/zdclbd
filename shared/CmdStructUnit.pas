@@ -6567,6 +6567,12 @@ type
     UpgradeRet: Byte;//升级结果	BYTE	0：成功；1：失败；2：取消
   end;
   PCmdSrvTermUpgradeTerminalRetTSP_BD = ^TCmdSrvTermUpgradeTerminalRetTSP_BD;
+
+  TCmdTermSrvReadParamSpecTSP_BD = packed record
+    Header: TCmdTSPHead_V3;
+    ParamCount: Byte;
+  end;
+  PCmdTermSrvReadParamSpecTSP_BD = ^TCmdTermSrvReadParamSpecTSP_BD;
   //********************************北斗新增********************************
 
   //透传命令

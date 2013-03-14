@@ -860,6 +860,10 @@ type
     N247: TMenuItem;
     fun_upgradeterminal: TAction;
     N249: TMenuItem;
+    fun_view_someDevParam: TAction;
+    N250: TMenuItem;
+    N252: TMenuItem;
+    fun_GetDriverInfo: TAction;
 
 
 
@@ -1174,6 +1178,8 @@ type
     procedure ck_querySetCarRunStatePlanExecute(Sender: TObject);
     procedure fun_setCarRunStatePlanExecute(Sender: TObject);
     procedure fun_upgradeterminalExecute(Sender: TObject);
+    procedure fun_view_someDevParamExecute(Sender: TObject);
+    procedure fun_GetDriverInfoExecute(Sender: TObject);
 
 
   private
@@ -3044,6 +3050,7 @@ begin
   if GCurSelectDev <> nil then
   begin
     ReadParamFrm.SetCurrentDev(GCurSelectDev);
+    ReadParamFrm.IsReadAll := True;
     ReadParamFrm.ShowModal;
   end;
     //DataServer.ReadDevParam_V3(GCurSelectDev, 0);
@@ -14778,7 +14785,7 @@ begin
   begin
     if not IsBeiDouDev(GCurSelectDev) then
     begin
-      showTipMsgBox('该命令只能对北斗类型的终端下发');
+      showAppMsgBox('该命令只能对北斗类型的终端下发');
       Exit;
     end;
     Bs.QueryUpgradeTerminalVer;
@@ -14790,6 +14797,22 @@ begin
       dlg.Free;
     end;
   end;
+end;
+
+procedure TMainf.fun_view_someDevParamExecute(Sender: TObject);
+begin
+  if ReadParamFrm = nil then ReadParamFrm := TParamReadFrm.Create(Self);
+  if GCurSelectDev <> nil then
+  begin
+    ReadParamFrm.SetCurrentDev(GCurSelectDev);
+    ReadParamFrm.IsReadAll := False;
+    ReadParamFrm.ShowModal;
+  end;
+end;
+
+procedure TMainf.fun_GetDriverInfoExecute(Sender: TObject);
+begin
+//
 end;
 
 end.

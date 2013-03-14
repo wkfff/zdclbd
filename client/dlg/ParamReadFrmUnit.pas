@@ -11,7 +11,6 @@ uses
 type
   TParamReadFrm = class(TParamFrm)
     BitBtnSaveReadedParam: TBitBtn;
-    CheckBoxSystemParam: TCheckBox;
     BitBtn1: TBitBtn;
     Label90: TLabel;
     Timer2: TTimer;
@@ -34,7 +33,6 @@ type
     procedure BitBtnSaveReadedParamClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
-    procedure CheckBoxSystemParamClick(Sender: TObject);
     procedure CheckBox56Click(Sender: TObject);
     procedure CheckBox77Click(Sender: TObject);
     procedure CheckBox78Click(Sender: TObject);
@@ -54,6 +52,7 @@ type
   public
     { Public declarations }
     Cancel: Boolean;
+    IsReadAll: Boolean;
   end;
 
 var
@@ -75,52 +74,61 @@ begin
   BitBtnSet.Enabled := False;
   Timer2.Enabled := True;
   if CurrentDev <> nil then
-    DataServer.ReadDevParam_V3(CurrentDev, 0);
-  Exit;
-
-  TBitBtn(Sender).Enabled := false;
-  ParamNO := 0;
-  j := 0;
-
-  CheckBoxList.Clear;
-  for i := 0 to Self.ComponentCount - 1 do
   begin
-    if (Self.Components[i] is TCheckBox) then
+    if IsReadAll then
     begin
-      if TCheckBox(Self.Components[i]).Checked then
+      DataServer.ReadDevParam_V3(CurrentDev, 0);
+    end
+    else
+    begin
+
+      TBitBtn(Sender).Enabled := false;
+      ParamNO := 0;
+      j := 0;
+
+      CheckBoxList.Clear;
+      for i := 0 to Self.ComponentCount - 1 do
       begin
-        inc(j);
-        //LastComp := i;
-        CheckBoxList.Add(TCheckBox(Self.Components[i]).Name);
+        if (Self.Components[i] is TCheckBox) then
+        begin
+          if TCheckBox(Self.Components[i]).Checked then
+          begin
+            inc(j);
+            //LastComp := i;
+            CheckBoxList.Add(TCheckBox(Self.Components[i]).Name);
+          end;
+        end;
       end;
+
+      LastComp := j;
+
+      if j = 0 then
+      begin
+        messagebox(handle, ' 请选择一个参数!  ', '提示', mb_ok + mb_iconinformation);
+        TBitBtn(Sender).Enabled := true;
+        exit;
+      end;
+
+      DataServer.ReadDevParamSpec_BD(CurrentDev, CheckBoxList);
+//      if j = 1 then
+//      begin
+//
+//        S := CheckBoxList.Strings[0];//TCheckBox(Self.Components[LastComp]).Name;
+//        S := copy(S, 9, Length(S) - 1);
+//        NO := StrToInt(S);
+//        ReadParam(CurrentDev, NO);
+//        TBitBtn(Sender).Enabled := true;
+//      end
+//      else
+//      begin
+//       // self.ManualDock(uMainf.Mainf.PageControlBottom,nil,alLeft );
+//        ProgressBar1.Max := j * 10;
+//        ProgressBar1.Visible := true;
+//        ProgressBar1.Position := 0;
+//        Timer1.Enabled := true;
+//        Timer1Timer(Timer1);
+//      end;
     end;
-  end;
-
-  LastComp := j;
-
-  if j = 0 then
-  begin
-    messagebox(handle, ' 请选择一个参数!  ', '提示', mb_ok + mb_iconinformation);
-    TBitBtn(Sender).Enabled := true;
-    exit;
-  end;
-  if j = 1 then
-  begin
-
-    S := CheckBoxList.Strings[0];//TCheckBox(Self.Components[LastComp]).Name;
-    S := copy(S, 9, Length(S) - 1);
-    NO := StrToInt(S);
-    ReadParam(CurrentDev, NO);
-    TBitBtn(Sender).Enabled := true;
-  end
-  else
-  begin
-   // self.ManualDock(uMainf.Mainf.PageControlBottom,nil,alLeft );
-    ProgressBar1.Max := j * 10;
-    ProgressBar1.Visible := true;
-    ProgressBar1.Position := 0;
-    Timer1.Enabled := true;
-    Timer1Timer(Timer1);
   end;
 end;
 
@@ -684,27 +692,43 @@ begin
 //    Exit;
   for i := 0 to Self.ComponentCount - 1 do
   begin
-    if Self.Components[i] is TEdit then
-    begin
-      TEdit(Components[i]).Text := '';
-      TEdit(Components[i]).Enabled := false;
-      TEdit(Components[i]).Color := clBtnFace;
-    end;
-    if Components[i] is TComboBox then
-    begin
-      TComboBox(Components[i]).ItemIndex := -1;
-      TComboBox(Components[i]).Enabled := False;
-      TComboBox(Components[i]).color := clBtnFace;
-    end;
-    if Components[i] is TCheckBox then
-    begin
-      TCheckBox(Components[i]).State := cbGrayed;
-      TCheckBox(Components[i]).Enabled := False;
-    end;
-    if Components[i] is TRzCheckBox then
-    begin
-      TRzCheckBox(Components[i]).State := cbGrayed;
-      TRzCheckBox(Components[i]).Enabled := False;
+    try
+      if Self.Components[i] is TEdit then
+      begin
+        TEdit(Components[i]).Text := '';
+        TEdit(Components[i]).Color := clBtnFace;
+        TEdit(Components[i]).Enabled := not IsReadAll;
+        TEdit(Components[i]).ReadOnly := True;
+      end;
+      if Components[i] is TComboBox then
+      begin
+        TComboBox(Components[i]).ItemIndex := -1;
+        TComboBox(Components[i]).Enabled := not IsReadAll;
+        TComboBox(Components[i]).color := clBtnFace;
+      end;
+      if Components[i] is TCheckBox then
+      begin
+        if IsReadAll then
+          TCheckBox(Components[i]).State := cbGrayed
+        else
+          TCheckBox(Components[i]).State := cbUnchecked;
+
+        TCheckBox(Components[i]).Enabled := not IsReadAll;
+      end;
+      if Components[i] is TRzCheckBox then
+      begin
+        if IsReadAll then
+          TRzCheckBox(Components[i]).State := cbGrayed
+        else
+          TRzCheckBox(Components[i]).State := cbUnchecked;
+
+        TRzCheckBox(Components[i]).Enabled := not IsReadAll;
+      end;
+    except
+      on E: Exception do
+      begin
+        addSysLog('ParamReadFrm FormShow Err:' + E.Message);
+      end;  
     end;
   end;
   date27.Enabled := False;
@@ -728,7 +752,9 @@ begin
   //RzCheckBoxSelectAll.Checked := False;
   BitBtnSaveReadedParam.Visible := False;
   Label90.Visible := False;
-  ReadParamFrm.BitBtnSetClick(nil);
+
+  if IsReadAll then
+    ReadParamFrm.BitBtnSetClick(nil);
 end;
 
 procedure TParamReadFrm.BitBtn2Click(Sender: TObject);
@@ -738,42 +764,6 @@ begin
   timer1.Enabled:=false;
   BitBtnSet.Enabled:=true;
   ProgressBar1.Visible:=false;
-end;
-
-procedure TParamReadFrm.CheckBoxSystemParamClick(Sender: TObject);
-var
-  i,j: Integer;
-begin
-  if CheckBoxSystemParam.Checked then
-  begin
-    ShowParamToEdit(CurrentDev);
-  end
-  else
-  begin
-    for i := 0 to Self.ComponentCount - 1 do
-    begin
-      if (Self.Components[i] is TEdit) and (Self.Components[i].Name <> 'EditCar') then
-      begin
-        TEdit(Components[i]).Text := '';
-        TEdit(Components[i]).Enabled := false;
-      end;
-      if Components[i] is TComboBox then
-      begin
-        TComboBox(Components[i]).ItemIndex := -1;
-        TComboBox(Components[i]).Enabled := False;
-      end;
-      if Components[i] is TcxCheckListBox then
-      begin
-        for j:=0 to 31 do
-        begin
-          TcxCheckListBox(Components[i]).Items[j].Checked := False;
-        end;
-      end;
-      //if Components[i] is TCheckBox then
-      //  TCheckBox(Components[i]).Checked := False;
-    end;
-  end;
-
 end;
 
 procedure TParamReadFrm.CheckBox56Click(Sender: TObject);

@@ -4,13 +4,13 @@ inherited ParamReadFrm: TParamReadFrm
   BorderStyle = bsSingle
   Caption = #35835#21462#21442#25968
   ClientHeight = 577
-  ClientWidth = 626
+  ClientWidth = 660
   OldCreateOrder = True
   OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
-    Width = 626
+    Width = 660
     Height = 44
     Caption = #35835#21462#21442#25968
     inherited Label61: TLabel
@@ -22,26 +22,10 @@ inherited ParamReadFrm: TParamReadFrm
       Top = 18
       Width = 95
     end
-    object CheckBoxSystemParam: TCheckBox
-      Left = 574
-      Top = 1
-      Width = 87
-      Height = 17
-      Caption = #25968#25454#24211#21442#25968
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clNavy
-      Font.Height = -13
-      Font.Name = #23435#20307
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 2
-      Visible = False
-      OnClick = CheckBoxSystemParamClick
-    end
   end
   inherited Panel2: TPanel
     Top = 540
-    Width = 626
+    Width = 660
     object Label90: TLabel [0]
       Left = 10
       Top = 12
@@ -61,7 +45,7 @@ inherited ParamReadFrm: TParamReadFrm
       Width = 284
     end
     object BitBtnSaveReadedParam: TBitBtn [2]
-      Left = 275
+      Left = 283
       Top = 30
       Width = 89
       Height = 25
@@ -105,12 +89,13 @@ inherited ParamReadFrm: TParamReadFrm
         FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00}
     end
     inherited BitBtnSet: TBitBtn [3]
-      Left = 412
+      Left = 468
       Caption = #35835#21462#21442#25968
     end
     inherited BitBtn2: TBitBtn [4]
-      Left = 444
-      Top = 30
+      Left = 404
+      Top = 40
+      Height = 15
       Caption = #20572#27490#35835#21462
       Visible = False
       Glyph.Data = {
@@ -132,7 +117,7 @@ inherited ParamReadFrm: TParamReadFrm
         0000}
     end
     object BitBtn1: TBitBtn
-      Left = 525
+      Left = 573
       Top = 6
       Width = 73
       Height = 25
@@ -162,20 +147,24 @@ inherited ParamReadFrm: TParamReadFrm
   end
   inherited Panel3: TPanel
     Top = 44
-    Width = 626
+    Width = 660
     Height = 496
     inherited PageControl1: TPageControl
+      Width = 658
       Height = 494
       Align = alClient
       inherited TabSheet2: TTabSheet
         inherited Label50: TLabel
-          Top = 324
+          Left = 276
+          Top = 363
         end
         inherited Label51: TLabel
-          Top = 26
+          Left = 754
+          Top = 178
         end
         inherited Label52: TLabel
-          Top = 325
+          Left = 624
+          Top = 338
         end
         inherited Label53: TLabel
           Top = 301
@@ -190,8 +179,8 @@ inherited ParamReadFrm: TParamReadFrm
           Top = 325
         end
         inherited Label57: TLabel
-          Left = 636
-          Top = 345
+          Left = 684
+          Top = 325
         end
         inherited Label60: TLabel
           Top = 335
@@ -203,25 +192,32 @@ inherited ParamReadFrm: TParamReadFrm
           Top = 363
         end
         inherited Label5: TLabel
-          Top = 351
+          Left = 276
+          Top = 390
         end
         inherited Label6: TLabel
-          Top = 379
+          Left = 276
+          Top = 418
         end
         inherited Label7: TLabel
-          Top = 406
+          Left = 276
+          Top = 445
         end
         inherited Label8: TLabel
-          Top = 352
+          Left = 624
+          Top = 392
         end
         inherited Label9: TLabel
-          Top = 379
+          Left = 624
+          Top = 418
         end
         inherited Label23: TLabel
-          Top = 54
+          Left = 276
+          Top = 45
         end
         inherited Label24: TLabel
-          Top = 109
+          Left = 276
+          Top = 98
         end
         inherited Label59: TLabel
           Top = 332
@@ -230,19 +226,24 @@ inherited ParamReadFrm: TParamReadFrm
           Top = 325
         end
         inherited Label76: TLabel
-          Top = 83
+          Left = 276
+          Top = 71
         end
         inherited Label78: TLabel
-          Top = 26
+          Left = 276
+          Top = 18
         end
         inherited Label79: TLabel
-          Top = 297
+          Left = 276
+          Top = 336
         end
         inherited Label81: TLabel
-          Top = 298
+          Left = 624
+          Top = 365
         end
         inherited Label89: TLabel
-          Top = 406
+          Left = 624
+          Top = 445
         end
         inherited RzCheckBoxSelectPageCommunication: TRzCheckBox
           Left = 502
@@ -254,162 +255,206 @@ inherited ParamReadFrm: TParamReadFrm
           Top = 272
         end
         inherited CheckBox6: TCheckBox
-          Top = 130
+          Left = 9
+          Top = 123
         end
         inherited CheckBox7: TCheckBox
-          Top = 211
+          Left = 9
+          Top = 203
         end
         inherited CheckBox9: TCheckBox
-          Top = 211
+          Left = 344
+          Top = 203
           Width = 131
         end
         inherited CheckBox10: TCheckBox
           Top = 240
         end
         inherited CheckBox11: TCheckBox
-          Top = 157
+          Left = 344
+          Top = 150
         end
         inherited CheckBox12: TCheckBox
-          Top = 24
+          Left = 9
+          Top = 16
         end
         inherited CheckBox13: TCheckBox
-          Top = 51
+          Left = 344
+          Top = 43
         end
         inherited Edit6: TEdit
-          Top = 128
+          Left = 161
+          Top = 121
         end
         inherited Edit7: TEdit
-          Top = 209
+          Left = 161
+          Top = 201
         end
         inherited Edit9: TEdit
-          Top = 209
+          Left = 510
+          Top = 201
         end
         inherited Edit82: TEdit
           Top = 96
         end
         inherited Edit11: TEdit
-          Top = 155
+          Left = 510
+          Top = 148
         end
         inherited Edit12: TEdit
-          Top = 22
+          Left = 161
+          Top = 14
         end
         inherited Edit13: TEdit
-          Top = 49
+          Left = 510
+          Top = 41
         end
         inherited CheckBox34: TCheckBox
-          Top = 51
+          Left = 9
+          Top = 43
         end
         inherited Edit351: TEdit
-          Top = 321
+          Left = 161
+          Top = 361
         end
         inherited Edit34: TEdit
-          Top = 49
+          Left = 161
+          Top = 41
         end
         inherited Edit352: TEdit
-          Top = 321
+          Left = 510
+          Top = 361
         end
         inherited Edit353: TEdit
           Top = 297
         end
         inherited Edit354: TEdit
-          Top = 297
+          Left = 802
+          Top = 345
         end
         inherited Edit355: TEdit
           Top = 321
         end
         inherited CheckBox14: TCheckBox
-          Top = 268
+          Left = 9
+          Top = 310
         end
         inherited CheckBox15: TCheckBox
-          Top = 268
+          Left = 344
+          Top = 310
         end
         inherited Edit59: TEdit
-          Top = 103
+          Left = 161
+          Top = 94
         end
         inherited Edit60: TEdit
-          Top = 103
+          Left = 510
+          Top = 94
         end
         inherited Edit356: TEdit
           Top = 321
         end
         inherited Edit357: TEdit
-          Top = 328
+          Left = 823
+          Top = 352
         end
         inherited Edit358: TEdit
           Top = 331
         end
         inherited Edit14: TComboBox
-          Top = 266
+          Left = 161
+          Top = 308
         end
         inherited Edit15: TComboBox
-          Top = 266
+          Left = 510
+          Top = 308
         end
         inherited CheckBox59: TCheckBox
-          Top = 105
+          Left = 9
+          Top = 96
         end
         inherited CheckBox60: TCheckBox
-          Top = 105
+          Left = 344
+          Top = 96
         end
         inherited CheckBox61: TCheckBox
-          Top = 157
+          Left = 9
+          Top = 149
           Width = 120
         end
         inherited Edit61: TEdit
-          Top = 155
+          Left = 161
+          Top = 147
         end
         inherited CheckBox62: TCheckBox
-          Top = 184
+          Left = 9
+          Top = 176
         end
         inherited Edit62: TEdit
-          Top = 182
+          Left = 161
+          Top = 174
         end
         inherited CheckBox63: TCheckBox
-          Top = 130
+          Left = 344
+          Top = 123
         end
         inherited Edit63: TEdit
-          Top = 128
+          Left = 510
+          Top = 121
         end
         inherited CheckBox64: TCheckBox
-          Top = 184
+          Left = 344
+          Top = 176
         end
         inherited Edit64: TEdit
-          Top = 182
+          Left = 510
+          Top = 174
         end
         inherited CheckBox65: TCheckBox
-          Top = 238
+          Left = 9
+          Top = 230
         end
         inherited Edit65: TEdit
-          Top = 236
+          Left = 161
+          Top = 228
         end
         inherited CheckBox351: TCheckBox
-          Top = 323
+          Left = 9
+          Top = 363
         end
         inherited CheckBox352: TCheckBox
-          Top = 323
+          Left = 344
+          Top = 363
         end
         inherited CheckBox353: TCheckBox
           Top = 299
         end
         inherited CheckBox354: TCheckBox
-          Top = 299
+          Left = 778
+          Top = 347
         end
         inherited CheckBox355: TCheckBox
-          Top = 323
+          Left = 742
+          Top = 339
         end
         inherited CheckBox356: TCheckBox
-          Top = 323
+          Left = 810
+          Top = 363
         end
         inherited CheckBox357: TCheckBox
-          Top = 330
+          Left = 787
+          Top = 378
         end
         inherited CheckBox358: TCheckBox
           Top = 334
         end
         inherited CheckBox359: TCheckBox
-          Top = 358
+          Left = 811
+          Top = 406
         end
         inherited Edit359: TEdit
-          Top = 356
+          Left = 823
+          Top = 404
         end
         inherited CheckBox360: TCheckBox
           Top = 362
@@ -418,34 +463,44 @@ inherited ParamReadFrm: TParamReadFrm
           Top = 359
         end
         inherited CheckBox361: TCheckBox
-          Top = 350
+          Left = 9
+          Top = 390
         end
         inherited Edit361: TEdit
-          Top = 348
+          Left = 161
+          Top = 388
         end
         inherited CheckBox362: TCheckBox
-          Top = 377
+          Left = 9
+          Top = 416
         end
         inherited Edit362: TEdit
-          Top = 375
+          Left = 161
+          Top = 414
         end
         inherited CheckBox363: TCheckBox
-          Top = 404
+          Left = 9
+          Top = 443
         end
         inherited Edit363: TEdit
-          Top = 402
+          Left = 161
+          Top = 441
         end
         inherited CheckBox364: TCheckBox
-          Top = 350
+          Left = 344
+          Top = 390
         end
         inherited Edit364: TEdit
-          Top = 348
+          Left = 510
+          Top = 388
         end
         inherited CheckBox365: TCheckBox
-          Top = 377
+          Left = 344
+          Top = 416
         end
         inherited Edit365: TEdit
-          Top = 375
+          Left = 510
+          Top = 414
         end
         inherited CheckBox81: TCheckBox
           Top = 74
@@ -481,40 +536,84 @@ inherited ParamReadFrm: TParamReadFrm
           Top = 248
         end
         inherited CheckBox85: TCheckBox
-          Top = 78
+          Left = 9
+          Top = 69
         end
         inherited Edit85: TEdit
-          Top = 76
+          Left = 161
+          Top = 67
         end
         inherited CheckBox86: TCheckBox
-          Top = 78
+          Left = 344
+          Top = 70
         end
         inherited Edit86: TEdit
-          Top = 76
+          Left = 510
+          Top = 68
         end
         inherited CheckBox87: TCheckBox
-          Top = 238
+          Left = 344
+          Top = 230
         end
         inherited Edit87: TEdit
-          Top = 236
+          Left = 510
+          Top = 228
         end
         inherited Edit90: TEdit
-          Top = 293
+          Left = 161
+          Top = 334
         end
         inherited Edit91: TEdit
-          Top = 294
+          Left = 510
+          Top = 334
         end
         inherited CheckBox90: TCheckBox
-          Top = 295
+          Left = 9
+          Top = 336
         end
         inherited CheckBox91: TCheckBox
-          Top = 296
+          Left = 344
+          Top = 336
         end
         inherited CheckBox98: TCheckBox
-          Top = 404
+          Left = 344
+          Top = 443
         end
         inherited Edit98: TEdit
-          Top = 402
+          Left = 510
+          Top = 441
+        end
+        inherited CheckBox102: TCheckBox
+          Left = 9
+          Top = 256
+        end
+        inherited CheckBox103: TCheckBox
+          Left = 344
+          Top = 256
+        end
+        inherited Edit102: TEdit
+          Left = 161
+          Top = 254
+        end
+        inherited Edit103: TEdit
+          Left = 510
+          Top = 254
+        end
+        inherited CheckBox104: TCheckBox
+          Left = 9
+          Top = 283
+        end
+        inherited Edit104: TEdit
+          Left = 161
+          Top = 281
+        end
+        inherited CheckBox105: TCheckBox
+          Left = 344
+          Top = 283
+        end
+        inherited Edit105: TEdit
+          Left = 510
+          Top = 281
         end
       end
       inherited TabSheet3: TTabSheet
@@ -543,46 +642,46 @@ inherited ParamReadFrm: TParamReadFrm
       inherited TabSheet4: TTabSheet
         inherited Label10: TLabel
           Left = 62
-          Top = 278
+          Top = 317
         end
         inherited Label11: TLabel
           Left = 62
-          Top = 297
+          Top = 336
         end
         inherited Label12: TLabel
           Left = 62
-          Top = 318
+          Top = 357
         end
         inherited Label13: TLabel
           Left = 249
-          Top = 275
+          Top = 314
         end
         inherited Label14: TLabel
           Left = 249
-          Top = 296
+          Top = 335
         end
         inherited Label15: TLabel
           Left = 249
-          Top = 317
+          Top = 356
         end
         inherited Label19: TLabel
           Left = 73
-          Top = 421
+          Top = 460
         end
         inherited Label20: TLabel
           Left = 73
-          Top = 445
+          Top = 484
         end
         inherited Label21: TLabel
           Left = 230
-          Top = 417
+          Top = 456
         end
         inherited Label22: TLabel
           Left = 230
-          Top = 446
+          Top = 485
         end
         inherited Label37: TLabel
-          Left = 355
+          Left = 230
           Top = 66
         end
         inherited Label49: TLabel
@@ -590,51 +689,59 @@ inherited ParamReadFrm: TParamReadFrm
           Top = 472
         end
         inherited Label58: TLabel
-          Left = 355
+          Left = 230
           Top = 36
         end
         inherited Label25: TLabel
-          Left = 355
+          Left = 230
           Top = 158
         end
         inherited Label26: TLabel
-          Left = 355
+          Left = 230
           Top = 95
         end
         inherited Label64: TLabel
-          Left = 355
+          Left = 230
           Top = 191
         end
         inherited Label65: TLabel
-          Left = 355
+          Left = 230
           Top = 125
         end
         inherited Label91: TLabel
-          Left = 355
+          Left = 230
           Top = 221
+        end
+        inherited Label109: TLabel
+          Left = 534
+          Top = 36
+        end
+        inherited Label92: TLabel
+          Left = 534
+          Top = 64
         end
         inherited CheckBox39: TCheckBox
           Left = 41
-          Top = 347
+          Top = 386
         end
         inherited CheckBox37: TCheckBox
           Left = 41
-          Top = 254
+          Top = 293
         end
         inherited CheckBox40: TCheckBox
           Left = 41
-          Top = 372
+          Top = 411
         end
         inherited CheckBox41: TCheckBox
           Left = 41
-          Top = 398
+          Top = 437
         end
         inherited CheckBox42: TCheckBox
           Left = 458
-          Top = 377
+          Top = 416
         end
         inherited CheckBox47: TCheckBox
-          Left = 100
+          Left = 20
           Top = 64
         end
         inherited CheckBox58: TCheckBox
@@ -643,42 +750,42 @@ inherited ParamReadFrm: TParamReadFrm
         end
         inherited Edit371: TEdit
           Left = 179
-          Top = 272
+          Top = 311
         end
         inherited Edit372: TEdit
           Left = 179
-          Top = 291
+          Top = 330
         end
         inherited Edit373: TEdit
           Left = 179
-          Top = 312
+          Top = 351
         end
         inherited Edit39: TComboBox
           Left = 153
-          Top = 343
+          Top = 382
         end
         inherited edit40: TComboBox
           Left = 169
-          Top = 369
+          Top = 408
         end
         inherited Edit411: TEdit
           Left = 161
-          Top = 414
+          Top = 453
         end
         inherited Edit412: TEdit
           Left = 161
-          Top = 438
+          Top = 477
         end
         inherited Edit421: TEdit
-          Left = 228
+          Left = 148
           Top = 154
         end
         inherited Edit422: TEdit
-          Left = 228
+          Left = 148
           Top = 91
         end
         inherited Edit47: TEdit
-          Left = 228
+          Left = 148
           Top = 62
         end
         inherited Edit581: TEdit
@@ -690,49 +797,86 @@ inherited ParamReadFrm: TParamReadFrm
           Top = 467
         end
         inherited CheckBox16: TCheckBox
-          Left = 100
+          Left = 20
           Top = 34
         end
         inherited Edit16: TEdit
-          Left = 228
+          Left = 148
           Top = 32
         end
         inherited RzCheckBoxSelectPageControl: TRzCheckBox
-          Left = 528
+          Left = 592
           Top = 8
           Width = 85
         end
         inherited CheckBox423: TCheckBox
-          Left = 100
+          Left = 20
           Top = 189
         end
         inherited Edit423: TEdit
-          Left = 228
+          Left = 148
           Top = 187
         end
         inherited CheckBox424: TCheckBox
-          Left = 100
+          Left = 20
           Top = 123
         end
         inherited Edit424: TEdit
-          Left = 228
+          Left = 148
           Top = 121
         end
         inherited CheckBox421: TCheckBox
-          Left = 100
+          Left = 20
           Top = 156
         end
         inherited CheckBox422: TCheckBox
-          Left = 100
+          Left = 20
           Top = 93
         end
         inherited CheckBox101: TCheckBox
-          Left = 100
+          Left = 20
           Top = 219
         end
         inherited Edit101: TEdit
-          Left = 228
+          Left = 148
           Top = 217
+        end
+        inherited CheckBox106: TCheckBox
+          Left = 322
+          Top = 34
+        end
+        inherited Edit106: TEdit
+          Left = 454
+          Top = 32
+        end
+        inherited CheckBox107: TCheckBox
+          Left = 322
+          Top = 62
+        end
+        inherited Edit107: TEdit
+          Left = 454
+          Top = 60
+        end
+        inherited GroupBox11: TGroupBox
+          Left = 320
+          Top = 119
+        end
+        inherited CheckBox108: TCheckBox
+          Left = 330
+          Top = 117
+        end
+        inherited CheckBox109: TCheckBox
+          Left = 322
+          Top = 91
+        end
+        inherited Edit109: TEdit
+          Left = 454
+          Top = 89
+        end
+      end
+      inherited TabSheet7: TTabSheet
+        inherited PageControl2: TPageControl
+          ActivePage = TabSheet14
         end
       end
       inherited TabSheet6: TTabSheet
@@ -742,7 +886,8 @@ inherited ParamReadFrm: TParamReadFrm
       end
       inherited TabSheet1: TTabSheet
         inherited GroupBox8: TGroupBox
-          Top = 265
+          Left = 16
+          Top = 473
           inherited Label70: TLabel
             Top = 19
           end
@@ -763,23 +908,38 @@ inherited ParamReadFrm: TParamReadFrm
           end
         end
         inherited GroupBox7: TGroupBox
+          inherited CheckBox75: TCheckBox
+            Top = 49
+          end
           inherited CheckBox76: TCheckBox
-            Top = 43
+            Top = 78
           end
           inherited Edit76: TEdit
-            Top = 41
+            Top = 76
           end
-          inherited RzCheckBoxSelectPageElse: TRzCheckBox
-            Left = 520
-            Top = 13
-            Width = 87
+          inherited Edit75: TEdit
+            Top = 47
+          end
+          inherited CheckBox88: TCheckBox
+            Top = 106
+          end
+          inherited Edit88: TEdit
+            Top = 104
+          end
+          inherited CheckBox89: TCheckBox
+            Top = 134
+          end
+          inherited Edit89: TComboBox
+            Top = 132
           end
         end
         inherited GroupBox1: TGroupBox
-          Top = 339
+          Left = 8
+          Top = 486
         end
         inherited GroupBox2: TGroupBox
-          Top = 388
+          Left = 8
+          Top = 481
           inherited Label68: TLabel
             Left = 582
           end
@@ -791,22 +951,125 @@ inherited ParamReadFrm: TParamReadFrm
           end
         end
         inherited GroupBox6: TGroupBox
+          Left = 216
+          Width = 428
+          inherited CheckBox93: TCheckBox
+            Left = 9
+          end
+          inherited Edit93: TEdit
+            Left = 113
+          end
+          inherited CheckBox94: TCheckBox
+            Left = 241
+          end
+          inherited Edit94: TEdit
+            Left = 345
+          end
+          inherited GroupBox9: TGroupBox
+            Left = 9
+          end
+          inherited CheckBox95: TCheckBox
+            Left = 9
+          end
+          inherited GroupBox10: TGroupBox
+            Left = 241
+            inherited Edit27: TEdit
+              Width = 87
+            end
+            inherited Edit35: TEdit
+              Width = 87
+            end
+          end
+          inherited CheckBox96: TCheckBox
+            Left = 241
+          end
+          inherited CheckBox97: TCheckBox
+            Left = 241
+          end
           inherited Edit97: TEdit
-            Left = 157
-            Width = 112
+            Left = 312
+            Width = 97
           end
           inherited date97: TDateTimePicker
-            Left = 81
+            Left = 226
             Top = 150
             Visible = False
+          end
+          inherited CheckBox122: TCheckBox
+            Left = 8
+          end
+          inherited Edit122: TEdit
+            Left = 146
+            Top = 134
+            Width = 77
+          end
+        end
+        inherited RzCheckBoxSelectPageElse: TRzCheckBox
+          Left = 560
+          Top = 5
+          Width = 87
+        end
+        inherited GroupBox12: TGroupBox
+          Left = 8
+          Top = 324
+        end
+        inherited GroupBox13: TGroupBox
+          Left = 8
+          Top = 194
+          Width = 636
+          Height = 121
+          inherited CheckBox117: TCheckBox
+            Left = 9
+            Top = 18
+          end
+          inherited CheckBox118: TCheckBox
+            Left = 9
+            Top = 43
+          end
+          inherited CheckBox119: TCheckBox
+            Left = 9
+            Top = 68
+          end
+          inherited CheckBox120: TCheckBox
+            Left = 9
+            Top = 93
+          end
+          inherited Edit117: TEdit
+            Left = 121
+            Top = 18
+            Width = 109
+          end
+          inherited Edit119: TEdit
+            Left = 121
+            Top = 66
+            Width = 109
+          end
+          inherited Edit120: TEdit
+            Left = 121
+            Top = 90
+            Width = 109
+          end
+          inherited Edit118: TEdit
+            Left = 121
+            Top = 42
+            Width = 109
+          end
+          inherited GroupBox14: TGroupBox
+            Left = 248
+            Top = 15
+            Width = 374
+          end
+          inherited CheckBox121: TCheckBox
+            Left = 252
+            Top = 12
           end
         end
       end
     end
   end
   inherited Timer1: TTimer
-    Left = 418
-    Top = 108
+    Left = 642
+    Top = 44
   end
   object Timer2: TTimer
     Enabled = False

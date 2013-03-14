@@ -386,6 +386,7 @@ type
     function SetDevParam_V3(ATargetID: string; ParamID: word; Param: Pointer; ParamSize: integer): boolean;
     function SetAllDevParam_V3(dev: TDevice; paramData: TByteDynArray; paramCount: Integer): Boolean;
     function ReadDevParam_V3(dev: TDevice; AParamId: word): boolean;
+    function ReadDevParamSpec_BD(dev: TDevice; sChkBoxNameList: TStringList): Boolean;
     function SendSetLineToDev_V3(dev: TDevice; polyLineArea: TPolyLineArea): Boolean;
     function SendCollectRunRecData_V3(dev: TDevice; flag: Byte): Boolean;
     function SendSetRecorderCarNo(dev: TDevice; carVin, carNo, carType: string): Boolean;           //记录仪  设置车辆VIN号、车牌号、车辆分类
@@ -6058,7 +6059,7 @@ var
   ParamDateTime: TDateTime;
   temp: string;
   i: LongWord;
-  Year, Month, Day, Hour: string;
+  
   pB: PByte;
   isMultiPack: Boolean;//是否分包；
   paramCount: Integer;
@@ -6144,20 +6145,6 @@ begin
       CopyMemory(@paramByte[0], pB, len);
       Inc(pB, len);
 
-    //  ReadParamfrm.BitBtnSaveReadedParam.Visible := True;
-
-      if (paramID = $0091) and (len = 5) then
-      begin
-        Year := IntToHex(paramByte[0],2) + IntToHex(paramByte[1],2);
-        Month := IntToHex(paramByte[2],2);
-        Day := IntToHex(paramByte[3],2);
-        Hour := IntToHex(paramByte[4],2);
-        {temp := IntToHex(paramByte[0],2) + IntToHex(paramByte[1],2)
-                + '-' + IntToHex(paramByte[2],2) + '-' + IntToHex(paramByte[3],2)
-                + ' ' + IntToHex(paramByte[4],2) + ':00:00';
-        ParamDateTime := StrToDateTime(FormatDateTime('YYYY-MM-DD hh:nn:ss', StrToDateTime(temp)));  }
-      end;
-
       ParamInt := 0;
       if (Len <= 4) and (len > 0) then
       begin
@@ -6217,6 +6204,11 @@ begin
         $0017: ReadParamFrm.Edit9.Text := paramStr;   //9: Result := $0017;
         $0018: ReadParamFrm.Edit65.Text := IntToStr(ParamInt);  //65: Result := $0018;
         $0019: ReadParamFrm.Edit87.Text := IntToStr(ParamInt);
+        $001A: ReadParamFrm.Edit102.Text := paramStr;
+        $001B: ReadParamFrm.Edit104.Text := IntToStr(ParamInt);
+        $001C: ReadParamFrm.Edit105.Text := IntToStr(ParamInt);
+        $001D: ReadParamFrm.Edit103.Text := paramStr;
+
         $0020: ReadParamFrm.Edit14.ItemIndex := ParamInt;    // 14: Result := $0020;
         $0021: ReadParamFrm.Edit15.ItemIndex := ParamInt;    // 15: Result := $0021;
         $0022: ReadParamFrm.Edit351.Text := IntToStr(ParamInt);  //351: Result := $0022;
@@ -6298,7 +6290,38 @@ begin
         $0058: ReadParamFrm.Edit424.Text := IntToStr(ParamInt);
         $0059: ReadParamFrm.Edit421.Text := IntToStr(ParamInt);
         $005A: ReadParamFrm.Edit423.Text := IntToStr(ParamInt);
-
+        $005B: ReadParamFrm.Edit106.Text := IntToStr(ParamInt);
+        $005C: ReadParamFrm.Edit107.Text := IntToStr(ParamInt);
+        $005D:
+          begin
+            ReadParamFrm.Edit41.Text := IntToStr(ParamInt and $FF);
+            ReadParamFrm.Edit42.Text := IntToStr((ParamInt and $FF00) shr 8);
+          end;
+        $005E: ReadParamFrm.Edit109.Text := IntToStr(ParamInt);
+        $0064:
+          begin
+            i:=0;
+            while i < 16 do //0-15
+            begin
+              ReadParamFrm.cxCheckListBox5.Items[i].Checked := (((ParamLongWord shr i) and $01) = $01);//ParamByte[0 + i div 8] and (1 shl (i mod 8)) = (1 shl (i mod 8));
+              inc(i);
+            end;
+            ReadParamFrm.rbTimeUnitSecond.Checked := (((ParamLongWord shr 16) and $01) = $00);
+            ReadParamFrm.rbTimeUnitMinute.Checked := not ReadParamFrm.rbTimeUnitSecond.Checked;
+            ReadParamFrm.Edit110.Text := IntToStr(ParamLongWord shr 17);
+          end;
+        $0065:
+          begin
+            i:=0;
+            while i < 16 do //0-15
+            begin
+              ReadParamFrm.cxCheckListBox6.Items[i].Checked := (((ParamLongWord shr i) and $01) = $01);//ParamByte[0 + i div 8] and (1 shl (i mod 8)) = (1 shl (i mod 8));
+              inc(i);
+            end;
+            ReadParamFrm.rbDisUnitMeter.Checked := (((ParamLongWord shr 16) and $01) = $00);
+            ReadParamFrm.rbDisUnitKilometer.Checked := not ReadParamFrm.rbDisUnitMeter.Checked;
+            ReadParamFrm.Edit111.Text := IntToStr(ParamLongWord shr 17);
+          end;
         $0070: ReadParamFrm.Edit69.Text := IntToStr(ParamInt);
         $0071: ReadParamFrm.Edit70.Text := IntToStr(ParamInt);
         $0072: ReadParamFrm.Edit71.Text := IntToStr(ParamInt);
@@ -6317,6 +6340,44 @@ begin
               ReadParamFrm.Edit89.ItemIndex := 4
             else
               ReadParamFrm.Edit89.ItemIndex := -1;
+          end;
+        $0090:
+          begin
+            i:=0;
+            while i < 4 do //0-3
+            begin
+              ReadParamFrm.cxCheckListBox7.Items[i].Checked := (((ParamInt shr i) and $01) = $01);//ParamByte[0 + i div 8] and (1 shl (i mod 8)) = (1 shl (i mod 8));
+              inc(i);
+            end;
+          end;
+        $0091: ReadParamFrm.Edit113.ItemIndex := ParamInt;
+        $0092: ReadParamFrm.Edit114.ItemIndex := ParamInt;
+        $0093: ReadParamFrm.Edit115.Text := IntToStr(ParamInt);
+        $0094:
+          begin
+            case ParamInt of
+              $00, $01, $02: ReadParamFrm.Edit116.ItemIndex := ParamInt;
+              $0B, $0C, $0D: ReadParamFrm.Edit116.ItemIndex := (ParamInt - $0B + 3);
+            end;
+          end;
+        $0095: ReadParamFrm.Edit45.Text := IntToStr(ParamInt);
+
+        $0100: ReadParamFrm.Edit117.Text := IntToStr(ParamInt);
+        $0101: ReadParamFrm.Edit118.Text := IntToStr(ParamInt);
+        $0102: ReadParamFrm.Edit119.Text := IntToStr(ParamInt);
+        $0103: ReadParamFrm.Edit120.Text := IntToStr(ParamInt);
+        $0110:
+          begin
+            CopyMemory(@ParamLongWord, @ParamByte[0], 4);
+            ParamLongWord := ByteOderConvert_LongWord(ParamLongWord);
+            ReadParamFrm.Edit58.Text := IntToStr(ParamLongWord);
+
+            CopyMemory(@ParamLongWord, @ParamByte[4], 4);
+            ParamLongWord := ByteOderConvert_LongWord(ParamLongWord);
+            ReadParamFrm.ComboBox4.ItemIndex := ((ParamLongWord shr 24) and $80);
+            ReadParamFrm.ComboBox5.ItemIndex := ((ParamLongWord shr 24) and $40);
+            ReadParamFrm.ComboBox6.ItemIndex := ((ParamLongWord shr 24) and $20);
+            ReadParamFrm.Edit77.Text := IntToStr(ParamLongWord and $1FFFFFFF);
           end;
 
         $F001: ReadParamFrm.Edit93.Text := BCDToStr1(@ParamByte[0], 6);
@@ -6340,6 +6401,7 @@ begin
             wValue := ByteOderConvert_Word(wValue);
             ReadParamFrm.Edit35.Text := IntToStr(wValue);
           end;
+        $F006: ReadParamFrm.Edit122.Text := IntToStr(ParamInt);
         $F008: ReadParamFrm.Edit101.Text := IntToStr(ParamInt);          
       else
         begin
@@ -9127,6 +9189,100 @@ begin
       addSysLog('DealUpgradeTerminalRet_BD异常' + E.Message);
     end;
   end;
+end;
+
+function TGateWayServerCom.ReadDevParamSpec_BD(dev: TDevice;
+  sChkBoxNameList: TStringList): Boolean;
+var
+  i, j: Integer;
+  chkNo: Integer;
+  chkBoxName: string;
+  tmpLWAry: array of LongWord;
+  paramIds: array of LongWord;
+  paramIdZeroCount: Integer;
+
+  cmd: TCmdTermSrvReadParamSpecTSP_BD;
+  buf: array of Byte;
+  info: PCmdinfo;
+  tspBuf: array of Byte;//透传的完整包
+  tspPackSize: Word;
+  offSet: Integer;
+  escapByteBuf: TByteDynArray;
+begin
+  Result := false;
+  if (dev = nil) or (sChkBoxNameList = nil) or (sChkBoxNameList.Count <= 0) then
+    Exit;
+
+  paramIdZeroCount := 0;
+  SetLength(tmpLWAry, sChkBoxNameList.Count);
+  for i := 0 to sChkBoxNameList.Count - 1 do
+  begin
+    try
+      chkBoxName := sChkBoxNameList.Strings[i];
+      chkNo := StrToInt(Copy(chkBoxName, 9, Length(chkBoxName) - 8));
+      tmpLWAry[i] := GetParamIdByCheckNo(chkNo);
+      if tmpLWAry[i] = $0094 then//如果是94命令需再追加一个95命令
+        Inc(paramIdZeroCount, - 1);
+
+      if tmpLWAry[i] = 0 then
+        Inc(paramIdZeroCount);
+    except
+      on E: Exception do
+      begin
+        addSysLog('读取指定ID参数 获取ID异常:' + chkBoxName);
+      end;
+    end;
+  end;
+
+  SetLength(paramIds, Length(tmpLWAry) - paramIdZeroCount);
+  j := 0;
+  for i := 0 to Length(tmpLWAry) - 1 do
+  begin
+    if tmpLWAry[i] > 0 then
+    begin
+      paramIds[j] := ByteOderConvert_LongWord(tmpLWAry[i]);
+      Inc(j);
+      if tmpLWAry[i] = $0094 then
+      begin
+        paramIds[j] := ByteOderConvert_LongWord($0095);
+        Inc(j);
+      end;
+    end;
+  end;
+
+  if (Length(paramIds) <= 0) then
+    Exit;
+
+  if not isActive then exit;
+
+  tspPackSize := SizeOf(TCmdTermSrvReadParamSpecTSP_BD)  + 1;//加1位校验码
+  tspPackSize := tspPackSize + 4 * Length(paramIds);
+  InitTSPHeader(cmd.Header, tspPackSize - TSPHEADERLEN - 1, TERSRV_UPGRADETERMINAL_BD, Dev.Id);
+  cmd.ParamCount := Length(paramIds);
+
+  SetLength(tspBuf, tspPackSize + 2);//整个完整的包需在包两端加标识位
+  offSet := 0;
+  tspBuf[offset] := FLAGTSP;//标识位
+  Inc(offSet);
+
+  CopyMemory(@tspBuf[offset], @cmd, SizeOf(TCmdTermSrvReadParamSpecTSP_BD));
+  Inc(offSet, SizeOf(TCmdTermSrvReadParamSpecTSP_BD));
+
+  CopyMemory(@tspBuf[offset], @paramIds[0], Length(paramIds) * 4);
+  Inc(offSet, Length(paramIds) * 4);
+
+  tspBuf[offSet] := GetXorSum(@tspBuf[1], tspPackSize - 1);//从消息头开始，不包括标识位
+  Inc(offSet);
+
+  tspBuf[offSet] := FLAGTSP;//标识位
+  escapByteBuf := EscapeByteBuf(@tspBuf[0], Length(tspBuf), 0);
+  info := SendCmdTSP_V3(Dev, escapByteBuf);
+
+
+  GReadParamCmdID := info^.Id;
+  info^.State := CMD_SNDNODO;
+  info^.Desc := '读车机参数：' + dev.Car.No;
+  Result := True;
 end;
 
 { TCmdManage }

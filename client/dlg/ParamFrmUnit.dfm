@@ -5,7 +5,7 @@ object ParamFrm: TParamFrm
   BorderStyle = bsNone
   Caption = #21442#25968#35774#32622
   ClientHeight = 585
-  ClientWidth = 662
+  ClientWidth = 839
   Color = clBtnFace
   Font.Charset = GB2312_CHARSET
   Font.Color = clWindowText
@@ -22,7 +22,7 @@ object ParamFrm: TParamFrm
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 662
+    Width = 839
     Height = 46
     Align = alTop
     BevelInner = bvSpace
@@ -100,7 +100,7 @@ object ParamFrm: TParamFrm
   object Panel2: TPanel
     Left = 0
     Top = 548
-    Width = 662
+    Width = 839
     Height = 37
     Align = alBottom
     BevelInner = bvLowered
@@ -168,7 +168,7 @@ object ParamFrm: TParamFrm
   object Panel3: TPanel
     Left = 0
     Top = 46
-    Width = 662
+    Width = 839
     Height = 502
     Align = alClient
     Color = 15987670
@@ -176,9 +176,9 @@ object ParamFrm: TParamFrm
     object PageControl1: TPageControl
       Left = 1
       Top = 1
-      Width = 656
+      Width = 696
       Height = 500
-      ActivePage = TabSheet7
+      ActivePage = TabSheet1
       Align = alLeft
       Font.Charset = GB2312_CHARSET
       Font.Color = clWindowText
@@ -1452,7 +1452,7 @@ object ParamFrm: TParamFrm
           Top = 234
           Width = 171
           Height = 17
-          Caption = 'IC'#21345#35748#35777#20027#26381#21153'IP('#22495#21517')'
+          Caption = 'IC'#21345#20027#26381#21153'IP('#22495#21517')'
           Font.Charset = GB2312_CHARSET
           Font.Color = clBlack
           Font.Height = -13
@@ -1467,7 +1467,7 @@ object ParamFrm: TParamFrm
           Top = 234
           Width = 175
           Height = 17
-          Caption = 'IC'#21345#35748#35777#22791#20221#26381#21153'IP('#22495#21517')'
+          Caption = 'IC'#21345#22791#20221#26381#21153'IP('#22495#21517')'
           Font.Charset = GB2312_CHARSET
           Font.Color = clBlack
           Font.Height = -13
@@ -1482,7 +1482,7 @@ object ParamFrm: TParamFrm
           Top = 229
           Width = 112
           Height = 21
-          Hint = #20027#26381#21153'IP('#22495#21517')'
+          Hint = 'IC'#21345#20027#26381#21153'IP('#22495#21517')'
           TabOrder = 93
           Text = 'Edit102'
         end
@@ -1491,16 +1491,16 @@ object ParamFrm: TParamFrm
           Top = 232
           Width = 112
           Height = 21
-          Hint = #22791#20221#26381#21153'IP('#22495#21517')'
+          Hint = 'IC'#21345#22791#20221#26381#21153'IP('#22495#21517')'
           TabOrder = 94
           Text = 'Edit103'
         end
         object CheckBox104: TCheckBox
           Left = 4
           Top = 258
-          Width = 105
+          Width = 141
           Height = 17
-          Caption = #26381#21153#22120'TCP'#31471#21475
+          Caption = 'IC'#21345#20027#26381#21153'TCP'#31471#21475
           TabOrder = 95
           OnClick = CheckBox1Click
         end
@@ -1509,7 +1509,7 @@ object ParamFrm: TParamFrm
           Top = 255
           Width = 112
           Height = 21
-          Hint = #26381#21153#22120'TCP'#31471#21475
+          Hint = 'IC'#21345#20027#26381#21153'TCP'#31471#21475
           TabOrder = 96
           Text = 'Edit104'
           OnChange = Edit11Change
@@ -1518,9 +1518,9 @@ object ParamFrm: TParamFrm
         object CheckBox105: TCheckBox
           Left = 335
           Top = 258
-          Width = 117
+          Width = 154
           Height = 17
-          Caption = #26381#21153#22120'UDP'#31471#21475
+          Caption = 'IC'#21345#20027#26381#21153'UDP'#31471#21475
           TabOrder = 97
           OnClick = CheckBox1Click
         end
@@ -1529,6 +1529,7 @@ object ParamFrm: TParamFrm
           Top = 256
           Width = 112
           Height = 21
+          Hint = 'IC'#21345#20027#26381#21153'UDP'#31471#21475
           TabOrder = 98
           Text = 'Edit105'
           OnChange = Edit11Change
@@ -2688,7 +2689,7 @@ object ParamFrm: TParamFrm
           Height = 13
           Caption = #20844#37324'/'#23567#26102
         end
-        object Label90: TLabel
+        object Label109: TLabel
           Left = 518
           Top = 20
           Width = 127
@@ -3122,7 +3123,7 @@ object ParamFrm: TParamFrm
           MaxLength = 8
           TabOrder = 31
           Text = 'Edit106'
-          OnChange = Edit60Change
+          OnChange = Edit11Change
           OnKeyPress = Edit1KeyPress
         end
         object CheckBox107: TCheckBox
@@ -3143,7 +3144,7 @@ object ParamFrm: TParamFrm
           MaxLength = 8
           TabOrder = 33
           Text = 'Edit107'
-          OnChange = Edit60Change
+          OnChange = Edit11Change
           OnKeyPress = Edit1KeyPress
         end
         object GroupBox11: TGroupBox
@@ -3187,6 +3188,7 @@ object ParamFrm: TParamFrm
             Height = 21
             TabOrder = 0
             Text = 'Edit41'
+            OnChange = Edit41Change
           end
           object Edit42: TEdit
             Left = 134
@@ -3195,6 +3197,7 @@ object ParamFrm: TParamFrm
             Height = 21
             TabOrder = 1
             Text = 'Edit42'
+            OnChange = Edit41Change
           end
         end
         object CheckBox108: TCheckBox
@@ -3204,6 +3207,7 @@ object ParamFrm: TParamFrm
           Height = 17
           Caption = #30896#25758#25253#35686#21442#25968'  '
           TabOrder = 35
+          OnClick = CheckBox1Click
         end
         object CheckBox109: TCheckBox
           Left = 306
@@ -3212,6 +3216,7 @@ object ParamFrm: TParamFrm
           Height = 17
           Caption = #20391#32763#25253#35686#35282#24230'  '
           TabOrder = 36
+          OnClick = CheckBox1Click
         end
         object Edit109: TEdit
           Left = 438
@@ -3222,7 +3227,7 @@ object ParamFrm: TParamFrm
           MaxLength = 8
           TabOrder = 37
           Text = 'Edit109'
-          OnChange = Edit60Change
+          OnChange = Edit11Change
           OnKeyPress = Edit1KeyPress
         end
       end
@@ -3234,7 +3239,7 @@ object ParamFrm: TParamFrm
           Top = 2
           Width = 639
           Height = 465
-          ActivePage = TabSheet14
+          ActivePage = TabSheet13
           TabOrder = 0
           object TabSheet8: TTabSheet
             Caption = #21151#33021#23631#34109#26631#24535
@@ -3962,6 +3967,7 @@ object ParamFrm: TParamFrm
               Top = 8
               Width = 177
               Height = 225
+              Enabled = False
               Items = <
                 item
                   Text = #25668#20687#36890#36947'1'#23450#26102#25293#29031
@@ -4035,6 +4041,7 @@ object ParamFrm: TParamFrm
               Height = 17
               Caption = #31186
               Checked = True
+              Enabled = False
               TabOrder = 2
               TabStop = True
             end
@@ -4044,15 +4051,19 @@ object ParamFrm: TParamFrm
               Width = 53
               Height = 17
               Caption = #20998#38047' '
+              Enabled = False
               TabOrder = 3
             end
-            object Edit38: TEdit
+            object Edit110: TEdit
               Left = 290
               Top = 32
               Width = 79
               Height = 21
+              Hint = #23450#26102#26102#38388#38388#38548
               TabOrder = 4
-              Text = 'Edit38'
+              Text = 'Edit110'
+              OnChange = Edit110Change
+              OnKeyPress = Edit1KeyPress
             end
           end
           object TabSheet14: TTabSheet
@@ -4077,6 +4088,7 @@ object ParamFrm: TParamFrm
               Top = 8
               Width = 177
               Height = 225
+              Enabled = False
               Items = <
                 item
                   Text = #25668#20687#36890#36947'1'#23450#36317#25293#29031
@@ -4150,6 +4162,7 @@ object ParamFrm: TParamFrm
               Height = 17
               Caption = #31859
               Checked = True
+              Enabled = False
               TabOrder = 2
               TabStop = True
             end
@@ -4159,15 +4172,19 @@ object ParamFrm: TParamFrm
               Width = 53
               Height = 17
               Caption = #20844#37324
+              Enabled = False
               TabOrder = 3
             end
-            object Edit43: TEdit
+            object Edit111: TEdit
               Left = 290
               Top = 32
               Width = 79
               Height = 21
+              Hint = #23450#36317#36317#31163#38388#38548
               TabOrder = 4
-              Text = 'Edit43'
+              Text = 'Edit111'
+              OnChange = Edit110Change
+              OnKeyPress = Edit1KeyPress
             end
           end
         end
@@ -4627,11 +4644,10 @@ object ParamFrm: TParamFrm
       object TabSheet1: TTabSheet
         Caption = #20854#23427
         object GroupBox8: TGroupBox
-          Left = 0
-          Top = 271
-          Width = 648
+          Left = 32
+          Top = 468
+          Width = 792
           Height = 74
-          Align = alBottom
           Caption = #35745#20215#22120
           Font.Charset = GB2312_CHARSET
           Font.Color = clNavy
@@ -4784,120 +4800,110 @@ object ParamFrm: TParamFrm
           end
         end
         object GroupBox7: TGroupBox
-          Left = 0
-          Top = 0
-          Width = 648
-          Height = 102
-          Align = alTop
+          Left = 8
+          Top = 26
+          Width = 201
+          Height = 161
+          Align = alCustom
           Caption = #36710#36742#20449#24687
           TabOrder = 0
           object CheckBox74: TCheckBox
-            Left = 44
-            Top = 16
+            Left = 9
+            Top = 21
             Width = 97
             Height = 17
             Caption = #36710#36742#37324#31243#34920
-            TabOrder = 1
+            TabOrder = 0
             OnClick = CheckBox1Click
           end
           object CheckBox75: TCheckBox
-            Left = 44
-            Top = 44
+            Left = 9
+            Top = 50
             Width = 97
             Height = 17
             Caption = #30465#22495'ID'
-            TabOrder = 3
+            TabOrder = 2
             OnClick = CheckBox1Click
           end
           object CheckBox76: TCheckBox
-            Left = 344
-            Top = 44
+            Left = 9
+            Top = 80
             Width = 97
             Height = 17
             Caption = #24066#22495'ID'
-            TabOrder = 5
+            TabOrder = 4
             OnClick = CheckBox1Click
           end
           object Edit74: TEdit
-            Left = 148
-            Top = 14
-            Width = 121
+            Left = 101
+            Top = 19
+            Width = 86
             Height = 21
             Hint = #36710#36742#37324#31243#34920
             MaxLength = 8
-            TabOrder = 2
+            TabOrder = 1
             Text = 'Edit74'
             OnChange = Edit60Change
             OnKeyPress = Edit1KeyPress
           end
           object Edit76: TEdit
-            Left = 428
-            Top = 42
-            Width = 121
+            Left = 101
+            Top = 78
+            Width = 86
             Height = 21
             Hint = #24066#22495'ID'
             MaxLength = 8
-            TabOrder = 6
+            TabOrder = 5
             Text = 'Edit76'
             OnChange = Edit11Change
             OnKeyPress = Edit1KeyPress
           end
           object Edit75: TEdit
-            Left = 148
-            Top = 42
-            Width = 121
+            Left = 101
+            Top = 48
+            Width = 86
             Height = 21
             Hint = #30465#22495'ID'
             MaxLength = 8
-            TabOrder = 4
+            TabOrder = 3
             Text = 'Edit75'
             OnChange = Edit11Change
             OnKeyPress = Edit1KeyPress
           end
-          object RzCheckBoxSelectPageElse: TRzCheckBox
-            Left = 532
-            Top = 9
-            Width = 72
-            Height = 17
-            Caption = #36873#20013#26412#39029
-            State = cbUnchecked
-            TabOrder = 0
-            OnClick = RzCheckBoxSelectPageElseClick
-          end
           object CheckBox88: TCheckBox
-            Left = 44
-            Top = 72
+            Left = 9
+            Top = 109
             Width = 97
             Height = 17
             Caption = #36710#29260#21495
-            TabOrder = 7
+            TabOrder = 6
             OnClick = CheckBox1Click
           end
           object Edit88: TEdit
-            Left = 148
-            Top = 70
-            Width = 121
+            Left = 101
+            Top = 107
+            Width = 86
             Height = 21
-            TabOrder = 8
+            TabOrder = 7
             Text = 'Edit88'
           end
           object CheckBox89: TCheckBox
-            Left = 344
-            Top = 72
+            Left = 9
+            Top = 136
             Width = 97
             Height = 17
             Caption = #36710#29260#39068#33394
-            TabOrder = 9
+            TabOrder = 8
             OnClick = CheckBox1Click
           end
           object Edit89: TComboBox
-            Left = 428
-            Top = 70
-            Width = 121
+            Left = 101
+            Top = 134
+            Width = 86
             Height = 21
             Style = csDropDownList
             ItemHeight = 13
-            TabOrder = 10
+            TabOrder = 9
             Items.Strings = (
               #34013#29260
               #40644#29260
@@ -4907,11 +4913,10 @@ object ParamFrm: TParamFrm
           end
         end
         object GroupBox1: TGroupBox
-          Left = 0
-          Top = 345
-          Width = 648
+          Left = 32
+          Top = 542
+          Width = 792
           Height = 49
-          Align = alBottom
           Caption = 'MCU'#24405#38899
           Font.Charset = GB2312_CHARSET
           Font.Color = clNavy
@@ -4977,11 +4982,10 @@ object ParamFrm: TParamFrm
           end
         end
         object GroupBox2: TGroupBox
-          Left = 0
-          Top = 394
-          Width = 648
+          Left = 32
+          Top = 591
+          Width = 792
           Height = 78
-          Align = alBottom
           Caption = #20854#20182
           Font.Charset = GB2312_CHARSET
           Font.Color = clNavy
@@ -5113,15 +5117,15 @@ object ParamFrm: TParamFrm
           end
         end
         object GroupBox6: TGroupBox
-          Left = 0
-          Top = 102
-          Width = 648
-          Height = 165
-          Align = alTop
+          Left = 224
+          Top = 26
+          Width = 441
+          Height = 163
+          Align = alCustom
           Caption = 'GPS'#21151#33021#21442#25968
           TabOrder = 4
           object CheckBox93: TCheckBox
-            Left = 44
+            Left = 16
             Top = 22
             Width = 76
             Height = 17
@@ -5130,9 +5134,9 @@ object ParamFrm: TParamFrm
             OnClick = CheckBox1Click
           end
           object Edit93: TEdit
-            Left = 148
-            Top = 18
-            Width = 121
+            Left = 120
+            Top = 20
+            Width = 108
             Height = 21
             MaxLength = 12
             TabOrder = 1
@@ -5140,7 +5144,7 @@ object ParamFrm: TParamFrm
             OnKeyPress = Edit1KeyPress
           end
           object CheckBox94: TCheckBox
-            Left = 344
+            Left = 248
             Top = 22
             Width = 105
             Height = 18
@@ -5149,9 +5153,9 @@ object ParamFrm: TParamFrm
             OnClick = CheckBox1Click
           end
           object Edit94: TEdit
-            Left = 448
+            Left = 352
             Top = 18
-            Width = 121
+            Width = 73
             Height = 21
             MaxLength = 8
             TabOrder = 3
@@ -5159,7 +5163,7 @@ object ParamFrm: TParamFrm
             OnKeyPress = Edit1KeyPress
           end
           object GroupBox9: TGroupBox
-            Left = 44
+            Left = 16
             Top = 47
             Width = 225
             Height = 80
@@ -5181,7 +5185,7 @@ object ParamFrm: TParamFrm
             object Edit10: TEdit
               Left = 114
               Top = 45
-              Width = 102
+              Width = 99
               Height = 21
               TabOrder = 0
               Text = 'Edit10'
@@ -5191,7 +5195,7 @@ object ParamFrm: TParamFrm
             object Edit37: TEdit
               Left = 114
               Top = 19
-              Width = 102
+              Width = 99
               Height = 21
               TabOrder = 1
               Text = 'Edit37'
@@ -5200,7 +5204,7 @@ object ParamFrm: TParamFrm
             end
           end
           object CheckBox95: TCheckBox
-            Left = 44
+            Left = 16
             Top = 44
             Width = 97
             Height = 17
@@ -5209,9 +5213,9 @@ object ParamFrm: TParamFrm
             OnClick = CheckBox1Click
           end
           object GroupBox10: TGroupBox
-            Left = 344
+            Left = 248
             Top = 47
-            Width = 198
+            Width = 177
             Height = 80
             TabOrder = 6
             object Label87: TLabel
@@ -5229,9 +5233,9 @@ object ParamFrm: TParamFrm
               Caption = #25293#29031#38388#38548
             end
             object Edit27: TEdit
-              Left = 75
+              Left = 80
               Top = 16
-              Width = 99
+              Width = 74
               Height = 21
               TabOrder = 0
               Text = 'Edit27'
@@ -5239,9 +5243,9 @@ object ParamFrm: TParamFrm
               OnKeyPress = Edit1KeyPress
             end
             object Edit35: TEdit
-              Left = 75
+              Left = 80
               Top = 48
-              Width = 99
+              Width = 74
               Height = 21
               TabOrder = 1
               Text = 'Edit35'
@@ -5250,7 +5254,7 @@ object ParamFrm: TParamFrm
             end
           end
           object CheckBox96: TCheckBox
-            Left = 344
+            Left = 248
             Top = 44
             Width = 124
             Height = 17
@@ -5259,7 +5263,7 @@ object ParamFrm: TParamFrm
             OnClick = CheckBox1Click
           end
           object CheckBox97: TCheckBox
-            Left = 44
+            Left = 224
             Top = 136
             Width = 69
             Height = 17
@@ -5268,7 +5272,7 @@ object ParamFrm: TParamFrm
             OnClick = CheckBox1Click
           end
           object Edit97: TEdit
-            Left = 192
+            Left = 356
             Top = 134
             Width = 77
             Height = 21
@@ -5280,7 +5284,7 @@ object ParamFrm: TParamFrm
             OnKeyPress = Edit1KeyPress
           end
           object date97: TDateTimePicker
-            Left = 124
+            Left = 288
             Top = 134
             Width = 66
             Height = 21
@@ -5293,6 +5297,413 @@ object ParamFrm: TParamFrm
             ParentShowHint = False
             ShowHint = False
             TabOrder = 10
+          end
+          object CheckBox122: TCheckBox
+            Left = 16
+            Top = 136
+            Width = 145
+            Height = 17
+            Caption = #20241#30496#21796#37266#21518#25345#32493#26102#38388' '
+            TabOrder = 11
+          end
+          object Edit122: TEdit
+            Left = 154
+            Top = 131
+            Width = 55
+            Height = 21
+            TabOrder = 12
+            Text = 'Edit122'
+            OnChange = Edit60Change
+            OnKeyPress = Edit1KeyPress
+          end
+        end
+        object RzCheckBoxSelectPageElse: TRzCheckBox
+          Left = 604
+          Top = 1
+          Width = 72
+          Height = 17
+          Caption = #36873#20013#26412#39029
+          State = cbUnchecked
+          TabOrder = 5
+          OnClick = RzCheckBoxSelectPageElseClick
+        end
+        object GroupBox12: TGroupBox
+          Left = 3
+          Top = 204
+          Width = 398
+          Height = 133
+          Caption = 'GNSS'#21442#25968
+          TabOrder = 6
+          object Label101: TLabel
+            Left = 366
+            Top = 74
+            Width = 20
+            Height = 13
+            Caption = #31186' '
+          end
+          object Label102: TLabel
+            Left = 367
+            Top = 106
+            Width = 20
+            Height = 13
+            Caption = #31186' '
+          end
+          object CheckBox112: TCheckBox
+            Left = 5
+            Top = 16
+            Width = 113
+            Height = 17
+            Caption = #23450#20301#27169#24335
+            TabOrder = 0
+            OnClick = CheckBox112Click
+          end
+          object cxCheckListBox7: TcxCheckListBox
+            Left = 21
+            Top = 32
+            Width = 126
+            Height = 61
+            Enabled = False
+            Items = <
+              item
+                Text = #21551#29992'GPS'#23450#20301
+              end
+              item
+                Text = #21551#29992#21271#26007#23450#20301
+              end
+              item
+                Text = #21551#29992'GLONASS'#23450#20301
+              end
+              item
+                Text = #21551#29992'Galileo'#23450#20301
+              end>
+            TabOrder = 1
+          end
+          object CheckBox113: TCheckBox
+            Left = 176
+            Top = 16
+            Width = 72
+            Height = 17
+            Caption = #27874#29305#29575
+            TabOrder = 2
+            OnClick = CheckBox1Click
+          end
+          object Edit113: TComboBox
+            Left = 308
+            Top = 16
+            Width = 74
+            Height = 21
+            Hint = #27874#29305#29575
+            Style = csDropDownList
+            ItemHeight = 13
+            ItemIndex = 5
+            TabOrder = 3
+            Text = '115200'
+            Items.Strings = (
+              '4800'
+              '9600'
+              '19200'
+              '38400'
+              '57600'
+              '115200')
+          end
+          object CheckBox114: TCheckBox
+            Left = 176
+            Top = 44
+            Width = 129
+            Height = 17
+            Caption = #23450#20301#25968#25454#36755#20986#39057#29575
+            TabOrder = 4
+            OnClick = CheckBox1Click
+          end
+          object CheckBox115: TCheckBox
+            Left = 176
+            Top = 72
+            Width = 129
+            Height = 17
+            Caption = #23450#20301#25968#25454#37319#38598#39057#29575
+            TabOrder = 5
+            OnClick = CheckBox1Click
+          end
+          object CheckBox116: TCheckBox
+            Left = 5
+            Top = 104
+            Width = 167
+            Height = 17
+            Caption = #23450#20301#25968#25454#19978#20256#26041#24335#21450#39057#29575
+            TabOrder = 6
+            OnClick = CheckBox1Click
+          end
+          object Edit114: TComboBox
+            Left = 308
+            Top = 43
+            Width = 74
+            Height = 21
+            Hint = #23450#20301#25968#25454#36755#20986#39057#29575
+            Style = csDropDownList
+            ItemHeight = 13
+            ItemIndex = 4
+            TabOrder = 7
+            Text = '4000ms'
+            Items.Strings = (
+              '500ms'
+              '1000ms'
+              '2000ms'
+              '3000ms'
+              '4000ms')
+          end
+          object Edit115: TEdit
+            Left = 308
+            Top = 70
+            Width = 55
+            Height = 21
+            Hint = #23450#20301#25968#25454#37319#38598#39057#29575
+            TabOrder = 8
+            Text = 'Edit115'
+            OnChange = Edit60Change
+            OnKeyPress = Edit1KeyPress
+          end
+          object Edit116: TComboBox
+            Left = 176
+            Top = 102
+            Width = 128
+            Height = 21
+            Hint = #23450#20301#25968#25454#19978#20256#26041#24335
+            Style = csDropDownList
+            ItemHeight = 13
+            ItemIndex = 0
+            TabOrder = 9
+            Text = #26412#22320#23384#20648#65292#19981#19978#20256
+            OnChange = Edit116Change
+            Items.Strings = (
+              #26412#22320#23384#20648#65292#19981#19978#20256
+              #25353#26102#38388#38388#38548#19978#20256
+              #25353#36317#31163#38388#38548#19978#20256
+              #25353#32047#35745#26102#38388#19978#20256
+              #25353#32047#35745#36317#31163#19978#20256
+              #25353#32047#35745#26465#25968#19978#20256)
+          end
+          object Edit45: TEdit
+            Left = 308
+            Top = 102
+            Width = 55
+            Height = 21
+            TabOrder = 10
+            Text = 'Edit45'
+            OnChange = Edit60Change
+            OnKeyPress = Edit1KeyPress
+          end
+        end
+        object GroupBox13: TGroupBox
+          Left = 3
+          Top = 340
+          Width = 662
+          Height = 117
+          Caption = 'CAN'#24635#32447#35774#32622
+          TabOrder = 7
+          object CheckBox117: TCheckBox
+            Left = 12
+            Top = 16
+            Width = 113
+            Height = 17
+            Caption = #36890#36947'1'#37319#38598#38388#38548
+            TabOrder = 0
+            OnClick = CheckBox1Click
+          end
+          object CheckBox118: TCheckBox
+            Left = 12
+            Top = 41
+            Width = 113
+            Height = 17
+            Caption = #36890#36947'1'#19978#20256#38388#38548
+            TabOrder = 1
+            OnClick = CheckBox1Click
+          end
+          object CheckBox119: TCheckBox
+            Left = 12
+            Top = 66
+            Width = 113
+            Height = 17
+            Caption = #36890#36947'2'#37319#38598#38388#38548
+            TabOrder = 2
+            OnClick = CheckBox1Click
+          end
+          object CheckBox120: TCheckBox
+            Left = 12
+            Top = 91
+            Width = 113
+            Height = 17
+            Caption = #36890#36947'2'#19978#20256#38388#38548
+            TabOrder = 3
+            OnClick = CheckBox1Click
+          end
+          object Edit117: TEdit
+            Left = 127
+            Top = 16
+            Width = 121
+            Height = 21
+            Hint = #36890#36947'1'#37319#38598#38388#38548
+            TabOrder = 4
+            Text = 'Edit117'
+            OnChange = Edit60Change
+            OnKeyPress = Edit1KeyPress
+          end
+          object Edit119: TEdit
+            Left = 127
+            Top = 64
+            Width = 121
+            Height = 21
+            Hint = #36890#36947'2'#37319#38598#38388#38548
+            TabOrder = 5
+            Text = 'Edit119'
+            OnChange = Edit60Change
+            OnKeyPress = Edit1KeyPress
+          end
+          object Edit120: TEdit
+            Left = 127
+            Top = 88
+            Width = 121
+            Height = 21
+            Hint = #36890#36947'2'#19978#20256#38388#38548
+            TabOrder = 6
+            Text = 'Edit120'
+            OnChange = Edit11Change
+            OnKeyPress = Edit1KeyPress
+          end
+          object Edit118: TEdit
+            Left = 127
+            Top = 40
+            Width = 121
+            Height = 21
+            Hint = #36890#36947'1'#19978#20256#38388#38548
+            TabOrder = 7
+            Text = 'Edit118'
+            OnChange = Edit11Change
+            OnKeyPress = Edit1KeyPress
+          end
+          object GroupBox14: TGroupBox
+            Left = 263
+            Top = 13
+            Width = 378
+            Height = 97
+            TabOrder = 8
+            object Label103: TLabel
+              Left = 8
+              Top = 23
+              Width = 46
+              Height = 13
+              Caption = #36890#36947#21495' '
+            end
+            object Label104: TLabel
+              Left = 172
+              Top = 49
+              Width = 47
+              Height = 13
+              Caption = #24635#32447'ID '
+            end
+            object Label105: TLabel
+              Left = 8
+              Top = 49
+              Width = 46
+              Height = 13
+              Caption = #24103#31867#22411' '
+            end
+            object Label106: TLabel
+              Left = 172
+              Top = 23
+              Width = 59
+              Height = 13
+              Caption = #37319#38598#26041#24335' '
+            end
+            object Label107: TLabel
+              Left = 8
+              Top = 76
+              Width = 59
+              Height = 13
+              Caption = #37319#38598#38388#38548' '
+            end
+            object Label108: TLabel
+              Left = 137
+              Top = 76
+              Width = 33
+              Height = 13
+              Caption = #27627#31186' '
+            end
+            object ComboBox4: TComboBox
+              Left = 67
+              Top = 19
+              Width = 97
+              Height = 21
+              Hint = #36890#36947#21495
+              Style = csDropDownList
+              ItemHeight = 13
+              ItemIndex = 0
+              TabOrder = 0
+              Text = 'CAN1'
+              Items.Strings = (
+                'CAN1'
+                'CAN2')
+            end
+            object ComboBox5: TComboBox
+              Left = 67
+              Top = 45
+              Width = 97
+              Height = 21
+              Hint = #24103#31867#22411
+              Style = csDropDownList
+              ItemHeight = 13
+              ItemIndex = 0
+              TabOrder = 1
+              Text = #26631#20934#24103
+              Items.Strings = (
+                #26631#20934#24103
+                #25193#23637#24103)
+            end
+            object ComboBox6: TComboBox
+              Left = 231
+              Top = 19
+              Width = 131
+              Height = 21
+              Hint = #37319#38598#26041#24335
+              Style = csDropDownList
+              ItemHeight = 13
+              ItemIndex = 1
+              TabOrder = 2
+              Text = #37319#38598#21306#38388#30340#35745#31639#20540
+              Items.Strings = (
+                #21407#22987#25968#25454
+                #37319#38598#21306#38388#30340#35745#31639#20540)
+            end
+            object Edit58: TEdit
+              Left = 67
+              Top = 72
+              Width = 67
+              Height = 21
+              Hint = #37319#38598#38388#38548' '
+              TabOrder = 3
+              Text = 'Edit58'
+              OnChange = Edit60Change
+              OnKeyPress = Edit1KeyPress
+            end
+            object Edit77: TEdit
+              Left = 231
+              Top = 45
+              Width = 131
+              Height = 21
+              Hint = #24635#32447'ID'
+              TabOrder = 4
+              Text = 'Edit77'
+              OnChange = Edit77Change
+              OnKeyPress = Edit1KeyPress
+            end
+          end
+          object CheckBox121: TCheckBox
+            Left = 274
+            Top = 10
+            Width = 108
+            Height = 17
+            Caption = 'CAN'#24635#32447'ID'#35774#32622
+            TabOrder = 9
+            OnClick = CheckBox1Click
           end
         end
       end

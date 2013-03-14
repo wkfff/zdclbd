@@ -436,6 +436,7 @@ const
       TERMSRV_TSPDATA_V3 = $8900;//数据下行透传
       //------------北斗新增------------
       TERSRV_UPGRADETERMINAL_BD = $8108;//下发终端升级包
+      TERSRV_READPARAMSPEC_BD = $8106;//读取指定参数
       SRVTERM_UPGRADETERMINAL_RET_BD = $0108;//终端升级结果通知
 
       //------------北斗新增------------

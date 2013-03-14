@@ -251,9 +251,11 @@ var
   procedure group_list(AParant_ID: integer; Anode: TTreenode; Acurrent_cnt: integer;Treeview1:TTreeView);
   procedure addSysLog(sLog: string);
   function IsBeiDouDev(dev: TDevice): Boolean;
-  procedure showTipMsgBox(msg: string);
+  procedure showAppMsgBox(msg: string);
+  procedure showMyMsgBox(Handle: THandle; msg: string);
   function GetUpgradeTypeName(upgradeType: Integer): string;
   function GetUpgradeTerminalRetStr(upgradeRet: Integer): string;
+  function GetParamIdByCheckNo(chkNo: Integer): LongWord;
 
 implementation
 uses umainf,Dialogs,elog, Math, DateUtils, ZLib;
@@ -1692,10 +1694,15 @@ begin
   end;  
 end;  
 
-procedure showTipMsgBox(msg: string);
+procedure showAppMsgBox(msg: string);
 begin
   Application.MessageBox(PChar(msg), '提示', MB_OK + MB_ICONINFORMATION);
 end;
+
+procedure showMyMsgBox(Handle: THandle; msg: string);
+begin
+  MessageBox(Handle, PChar(msg), '提示', MB_OK + MB_ICONINFORMATION);
+end;  
 
 function GetUpgradeTypeName(upgradeType: Integer): string;
 begin
@@ -1715,6 +1722,105 @@ begin
     1: Result := '失败';
     2: Result := '取消';
   end;
+end;
+
+function GetParamIdByCheckNo(chkNo: Integer): LongWord;
+var
+  ret: LongWord;
+begin
+  case chkNo of
+    12 : ret := $0001;
+    34 : ret := $0002;
+    13 : ret := $0003;
+    85 : ret := $0004;
+    86 : ret := $0005;
+    59 : ret := $0006;
+    60 : ret := $0007;
+    6  : ret := $0010;
+    61 : ret := $0011;
+    62 : ret := $0012;
+    7  : ret := $0013;
+    63 : ret := $0014;
+    11 : ret := $0015;
+    64 : ret := $0016;
+    9  : ret := $0017;
+    65 : ret := $0018;
+    87 : ret := $0019;
+    102: ret := $001A;
+    104: ret := $001B;
+    105: ret := $001C;
+    103: ret := $001D;
+    14 : ret := $0020;
+    15 : ret := $0021;
+    351: ret := $0022;
+    361: ret := $0027;
+    362: ret := $0028;
+    90 : ret := $0029;
+    91 : ret := $002C;
+    352: ret := $002D;
+    364: ret := $002E;
+    365: ret := $002F;
+    363: ret := $0030;
+    98 : ret := $0031;
+    66 : ret := $0040;
+    3  : ret := $0041;
+    67 : ret := $0042;
+    4  : ret := $0043;
+    5  : ret := $0044;
+    57 : ret := $0045;
+    55 : ret := $0046;
+    68 : ret := $0047;
+    2  : ret := $0048;
+    92 : ret := $0049;
+    56 : ret := $0050;
+    77 : ret := $0051;
+    78 : ret := $0052;
+    79 : ret := $0053;
+    80 : ret := $0054;
+    16 : ret := $0055;
+    47 : ret := $0056;
+    422: ret := $0057;
+    424: ret := $0058;
+    421: ret := $0059;
+    423: ret := $005A;
+    106: ret := $005B;
+    107: ret := $005C;
+    108: ret := $005D;
+    109: ret := $005E;
+    110: ret := $0064;
+    111: ret := $0065;
+    69 : ret := $0070;
+    70 : ret := $0071;
+    71 : ret := $0072;
+    72 : ret := $0073;
+    73 : ret := $0074;
+    74 : ret := $0080;
+    75 : ret := $0081;
+    76 : ret := $0082;
+    88 : ret := $0083;
+    89 : ret := $0084;
+
+    112: ret := $0090;
+    113: ret := $0091;
+    114: ret := $0092;
+    115: ret := $0093;
+    116: ret := $0094;//如果读94命令，则后跟95命令
+    117: ret := $0100;
+    118: ret := $0101;
+    119: ret := $0102;
+    120: ret := $0103;
+    121: ret := $0110;
+
+    93 : ret := $F001;
+    94 : ret := $F002;
+    97 : ret := $F003;
+    95 : ret := $F004;
+    96 : ret := $F005;
+   122 : ret := $F006;
+   101 : ret := $F008;
+
+  end;
+  Result := ret;
 end;
 
 initialization
