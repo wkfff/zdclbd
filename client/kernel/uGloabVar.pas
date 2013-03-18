@@ -9,7 +9,7 @@ uses
   mapplatform, ReadAreaListUnit, ConstDefineUnit,
   ConnectingBizFrmUnit,DBClient, DB, Graphics,
   CmdStructUnit,IntegerListUnit,OleCtrls,ActiveX, WMPLib_TLB, Controls, DisposeCarUnit, MSNPopUp,
-  Types, IdHashMessageDigest, IdGlobal, IdHash;
+  Types, IdHashMessageDigest, IdGlobal, IdHash, FrmTerminalPropertyUnit;
  {  orderUnit, SendOrderMiniFrmUnit,      }
 type
 
@@ -95,6 +95,7 @@ var
   GSetParamCmdID_SMS:Integer; 
   GReadParamCmdID  : integer;
   ReadParamFrm     : TParamReadFrm;
+  FrmTerminalProperty: TfrmTerminalProperty;
   FrmReadAreaFor:TfrmReadAreaForList;      //读取电子围栏
   ADtimeControl:boolean;//
   carlist1:TList ;      //====南通
@@ -255,7 +256,10 @@ var
   procedure showMyMsgBox(Handle: THandle; msg: string);
   function GetUpgradeTypeName(upgradeType: Integer): string;
   function GetUpgradeTerminalRetStr(upgradeRet: Integer): string;
+  function GetFrmTerminalProperty: TfrmTerminalProperty;
   function GetParamIdByCheckNo(chkNo: Integer): LongWord;
+  function GetSendDataWithParam(SendCmdOrder:Byte; ParamData: TByteDynArray):TByteDynArray;
+  function CheckXor(Buffer:TByteDynArray):Byte;
 
 implementation
 uses umainf,Dialogs,elog, Math, DateUtils, ZLib;
@@ -942,7 +946,12 @@ begin
     1: Result := '定时动作';
     2: Result := '抢劫报警触发';
     3: Result := '碰撞侧翻报警触发';
-    4: Result := '疲劳报警触发';
+    //4: Result := '疲劳报警触发';
+    4: Result := '门开拍照';
+    5: Result := '门关拍照';
+    6: Result := '车门由开变关，时速从＜20公里到超过20公里';
+    7: Result := '定距拍照';
+    $FF: Result := '疲劳报警';
   end;
 end;
 
@@ -1724,6 +1733,12 @@ begin
   end;
 end;
 
+function GetFrmTerminalProperty: TfrmTerminalProperty;
+begin
+  if FrmTerminalProperty = nil then
+    FrmTerminalProperty := TfrmTerminalProperty.Create(nil);
+  Result := FrmTerminalProperty;
+end;
 function GetParamIdByCheckNo(chkNo: Integer): LongWord;
 var
   ret: LongWord;
@@ -1823,6 +1838,33 @@ begin
   Result := ret;
 end;
 
+function CheckXor(Buffer:TByteDynArray):Byte;
+var
+  i:Integer;
+begin
+  Result := 0;
+  for i := 0 to High(Buffer) - 1 do
+  Result := Result xor Buffer[i];
+end;
+
+function GetSendDataWithParam(SendCmdOrder:Byte; ParamData: TByteDynArray):TByteDynArray;
+var
+  pcmd:PCmdSendData;
+  ParamDataLen: Integer;
+begin
+  ParamDataLen := Length(ParamData);
+  SetLength(Result, SizeOf(TCmdSendData) + ParamDataLen);
+  pcmd := @Result[0];
+  pcmd^.DataBegin[0] := $AA;
+  pcmd^.DataBegin[1] := $75;
+  pcmd^.CmdOrder := SendCmdOrder;
+  pcmd^.DataLength[0] := ParamDataLen div 256;
+  pcmd^.DataLength[1] := ParamDataLen mod 256;
+  pcmd^.Retain := $00;
+  CopyMemory(@Result[SizeOf(TCmdSendData) - 1], @ParamData[0], ParamDataLen);
+  Result[Length(Result) - 1] := CheckXor(Result);
+end;
+
 initialization
   CoInitialize(nil);
   DateSeparator := '-';
@@ -1893,7 +1935,7 @@ initialization
   DisposeCar := TDisposeCar.Create;
   FMouseDev := TDevice.Create;
   FFrmShowVideoList := TStringList.Create;
-
+  FrmTerminalProperty := nil;
 //  MSNPopUp := TMSNPopUp.Create(nil);
 //  MSNPopUp.TimeOut := 5;
 //  if FileExists(ExePath + 'MSNPopImage.bmp') then
@@ -1964,6 +2006,21 @@ finalization
 
   DisposeCar.Free;
   FFrmShowVideoList.Free;
+
+  if ReadParamFrm <> nil then
+  begin
+    try
+      FreeAndNil(ReadParamFrm);
+    except
+    end;
+  end;
+  if FrmTerminalProperty <> nil then
+  begin
+    try
+      FreeAndNil(FrmTerminalProperty);
+    except
+    end;
+  end;   
 //  MSNPopUp.Free;
 
   //AssembleWarring.Free;

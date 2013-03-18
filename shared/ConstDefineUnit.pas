@@ -434,9 +434,15 @@ const
       TERMSRV_MEDIADATAUPLOAD_SINGLE_V3 = $8805;//单条多媒体数据上传
       TERMSRV_RECORD_V3 = $8804;//录音命令
       TERMSRV_TSPDATA_V3 = $8900;//数据下行透传
+
       //------------北斗新增------------
       TERSRV_UPGRADETERMINAL_BD = $8108;//下发终端升级包
       TERSRV_READPARAMSPEC_BD = $8106;//读取指定参数
+      TERSRV_GETDEVPROPERTY_BD = $8107;//查询终端属性
+      TERSRV_GETDRIVERINFO_BD = $8702;//获取驾驶员信息
+      TERSRV_CONFIRMALARM_BD = $8203;//人工确认报警消息
+      
+      SRVTERM_GETDEVPROPERTY_BD = $0107;//查询终端属性应答
       SRVTERM_UPGRADETERMINAL_RET_BD = $0108;//终端升级结果通知
 
       //------------北斗新增------------

@@ -489,12 +489,6 @@ type
     N17: TMenuItem;
     N19: TMenuItem;
     N91: TMenuItem;
-    N284: TMenuItem;
-    N222: TMenuItem;
-    N272: TMenuItem;
-    N103: TMenuItem;
-    GPRS2: TMenuItem;
-    N300: TMenuItem;
     ck_DriverFatigueRecord: TAction;
     ck_TjGrpDevs: TAction;
     N287: TMenuItem;
@@ -649,7 +643,6 @@ type
     Splitter2: TSplitter;
     PageControl2: TPageControl;
     TreeView1: TTreeView;
-    N323: TMenuItem;
     Show_Abnormal_CarList: TAction;
     PopupMenu2: TPopupMenu;
     N324: TMenuItem;
@@ -692,7 +685,6 @@ type
     N12: TMenuItem;
     N39: TMenuItem;
     N60: TMenuItem;
-    N68: TMenuItem;
     N72: TMenuItem;
     fun_SetAreaToDev: TAction;
     fun_DelAreaFromDev: TAction;
@@ -864,6 +856,17 @@ type
     N250: TMenuItem;
     N252: TMenuItem;
     fun_GetDriverInfo: TAction;
+    N103: TMenuItem;
+    fun_getTerminalProperty: TAction;
+    N222: TMenuItem;
+    N253: TMenuItem;
+    N255: TMenuItem;
+    N256: TMenuItem;
+    N257: TMenuItem;
+    N258: TMenuItem;
+    N259: TMenuItem;
+    N260: TMenuItem;
+    N262: TMenuItem;
 
 
 
@@ -14812,7 +14815,15 @@ end;
 
 procedure TMainf.fun_GetDriverInfoExecute(Sender: TObject);
 begin
-//
+  if GCurSelectDev <> nil then
+  begin
+    if not IsBeiDouDev(GCurSelectDev) then
+    begin
+      showAppMsgBox('该命令只能对北斗类型的终端下发');
+      Exit;
+    end;
+    DataServer.GetDriverInfo(GCurSelectDev);
+  end;
 end;
 
 end.

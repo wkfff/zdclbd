@@ -6251,10 +6251,16 @@ type
   TDriverInfoUpload = record
     DevId: string;
     CarNo: string;
-    DriverName: string;
-    DriverIDNo: String;
-    DriverServiceNo: String;
-    AgencyName: String;
+    DriverName: string;//驾驶员姓名
+    DriverIDNo: String;//驾驶员身份证编码
+    DriverServiceNo: String;//从业资格证编码
+    AgencyName: String; //发证机构名称
+
+    //北斗新增
+    LogInOrOut: string;//上班或下班
+    LogTime: string;//上班或下班时间
+    ICCardRet: string;//IC卡读取结果
+    CertificateValidDate: string;//证件有效期
   end;
 
   TDriverLogInfo = record
@@ -6573,6 +6579,76 @@ type
     ParamCount: Byte;
   end;
   PCmdTermSrvReadParamSpecTSP_BD = ^TCmdTermSrvReadParamSpecTSP_BD;
+
+  TCmdTermSrvGetDriverInfoTSP_BD = packed record
+    Header: TCmdTSPHead_V3;
+    LogState: Byte;
+    LogTime: array[0..5] of Byte;
+    //以下字节在LogState=$01时才有效并填充
+    ICCardRet: Byte;
+    DriverNameLen: Byte;
+    //驾驶员姓名	STRING	驾驶员姓名
+    //从业资格证编码	STRING	长度20位，不足补0x00。
+    //发证机构名称长度	BYTE	m
+    //发证机构名称	STRING	从业资格证发证机构名称
+    //证件有效期	BCD[4]	YYYYMMDD
+  end;
+  PCmdTermSrvGetDriverInfoTSP_BD = ^TCmdTermSrvGetDriverInfoTSP_BD;
+
+  TCmdSrvTermDriverInfoTSP_BD = packed record
+    Header: TCmdTSPHead_V3;
+    LogState: Byte;//状态	BYTE	0x01：从业资格证IC卡插入（驾驶员上班）； 0x02：从业资格证IC卡拔出（驾驶员下班）。
+    LogTime: array[0..5] of Byte;//时间	BCD[6]	插卡/拔卡时间，YY-MM-DD-hh-mm-ss； 以下字段在状态为0x01时才有效并做填充。
+    //IC卡读取结果	BYTE	0x00：IC卡读卡成功 0x01：读卡失败，原因为卡片密钥认证未通过
+                          //0x02：读卡失败，原因为卡片已被锁定 0x03：读卡失败，原因为卡片被拔出 0x04：读卡失败，原因为数据校验错误。
+    //以下字段在IC卡读取结果等于0x00时才有效。
+    //驾驶员姓名长度	BYTE	n
+    //驾驶员姓名	STRING	驾驶员姓名
+    //从业资格证编码	STRING	长度20位，不足补0x00。
+    //发证机构名称长度	BYTE	m
+    //发证机构名称	STRING	从业资格证发证机构名称
+    //证件有效期	BCD[4]	YYYYMMDD
+  end;
+  PCmdSrvTermDriverInfoTSP_BD = ^TCmdSrvTermDriverInfoTSP_BD;
+
+  TCmdTermSrvGetTerminalPropertyTSP_BD = packed record
+    Header: TCmdTSPHead_V3;
+  end;
+  PCmdTermSrvGetTerminalPropertyTSP_BD = ^TCmdTermSrvGetTerminalPropertyTSP_BD;
+
+  TCmdSrvTermGetTerminalPropertyTSP_BD = packed record
+    Header: TCmdTSPHead_V3;
+    TerType: Word;//终端类型	WORD
+    TerMID: array[0..4] of Byte;//制造商ID	BYTE[5]
+    TerModel: array[0..19] of Byte;//终端型号	BYTE[20]
+    TerId: array[0..6] of Byte;//终端ID	BYTE[7]
+    SIMID: array[0..9] of Byte;//终端 SIM 卡 ICCID	BCD【10】
+    HWVerLen: Byte;//硬件版本号长度	BYTE
+    //硬件版本	STRING
+    //固件版本号长度	BYTE
+    //固件版本	STRING
+    //GNSS 模块属性	BYTE
+    //通信模块属性	BYTE
+  end;
+  PCmdSrvTermGetTerminalPropertyTSP_BD = ^TCmdSrvTermGetTerminalPropertyTSP_BD;
+
+  TCmdSrvTermConfirmAlarmTSP_BD = packed record
+    Header: TCmdTSPHead_V3;
+    AlarmSNo: Word;//报警消息流水号	WORD	需人工确认的报警消息流水号，0 表示该报警类型所有消息。
+    AlarmType: LongWord;//人工确认报警类型	DWORD
+  end;
+  PCmdSrvTermConfirmAlarmTSP_BD = ^TCmdSrvTermConfirmAlarmTSP_BD;
+
+  //记录仪发送数据结构体
+  TCmdSendData = packed record
+    DataBegin:array[0..1] of Byte;      //数据头($AA75)
+    CmdOrder:Byte;        //命令字
+    DataLength:array[0..1] of Byte;     //数据长度
+    Retain:Byte;          //保留
+    CheckData:Byte;       //校验
+  end;
+  PCmdSendData = ^TCmdSendData;
+
   //********************************北斗新增********************************
 
   //透传命令
@@ -6755,6 +6831,7 @@ function BcdToLong(pB: PByte): Longword;
 function BcdToWord(pB: PByte): Word;
   {将BCD表示的8bit无符号整型转换成8bit无符号整型}
 function BcdToByte(bcd: Byte): Byte;
+function ByteToBCD(b:Byte):Byte;
   {将整型转换为BCD}
 function LongToBcd(pB: Longint): Variant;
 
@@ -7319,6 +7396,10 @@ begin
   Result := (bcd shr 4) * 10 + (bcd and $0F);
 end;
 
+function ByteToBCD(b:Byte):Byte;
+begin
+  Result := (((b div 10) shl 4) and $F0) + ((b mod 10) and $0F);
+end;
 
 function GetCmdName(const ACmdFlag: integer): string;
 begin

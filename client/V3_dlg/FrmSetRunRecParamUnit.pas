@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, BaseFrmUnit, ComCtrls, StdCtrls, Buttons, ExtCtrls, Types;
+  Dialogs, BaseFrmUnit, ComCtrls, StdCtrls, Buttons, ExtCtrls, Types,
+  RzCmboBx;
 
 type
   TfrmSetRunRecParam = class(TBaseFrm)
@@ -63,6 +64,8 @@ type
     edtDriverNo_old: TEdit;
     edtDriverLicense_Old: TEdit;
     edtCarProperty_old: TEdit;
+    Label19: TLabel;
+    RzComboBox1: TRzComboBox;
     procedure edtCCCKeyPress(Sender: TObject; var Key: Char);
     procedure edtVINKeyPress(Sender: TObject; var Key: Char);
     procedure BitBtn1Click(Sender: TObject);
@@ -80,6 +83,7 @@ type
     procedure chkSetTime_OldClick(Sender: TObject);
     procedure chkSetCarProperty_OldClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure RzComboBox1Change(Sender: TObject);
   private
     { Private declarations }
     function getCarType(index: Byte): string;
@@ -156,54 +160,54 @@ begin
 
   if CheckBox4.Checked then
   begin
-    if Trim(EditD0.Text) = '' then
-    begin
-      ShowTips('请输入D0的状态信号名称', EditD0);
-      EditD0.SetFocus;
-      Exit;
-    end;
-    if Trim(EditD1.Text) = '' then
-    begin
-      ShowTips('请输入D1的状态信号名称', EditD1);
-      EditD1.SetFocus;
-      Exit;
-    end;
-    if Trim(EditD2.Text) = '' then
-    begin
-      ShowTips('请输入D2的状态信号名称', EditD2);
-      EditD2.SetFocus;
-      Exit;
-    end;
-    if Trim(EditD3.Text) = '' then
-    begin
-      ShowTips('请输入D3的状态信号名称', EditD3);
-      EditD3.SetFocus;
-      Exit;
-    end;
-    if Trim(EditD4.Text) = '' then
-    begin
-      ShowTips('请输入D4的状态信号名称', EditD4);
-      EditD4.SetFocus;
-      Exit;
-    end;
-    if Trim(EditD5.Text) = '' then
-    begin
-      ShowTips('请输入D5的状态信号名称', EditD5);
-      EditD5.SetFocus;
-      Exit;
-    end;
-    if Trim(EditD6.Text) = '' then
-    begin
-      ShowTips('请输入D6的状态信号名称', EditD6);
-      EditD6.SetFocus;
-      Exit;
-    end;
-    if Trim(EditD7.Text) = '' then
-    begin
-      ShowTips('请输入D7的状态信号名称', EditD7);
-      EditD7.SetFocus;
-      Exit;
-    end;
+//    if Trim(EditD0.Text) = '' then
+//    begin
+//      ShowTips('请输入D0的状态信号名称', EditD0);
+//      EditD0.SetFocus;
+//      Exit;
+//    end;
+//    if Trim(EditD1.Text) = '' then
+//    begin
+//      ShowTips('请输入D1的状态信号名称', EditD1);
+//      EditD1.SetFocus;
+//      Exit;
+//    end;
+//    if Trim(EditD2.Text) = '' then
+//    begin
+//      ShowTips('请输入D2的状态信号名称', EditD2);
+//      EditD2.SetFocus;
+//      Exit;
+//    end;
+//    if Trim(EditD3.Text) = '' then
+//    begin
+//      ShowTips('请输入D3的状态信号名称', EditD3);
+//      EditD3.SetFocus;
+//      Exit;
+//    end;
+//    if Trim(EditD4.Text) = '' then
+//    begin
+//      ShowTips('请输入D4的状态信号名称', EditD4);
+//      EditD4.SetFocus;
+//      Exit;
+//    end;
+//    if Trim(EditD5.Text) = '' then
+//    begin
+//      ShowTips('请输入D5的状态信号名称', EditD5);
+//      EditD5.SetFocus;
+//      Exit;
+//    end;
+//    if Trim(EditD6.Text) = '' then
+//    begin
+//      ShowTips('请输入D6的状态信号名称', EditD6);
+//      EditD6.SetFocus;
+//      Exit;
+//    end;
+//    if Trim(EditD7.Text) = '' then
+//    begin
+//      ShowTips('请输入D7的状态信号名称', EditD7);
+//      EditD7.SetFocus;
+//      Exit;
+//    end;
     bSetParam := True;
   end;
 
@@ -657,7 +661,12 @@ end;
 procedure TfrmSetRunRecParam.FormCreate(Sender: TObject);
 begin
   inherited;
-  Notebook1.ActivePage := 'old';
+  Notebook1.PageIndex := RzComboBox1.ItemIndex;
+end;
+
+procedure TfrmSetRunRecParam.RzComboBox1Change(Sender: TObject);
+begin
+  Notebook1.PageIndex := RzComboBox1.ItemIndex;
 end;
 
 end.

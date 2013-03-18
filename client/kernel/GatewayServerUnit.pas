@@ -430,31 +430,12 @@ type
                                   endDateTime: string; timeBool: Boolean): Boolean;
     function SendQueryVideo_V3(dev: TDevice; channelId: Byte; Reason: Byte; beginDataTime: string;
                                   endDateTime: string; timeBool: Boolean): Boolean;
-//    function SendSetNightMode_v3(dev: TDevice; beginTime: string; endTime: string; ShuXing: Integer): Boolean;
-//    function SendOpenNightMode_v3(dev: TDevice; ShuXing: Word; Res: Byte): Boolean;
     function SendPolling_MCU_V3(dev: TDevice): Boolean;
-//    function SendQueryLightState_V3(dev: TDevice; ShuXing: Word): Boolean;
-//    function SendQueryLedState_V3(dev: TDevice; ShuXing: Word): Boolean;
     function Send_V3(dev: TDevice; Flag: Byte; MCUType: Byte; param: string): Boolean;
-//    function SendQueryLcdState_V3(dev: TDevice; ShuXing: Word): Boolean;
-//    function SendQueryMeterState_V3(D: TDevice; ShuXing: Word): Boolean;
-//    function SendQueryTSMState_V3(D: TDevice; ShuXing: Word): Boolean;
-//    function SendResetLCD_V3(dev: TDevice; ShuXing: Word): Boolean;
-//    function SendOpenLCD_V3(dev: TDevice; ShuXing: Word; Res: Byte): Boolean;
-//    function SendMeterParam_V3_New(dev: TDevice; param: string): Boolean;
-//    function SendMeterParam_V3(dev: TDevice; ShuXing: Word; MeterParam: TMeterParam_V3): Boolean;
-//    function SendMeterParam_V3_NJTY(dev: TDevice; ShuXing: Word; buf: PByte): Boolean;
-//    function SendReadMeterParam_V3(dev: TDevice): Boolean;
-//    function SendViewAdInfo_V3(dev: TDevice; AdInfo: string; ShuXing: Word): Boolean;
-//    function SendDownLoadAdInfo_V3(dev: TDevice; AdInfo: string; ShuXing: Word): Boolean;
-//    function SendQueryAdInfo(dev: TDevice; ShuXing: Word): Boolean;
-//    function SendQueryAllAdInfo(dev: TDevice): Boolean;
-//    function SendDeleteAdInfo_V3(dev: TDevice; AdInfo: string): Boolean;
-//    function SendDeleteAllAdInfo_V3(dev: TDevice; ShuXing: Word): Boolean;
+
     function SetInfoMenu_V3(ADevice: TDevice): Boolean; overload; {设置信息菜单}
     function SetInfoMenu_V3(ADevice: TDevice; InfoTypeList: TIntegerList; setType: Integer): Boolean; overload; {设置信息菜单}
     function SetClassInfoMenu_V3(ADevice: TDevice): Boolean;  {设置周边信息分类菜单}
-//    function SendOrder_V3(AOrder: TOrder): boolean; {发送订单}
     function SendVideo_V3(dev: TDevice; msstream: TMemoryStream): Boolean; {下发视频}
     //设置车机的圆形电子围栏
     function SendSetCircleArea_New_V3(Dev: TDevice; CircleArea: TCircleArea; setType: Byte): boolean;
@@ -504,8 +485,14 @@ type
 
     //********************************北斗新增********************************
     function UpgradeTerminal(dev: TDevice; upgradeVer: TTerminalUpgradeVer): Boolean;//升级终端
+    function GetDriverInfo(dev: TDevice): Boolean;//获取驾驶员信息
+    function GetTerminalProperty(dev: TDevice): Boolean;//查询终端属性
+    function ConfirmAlarm(dev: TDevice; alarmSNo: Word; alarmType: LongWord): Boolean;//人工确认报警信息
+    function SendCollectRunRecData(dev: TDevice; cmdFlag: Byte; paramData: TByteDynArray): Boolean;//采集记录仪数据
 
     procedure DealUpgradeTerminalRet_BD(ABuf: PByte; cmdNo: Integer);
+    procedure DealGetTerminalProperty_BD(ABuf: PByte; cmdNo: Integer);
+
     //********************************北斗新增********************************
   public //-------------for V2 ------------------------//
 
@@ -591,7 +578,7 @@ type
 implementation
 uses
   UGloabVar, DebugUnit, ConvUtils, DateUtils, Forms, ComCtrls,
-   frmSendUnit, MapPubUnit
+   frmSendUnit, MapPubUnit,FrmTerminalPropertyUnit
 {$IFOPT d+}, MemFormatUnit{$ENDIF};
 const
   COM_MAJOR_VER = 1;
@@ -6029,6 +6016,7 @@ begin
 
       //*******************************北斗新增*********************************
       SRVTERM_UPGRADETERMINAL_RET_BD: DealUpgradeTerminalRet_BD(PtrAdd(ABuf, 1), cmdNo); //升级终端结果通知
+      SRVTERM_GETDEVPROPERTY_BD: DealGetTerminalProperty_BD(PtrAdd(ABuf, 1), cmdNo);     //查询终端属性应答
       //*******************************北斗新增*********************************
 
     end;
@@ -6681,8 +6669,22 @@ begin
 end;
 
 procedure TGateWayServerCom.DealDriverInfoUpload_V3(ABuf: PByte; cmdNo: Integer);
+  procedure initDriverInfo(d: TDriverInfoUpload);
+  begin
+    d.DevId := '';
+    d.CarNo := '';
+    d.DriverName := '';
+    d.DriverIDNo := '';
+    d.DriverServiceNo := '';
+    d.AgencyName := '';
+    d.LogInOrOut := '';
+    d.LogTime := '';
+    d.ICCardRet := '';
+    d.CertificateValidDate := '';
+  end;  
 var
   pcmd: PCmdSrvTermDriverInfoTSP_V3;
+  pcmdBD: PCmdTermSrvGetDriverInfoTSP_BD;
   p: PByte;
   len: Integer;
   driverInfo: TDriverInfoUpload;
@@ -6695,29 +6697,89 @@ begin
     devId := BCDToStr(@(pcmd^.Header.DevId[0]));
     dev := ADeviceManage.find(devId);
     if dev = nil then Exit;
+    initDriverInfo(driverInfo);
+
     driverInfo.DevId := devId;
     driverInfo.CarNo := dev.Car.No;
-    len := pcmd^.DriverNameLen;
-    p :=  PtrAdd(ABuf, SizeOf(TCmdSrvTermDriverInfoTSP_V3));
-    SetLength(str, len);
-    CopyMemory(@str[1],p, len);
-    driverInfo.DriverName := Trim(str);
-    p := PtrAdd(p, len);
-    SetLength(str, 20);
-    CopyMemory(@str[1], p, 20);
-    driverInfo.DriverIDNo := Trim(str);
-    p := PtrAdd(p, 20);
-    SetLength(str, 40);
-    CopyMemory(@str[1], p, 40);
-    driverInfo.DriverServiceNo := Trim(str);
-    p := PtrAdd(p, 40);
-    len := PByte(p)^;
-    p := PtrAdd(p, 1);
-    CopyMemory(@str[1], p, len);
-    driverInfo.AgencyName := Trim(str);
 
-    dev.Login_DriverName := driverInfo.DriverName;
-    dev.Login_Driver := driverInfo.DriverIDNo;
+    if IsBeiDouDev(dev) then
+    begin
+      pcmdBD := PCmdTermSrvGetDriverInfoTSP_BD(ABuf);
+      driverInfo.LogTime := '20' + IntToHex(pcmdBD^.LogTime[0], 2) + '-'
+                                 + IntToHex(pcmdBD^.LogTime[1], 2) + '-'
+                                 + IntToHex(pcmdBD^.LogTime[2], 2) + ' '
+                                 + IntToHex(pcmdBD^.LogTime[3], 2) + ':'
+                                 + IntToHex(pcmdBD^.LogTime[4], 2) + ':'
+                                 + IntToHex(pcmdBD^.LogTime[5], 2);
+                                 
+      if pcmdBD^.LogState = $01 then
+      begin
+        driverInfo.LogInOrOut := '上班';
+        case pcmdBD^.ICCardRet of
+          $00: driverInfo.ICCardRet := '成功';
+          $01: driverInfo.ICCardRet := '失败，卡片密钥认证未通过';
+          $02: driverInfo.ICCardRet := '失败，卡片已被锁定';
+          $03: driverInfo.ICCardRet := '失败，卡片被拔出';
+          $04: driverInfo.ICCardRet := '失败，数据校验错误';
+        end;
+        if pcmdBD^.ICCardRet = $00 then
+        begin
+          len := pcmdBD^.DriverNameLen;
+          p :=  PtrAdd(ABuf, SizeOf(TCmdTermSrvGetDriverInfoTSP_BD));
+          SetLength(str, len);
+          driverInfo.DriverName := Trim(str);
+          p := PtrAdd(p, len);
+
+          SetLength(str, 20);
+          CopyMemory(@str[1], p, 20);
+          driverInfo.DriverServiceNo := Trim(str);
+          p := PtrAdd(p, 20);
+
+          len := PByte(p)^;
+          p := PtrAdd(p, 1);
+          
+          SetLength(str, len);
+          CopyMemory(@str[1], p, len);
+          driverInfo.AgencyName := Trim(str);
+          p := PtrAdd(p, len);
+
+          driverInfo.CertificateValidDate := BCDToStr1(p, 2);
+          p := PtrAdd(p, 2);
+          driverInfo.CertificateValidDate := driverInfo.CertificateValidDate + BCDToStr1(p, 1);
+          p := PtrAdd(p, 1);
+          driverInfo.CertificateValidDate := driverInfo.CertificateValidDate + BCDToStr1(p, 1);
+        end;
+      end
+      else if pcmdBD^.LogState = $02 then
+      begin
+        driverInfo.LogInOrOut := '下班';
+      end;  
+    end
+    else
+    begin
+      len := pcmd^.DriverNameLen;
+      p :=  PtrAdd(ABuf, SizeOf(TCmdSrvTermDriverInfoTSP_V3));
+      SetLength(str, len);
+      CopyMemory(@str[1],p, len);
+      driverInfo.DriverName := Trim(str);
+      p := PtrAdd(p, len);
+      SetLength(str, 20);
+      CopyMemory(@str[1], p, 20);
+      driverInfo.DriverIDNo := Trim(str);
+      p := PtrAdd(p, 20);
+      SetLength(str, 40);
+      CopyMemory(@str[1], p, 40);
+      driverInfo.DriverServiceNo := Trim(str);
+      p := PtrAdd(p, 40);
+      len := PByte(p)^;
+      p := PtrAdd(p, 1);
+      CopyMemory(@str[1], p, len);
+      driverInfo.AgencyName := Trim(str);
+
+      dev.Login_DriverName := driverInfo.DriverName;
+      dev.Login_Driver := driverInfo.DriverIDNo;
+    end;
+    
     if Assigned(FOnDriverInfoUpload) then
       FOnDriverInfoUpload(driverInfo);
   except
@@ -7273,10 +7335,24 @@ var
   offSet: Integer;
   escapByteBuf: TByteDynArray;
   w: LongWord;
+  paramBuf: TByteDynArray;
 begin
   Result := false;
   if not isActive then exit;
-  len := SizeOf(TCmdTermSrvSetRunRecParamTSP_V3) + 17 + 12 + 12;
+  SetLength(paramBuf, 41);
+  offSet := 0;
+  CopyMemory(@paramBuf[offset], @carVin[1], Length(carVin));
+  Inc(offSet, 17);
+
+  CopyMemory(@paramBuf[offset], @carNo[1], Length(carNo));
+  Inc(offSet, 12);
+
+  CopyMemory(@paramBuf[offset], @carType[1], Length(carType));
+  Inc(offSet, 12);
+
+  paramBuf := GetSendDataWithParam(SETRUNRECPARAM_CARINFO, paramBuf);
+
+  len := SizeOf(TCmdTermSrvSetRunRecParamTSP_V3) + Length(paramBuf);
   InitTSPHeader(acmd.Header, len - TSPHEADERLEN, TERMSRV_SETRUNRECPARAM_V3, dev.Id);
   acmd.Flag := SETRUNRECPARAM_CARINFO;
   tspPackSize := len + 3;
@@ -7284,17 +7360,12 @@ begin
   offSet := 0;
   tspBuf[0] := FLAGTSP;
   Inc(offSet);
+
   CopyMemory(@tspBuf[offSet], @acmd, SizeOf(TCmdTermSrvSetRunRecParamTSP_V3));
   Inc(offSet, SizeOf(TCmdTermSrvSetRunRecParamTSP_V3));
 
-  CopyMemory(@tspBuf[offset], @carVin[1], Length(carVin));
-  Inc(offSet, 17);
-
-  CopyMemory(@tspBuf[offset], @carNo[1], Length(carNo));
-  Inc(offSet, 12);
-
-  CopyMemory(@tspBuf[offset], @carType[1], Length(carType));
-  Inc(offSet, 12);
+  CopyMemory(@tspBuf[offset], @paramBuf[0], Length(paramBuf));
+  Inc(offSet, Length(paramBuf));
 
   tspBuf[offSet] := GetXorSum(@tspBuf[1], len);
   Inc(offSet);
@@ -7315,21 +7386,13 @@ var
   offSet: Integer;
   escapByteBuf: TByteDynArray;
   w: LongWord;
-  dateBuf: array[0..5] of Byte;
+  dateBuf: TByteDynArray;
+  paramBuf: TByteDynArray;
 begin
   Result := false;
   if not isActive then exit;
-  len := SizeOf(TCmdTermSrvSetRunRecParamTSP_V3) + 6;
-  InitTSPHeader(acmd.Header, len - TSPHEADERLEN, TERMSRV_SETRUNRECPARAM_V3, dev.Id);
-  acmd.Flag := SETRUNRECPARAM_TIME;
-  tspPackSize := len + 3;
-  SetLength(tspBuf, tspPackSize);
-  offSet := 0;
-  tspBuf[0] := FLAGTSP;
-  Inc(offSet);
-  CopyMemory(@tspBuf[offSet], @acmd, SizeOf(TCmdTermSrvSetRunRecParamTSP_V3));
-  Inc(offSet, SizeOf(TCmdTermSrvSetRunRecParamTSP_V3));
 
+  SetLength(dateBuf, 6);
   dateBuf[0] := StrToInt('$'+IntToStr(yearof(time)));
   dateBuf[1] := StrToInt('$'+IntToStr(MonthOf(time)));
   dateBuf[2] := StrToInt('$'+IntToStr(DayOf(time)));
@@ -7337,8 +7400,22 @@ begin
   dateBuf[4] := StrToInt('$'+IntToStr(MinuteOf(time)));
   dateBuf[5] := StrToInt('$'+IntToStr(SecondOf(time)));
 
-  CopyMemory(@tspBuf[offset], @dateBuf[0], 6);
-  Inc(offset, 6);
+  paramBuf := GetSendDataWithParam(SETRUNRECPARAM_TIME, dateBuf);
+
+  len := SizeOf(TCmdTermSrvSetRunRecParamTSP_V3) + Length(paramBuf);
+  InitTSPHeader(acmd.Header, len - TSPHEADERLEN, TERMSRV_SETRUNRECPARAM_V3, dev.Id);
+  acmd.Flag := SETRUNRECPARAM_TIME;
+  tspPackSize := len + 3;
+  SetLength(tspBuf, tspPackSize);
+  offSet := 0;
+  tspBuf[0] := FLAGTSP;
+  Inc(offSet);
+
+  CopyMemory(@tspBuf[offSet], @acmd, SizeOf(TCmdTermSrvSetRunRecParamTSP_V3));
+  Inc(offSet, SizeOf(TCmdTermSrvSetRunRecParamTSP_V3));
+
+  CopyMemory(@tspBuf[offset], @paramBuf[0], Length(paramBuf));
+  Inc(offSet, Length(paramBuf));
 
   tspBuf[offSet] := GetXorSum(@tspBuf[1], len);
   Inc(offSet);
@@ -7729,11 +7806,20 @@ var
   offSet: Integer;
   escapByteBuf: TByteDynArray;
   w: LongWord;
-  dateBuf: array[0..5] of Byte;
+  dateBuf, paramBuf: TByteDynArray;
 begin
   Result := false;
   if not isActive then exit;
-  len := SizeOf(TCmdTermSrvSetRunRecParamTSP_V3) + 6;
+  SetLength(dateBuf, 6);
+  dateBuf[0] := StrToInt('$'+IntToStr(yearof(time)));
+  dateBuf[1] := StrToInt('$'+IntToStr(MonthOf(time)));
+  dateBuf[2] := StrToInt('$'+IntToStr(DayOf(time)));
+  dateBuf[3] := StrToInt('$'+IntToStr(HourOf(time)));
+  dateBuf[4] := StrToInt('$'+IntToStr(MinuteOf(time)));
+  dateBuf[5] := StrToInt('$'+IntToStr(SecondOf(time)));
+  paramBuf := GetSendDataWithParam(SETRUNRECPARAM_INSTALLDATE, dateBuf);
+
+  len := SizeOf(TCmdTermSrvSetRunRecParamTSP_V3) + Length(paramBuf);
   InitTSPHeader(acmd.Header, len - TSPHEADERLEN, TERMSRV_SETRUNRECPARAM_V3, dev.Id);
   acmd.Flag := SETRUNRECPARAM_INSTALLDATE;
   tspPackSize := len + 3;
@@ -7744,15 +7830,8 @@ begin
   CopyMemory(@tspBuf[offSet], @acmd, SizeOf(TCmdTermSrvSetRunRecParamTSP_V3));
   Inc(offSet, SizeOf(TCmdTermSrvSetRunRecParamTSP_V3));
 
-  dateBuf[0] := StrToInt('$'+IntToStr(yearof(time)));
-  dateBuf[1] := StrToInt('$'+IntToStr(MonthOf(time)));
-  dateBuf[2] := StrToInt('$'+IntToStr(DayOf(time)));
-  dateBuf[3] := StrToInt('$'+IntToStr(HourOf(time)));
-  dateBuf[4] := StrToInt('$'+IntToStr(MinuteOf(time)));
-  dateBuf[5] := StrToInt('$'+IntToStr(SecondOf(time)));
-
-  CopyMemory(@tspBuf[offset], @dateBuf[0], 6);
-  Inc(offset, 6);
+  CopyMemory(@tspBuf[offset], @paramBuf[0], Length(paramBuf));
+  Inc(offSet, Length(paramBuf));
 
   tspBuf[offSet] := GetXorSum(@tspBuf[1], len);
   Inc(offSet);
@@ -7773,9 +7852,14 @@ var
   offSet: Integer;
   escapByteBuf: TByteDynArray;
   mileageBcdAry: TByteDynArray;
+  paramBuf: TByteDynArray;
 begin
   Result := false;
   if not isActive then exit;
+
+  mileageBcdAry := StrToBCD(FormatFloat('00000000', initMileage), 4);
+  paramBuf := GetSendDataWithParam(SETRUNRECPARAM_INITMILEAGE, mileageBcdAry);
+
   len := SizeOf(TCmdTermSrvSetRunRecParamTSP_V3) + 4;
   InitTSPHeader(acmd.Header, len - TSPHEADERLEN, TERMSRV_SETRUNRECPARAM_V3, dev.Id);
   acmd.Flag := SETRUNRECPARAM_INITMILEAGE;
@@ -7787,10 +7871,9 @@ begin
   CopyMemory(@tspBuf[offSet], @acmd, SizeOf(TCmdTermSrvSetRunRecParamTSP_V3));
   Inc(offSet, SizeOf(TCmdTermSrvSetRunRecParamTSP_V3));
 
-  mileageBcdAry := StrToBCD(FormatFloat('00000000', initMileage), 4);
-  CopyMemory(@tspBuf[offset], @mileageBcdAry[0], 4);
-  Inc(offset, 4);
-
+  CopyMemory(@tspBuf[offset], @paramBuf[0], Length(paramBuf));
+  Inc(offSet, Length(paramBuf));
+  
   tspBuf[offSet] := GetXorSum(@tspBuf[1], len);
   Inc(offSet);
   tspBuf[offSet] := FLAGTSP;
@@ -7810,10 +7893,24 @@ var
   offSet: Integer;
   escapByteBuf: TByteDynArray;
   apluse: Word;
+  paramBuf: TByteDynArray;
 begin
   Result := false;
   if not isActive then exit;
-  len := SizeOf(TCmdTermSrvSetRunRecParamTSP_V3) + 2;
+
+  SetLength(paramBuf, 8);
+  dt := Now;
+  paramBuf[0] := StrToInt('$' + IntToStr(YearOf(dt) - 2000));
+  paramBuf[1] := StrToInt('$' + IntToStr(MonthOfTheYear(dt)));
+  paramBuf[2] := StrToInt('$' + IntToStr(DayOfTheMonth(dt)));
+  paramBuf[3] := StrToInt('$' + IntToStr(HourOfTheDay(dt)));
+  paramBuf[4] := StrToInt('$' + IntToStr(MinuteOfTheHour(dt)));
+  paramBuf[5] := StrToInt('$' + IntToStr(SecondOfTheMinute(dt)));
+  apluse := ByteOderConvert_Word(pluse);
+  CopyMemory(@paramBuf[6], @apluse, 2);
+  paramBuf := GetSendDataWithParam(SETRUNRECPARAM_PULSE, paramBuf);
+
+  len := SizeOf(TCmdTermSrvSetRunRecParamTSP_V3) + Length(paramBuf);
   InitTSPHeader(acmd.Header, len - TSPHEADERLEN, TERMSRV_SETRUNRECPARAM_V3, dev.Id);
   acmd.Flag := SETRUNRECPARAM_PULSE;
   tspPackSize := len + 3;
@@ -7821,12 +7918,12 @@ begin
   offSet := 0;
   tspBuf[0] := FLAGTSP;
   Inc(offSet);
+
   CopyMemory(@tspBuf[offSet], @acmd, SizeOf(TCmdTermSrvSetRunRecParamTSP_V3));
   Inc(offSet, SizeOf(TCmdTermSrvSetRunRecParamTSP_V3));
 
-  apluse := ByteOderConvert_Word(pluse);
-  CopyMemory(@tspBuf[offset], @apluse, 2);
-  Inc(offset, 2);
+  CopyMemory(@tspBuf[offset], @paramBuf[0], Length(paramBuf));
+  Inc(offset, Length(paramBuf));
 
   tspBuf[offSet] := GetXorSum(@tspBuf[1], len);
   Inc(offSet);
@@ -7847,10 +7944,18 @@ var
   offSet: Integer;
   escapByteBuf: TByteDynArray;
   i: Integer;
+  paramBuf: TByteDynArray;
 begin
   Result := false;
   if not isActive then exit;
-  len := SizeOf(TCmdTermSrvSetRunRecParamTSP_V3) + 10 * Length(sAry);
+  SetLength(paramBuf, 10 * Length(sAry));
+  for i := 0 to Length(sAry) - 1 do
+  begin
+    CopyMemory(@paramBuf[i * 10], @(sAry[i][1]), 10);
+  end;
+  paramBuf := GetSendDataWithParam(SETRUNRECPARAM_STATUSPARAM, paramBuf);
+
+  len := SizeOf(TCmdTermSrvSetRunRecParamTSP_V3) + Length(paramBuf);
   InitTSPHeader(acmd.Header, len - TSPHEADERLEN, TERMSRV_SETRUNRECPARAM_V3, dev.Id);
   acmd.Flag := SETRUNRECPARAM_STATUSPARAM;
   tspPackSize := len + 3;
@@ -7861,12 +7966,8 @@ begin
   CopyMemory(@tspBuf[offSet], @acmd, SizeOf(TCmdTermSrvSetRunRecParamTSP_V3));
   Inc(offSet, SizeOf(TCmdTermSrvSetRunRecParamTSP_V3));
 
-
-  for i := 0 to Length(sAry) - 1 do
-  begin
-    CopyMemory(@tspBuf[offset], @(sAry[i][1]), 10);
-    Inc(offset, 10);
-  end;
+  CopyMemory(@tspBuf[offSet], @paramBuf[0], Length(paramBuf));
+  Inc(offSet, Length(paramBuf));
 
   tspBuf[offSet] := GetXorSum(@tspBuf[1], len);
   Inc(offSet);
@@ -9285,6 +9386,225 @@ begin
   Result := True;
 end;
 
+function TGateWayServerCom.GetDriverInfo(dev: TDevice): Boolean;
+var
+  cmd: TCmdTermSrvGetDriverInfoTSP_BD;
+  info: PCmdinfo;
+  tspBuf: array of Byte;//透传的完整包
+  tspPackSize: Word;
+  offSet: Integer;
+  escapByteBuf: TByteDynArray;
+begin
+  Result := false;
+  if (dev = nil) or not isActive then exit;
+  tspPackSize := SizeOf(TCmdTermSrvGetDriverInfoTSP_BD) + 1;//加1位校验码
+  InitTSPHeader(cmd.Header, tspPackSize - TSPHEADERLEN - 1, TERSRV_GETDRIVERINFO_BD, dev.Id);
+  SetLength(tspBuf, tspPackSize + 2);//整个完整的包需在包两端加标识位
+  offSet := 0;
+  tspBuf[offset] := FLAGTSP;//标识位
+  Inc(offSet);
+
+  CopyMemory(@tspBuf[offset], @cmd, SizeOf(TCmdTermSrvGetDriverInfoTSP_BD));
+  Inc(offSet, SizeOf(TCmdTermSrvGetDriverInfoTSP_BD));
+
+  tspBuf[offSet] := GetXorSum(@tspBuf[1], tspPackSize - 1);//从消息头开始，不包括标识位
+  Inc(offSet);
+
+  tspBuf[offSet] := FLAGTSP;//标识位
+  escapByteBuf := EscapeByteBuf(@tspBuf[0], Length(tspBuf), 0);
+  info := SendCmdTSP_V3(dev, escapByteBuf);
+  info^.State := CMD_SNDNODO;
+  info^.Desc := '获取驾驶员身份信息：' + dev.Car.No;
+  Result := True;
+end;
+
+function TGateWayServerCom.GetTerminalProperty(dev: TDevice): Boolean;
+var
+  cmd: TCmdTermSrvGetTerminalPropertyTSP_BD;
+  info: PCmdinfo;
+  tspBuf: array of Byte;//透传的完整包
+  tspPackSize: Word;
+  offSet: Integer;
+  escapByteBuf: TByteDynArray;
+begin
+  Result := false;
+  if (dev = nil) or not isActive then exit;
+  tspPackSize := SizeOf(TCmdTermSrvGetTerminalPropertyTSP_BD) + 1;//加1位校验码
+  InitTSPHeader(cmd.Header, tspPackSize - TSPHEADERLEN - 1, TERSRV_GETDEVPROPERTY_BD, dev.Id);
+  SetLength(tspBuf, tspPackSize + 2);//整个完整的包需在包两端加标识位
+  offSet := 0;
+  tspBuf[offset] := FLAGTSP;//标识位
+  Inc(offSet);
+
+  CopyMemory(@tspBuf[offset], @cmd, SizeOf(TCmdTermSrvGetTerminalPropertyTSP_BD));
+  Inc(offSet, SizeOf(TCmdTermSrvGetTerminalPropertyTSP_BD));
+
+  tspBuf[offSet] := GetXorSum(@tspBuf[1], tspPackSize - 1);//从消息头开始，不包括标识位
+  Inc(offSet);
+
+  tspBuf[offSet] := FLAGTSP;//标识位
+  escapByteBuf := EscapeByteBuf(@tspBuf[0], Length(tspBuf), 0);
+  info := SendCmdTSP_V3(dev, escapByteBuf);
+  info^.State := CMD_SNDNODO;
+  info^.Desc := '查询终端属性：' + dev.Car.No;
+  Result := True;
+end;
+
+procedure TGateWayServerCom.DealGetTerminalProperty_BD(ABuf: PByte;
+  cmdNo: Integer);
+var
+  pcmd: PCmdSrvTermGetTerminalPropertyTSP_BD;
+  p: PByte;
+  b: Byte;
+  w: Word;
+  arr: array of Byte;
+  i: Integer;
+  len: Integer;
+  str: string;
+  devId: string;
+  dev: TDevice;
+  dlg: TfrmTerminalProperty;
+begin
+  try
+    pcmd := PCmdSrvTermGetTerminalPropertyTSP_BD(ABuf);
+    devId := BCDToStr(@(pcmd^.Header.DevId[0]));
+    dev := ADeviceManage.find(devId);
+    if dev = nil then Exit;
+
+    dlg := GetFrmTerminalProperty;
+    dlg.edtCarNo.Text := dev.car.no;
+
+    w := ByteOderConvert_Word(pCmd^.TerType);
+    b := w and $FF;
+    for i := 0 to 7 do
+    begin
+      dlg.chkListTerType.Items[i].Checked := (((b shr i) and $01) = $01);
+    end;
+
+    SetLength(str, Length(pCmd^.TerMID));
+    CopyMemory(@str[1], @(pCmd^.TerMID[0]), Length(pCmd^.TerMID));
+    dlg.edtMId.Text := str;
+
+    SetLength(str, Length(pCmd^.TerModel));
+    CopyMemory(@str[1], @(pCmd^.TerModel[0]), Length(pCmd^.TerModel));
+    dlg.edtTerModel.Text := str;
+
+    SetLength(str, Length(pcmd^.TerId));
+    CopyMemory(@str[1], @(pCmd^.TerId[0]), Length(pcmd^.TerId));
+    dlg.edtTerModel.Text := str;
+
+    dlg.edtSIM.Text := ByteArrToHexStr(pcmd^.SIMID);
+
+    len := pcmd^.HWVerLen;
+    p :=  PtrAdd(ABuf, SizeOf(TCmdSrvTermGetTerminalPropertyTSP_BD));
+    SetLength(str, len);
+    CopyMemory(@str[1],p, len);
+    dlg.edtHardwareVer.Text := str;
+    p := PtrAdd(p, len);
+
+    len := PByte(p)^;
+    p := PtrAdd(p, 1);
+    SetLength(str, len);
+    CopyMemory(@str[1], p, len);
+    dlg.edtFirmware.Text := str;
+    p := PtrAdd(p, len);
+
+    b := PByte(p)^;
+    for i := 0 to 3 do
+    begin
+      dlg.chkListGNSS.Items[i].Checked := (((b shr i) and $01) = $01);
+    end;
+    p := PtrAdd(p, 1);
+
+    b := PByte(p)^;
+    for i := 0 to 7 do
+    begin
+      dlg.chkListComm.Items[i].Checked := (((b shr i) and $01) = $01);
+    end;
+
+    dlg.Show;
+  except
+    on E: Exception do
+    begin
+      uGloabVar.SystemLog.AddLog('DealGetTerminalProperty_BD异常' + E.Message);
+    end;
+  end;
+end;
+
+function TGateWayServerCom.ConfirmAlarm(dev: TDevice; alarmSNo: Word;
+  alarmType: LongWord): Boolean;
+var
+  cmd: TCmdSrvTermConfirmAlarmTSP_BD;//TCmdTermSrvSetDevParam_V3;//TCmdTermSrvSetDevParam_V2;
+  buf: array of Byte;
+  info: PCmdinfo;
+  tspBuf: array of Byte;//透传的完整包
+  tspPackSize: Word;
+  offSet: Integer;
+  escapByteBuf: TByteDynArray;
+begin
+  Result := false;
+  if not isActive then exit;
+  tspPackSize := SizeOf(TCmdSrvTermConfirmAlarmTSP_BD)  + 1;//加1位校验码
+  InitTSPHeader(cmd.Header, tspPackSize - TSPHEADERLEN - 1, TERSRV_CONFIRMALARM_BD, Dev.Id);
+  cmd.AlarmSNo := ByteOderConvert_Word(alarmSNo);
+  cmd.AlarmType := ByteOderConvert_LongWord(alarmType);
+
+  SetLength(tspBuf, tspPackSize + 2);//整个完整的包需在包两端加标识位
+  offSet := 0;
+  tspBuf[offset] := FLAGTSP;//标识位
+  Inc(offSet);
+
+  CopyMemory(@tspBuf[offset], @cmd, SizeOf(TCmdSrvTermConfirmAlarmTSP_BD));
+  Inc(offSet, SizeOf(TCmdSrvTermConfirmAlarmTSP_BD));
+
+  tspBuf[offSet] := GetXorSum(@tspBuf[1], tspPackSize - 1);//从消息头开始，不包括标识位
+  Inc(offSet);
+
+  tspBuf[offSet] := FLAGTSP;//标识位
+  escapByteBuf := EscapeByteBuf(@tspBuf[0], Length(tspBuf), 0);
+  info := SendCmdTSP_V3(Dev, escapByteBuf);
+
+  info^.Desc := '人工确认报警消息：' + dev.Car.No
+end;
+
+function TGateWayServerCom.SendCollectRunRecData(dev: TDevice;
+  cmdFlag: Byte; paramData: TByteDynArray): Boolean;
+var
+  info: PCmdinfo;
+  len: Word;
+  acmd: TCmdTermSrvCollectRunRecDataTSP_V3;
+  paramBuf: TByteDynArray;
+  tspBuf: array of Byte;//透传的完整包
+  tspPackSize: Word;
+  offSet: Integer;
+  escapByteBuf: TByteDynArray;
+begin
+  Result := false;
+  if not isActive then exit;
+  paramBuf := GetSendDataWithParam(cmdFlag, paramData);
+  len := SizeOf(TCmdTermSrvCollectRunRecDataTSP_V3) + Length(paramBuf);
+  InitTSPHeader(acmd.Header, len - TSPHEADERLEN, TERMSRV_COLLECTRUNRECDATA_V3, dev.Id);
+  acmd.Flag := cmdFlag;
+  tspPackSize := len + 3;
+  SetLength(tspBuf, tspPackSize);
+  offSet := 0;
+  tspBuf[0] := FLAGTSP;
+  Inc(offSet);
+
+  CopyMemory(@tspBuf[offSet], @acmd, SizeOf(TCmdTermSrvCollectRunRecDataTSP_V3));
+  Inc(offSet, SizeOf(TCmdTermSrvCollectRunRecDataTSP_V3));
+
+  CopyMemory(@tspBuf[offset], @paramData[0], Length(paramData));
+  Inc(offSet, Length(paramData));
+
+  tspBuf[offSet] := GetXorSum(@tspBuf[1], len);
+  Inc(offSet);
+  tspBuf[offSet] := FLAGTSP;
+  escapByteBuf := EscapeByteBuf(@tspBuf[0], Length(tspBuf), 0);
+  info := SendCmdTSP_V3(dev, escapByteBuf);
+  info^.Desc := Dev.Car.No + ' 采集行驶记录数据';
+end;
+
 { TCmdManage }
 
 function TCmdManage.Add(const ACmdID: Integer): PCmdInfo;
@@ -10412,7 +10732,7 @@ var
   escapByteBuf: TByteDynArray;
 begin
   Result := false;
-  if not isActive then exit;
+  if (dev = nil) or not isActive then exit;
   tspPackSize := SizeOf(TCmdTSPReadDevParam_V3) + 1;//加1位校验码
   InitTSPHeader(cmd.TSPHeader, tspPackSize - TSPHEADERLEN - 1, TERMSRV_READDEVPARAM_V3, dev.Id);
 //  cmd.ParamId := ByteOderConvert_Word(AParamId);

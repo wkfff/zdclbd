@@ -77,6 +77,9 @@ type
     rbUpdate: TRadioButton;
     rbAttach: TRadioButton;
     rbModify: TRadioButton;
+    CheckBox9: TCheckBox;
+    CheckBox10: TCheckBox;
+    CheckBox11: TCheckBox;
     procedure RzBitBtn3Click(Sender: TObject);
     procedure RzBitBtn1Click(Sender: TObject);
     procedure RzBitBtn5Click(Sender: TObject);
@@ -148,7 +151,7 @@ var
   i, j, k: Integer;
   tmp: Word;
 begin
-  Result := $00FF;
+  Result := $FFFF;
   FillChar(b, 16, 0);
 //  FillChar(sndAry, 2, 0);
   //b[0] := GetChecked(CheckBox1);
@@ -162,8 +165,12 @@ begin
   b[6] := IfThen(rbNLat.Checked, 0, 1);
   //b[7] := GetChecked(CheckBox8);
   b[7] := IfThen(rbELong.Checked, 0, 1);
+
+  b[8] := GetChecked(CheckBox9);
+  b[14] := GetChecked(CheckBox10);
+  b[15] := GetChecked(CheckBox11);
   tmp := 0;
-  for i := 0 to 7 do
+  for i := 0 to 15 do
   begin
     tmp := tmp + (b[i] shl i);
   end;

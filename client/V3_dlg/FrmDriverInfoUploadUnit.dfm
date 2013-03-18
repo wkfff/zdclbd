@@ -1,7 +1,7 @@
 object frmDriverInfo: TfrmDriverInfo
-  Left = 309
-  Top = 427
-  Width = 905
+  Left = 238
+  Top = 276
+  Width = 1050
   Height = 227
   Caption = #39550#39542#21592#36523#20221#20449#24687#37319#38598#19978#25253#21015#34920
   Color = clBtnFace
@@ -20,7 +20,7 @@ object frmDriverInfo: TfrmDriverInfo
   object cxTreeList1: TcxTreeList
     Left = 0
     Top = 0
-    Width = 897
+    Width = 1042
     Height = 193
     Align = alClient
     Bands = <
@@ -35,56 +35,83 @@ object frmDriverInfo: TfrmDriverInfo
     OptionsView.ShowRoot = False
     PopupMenu = PopupMenu1
     TabOrder = 0
-    object cxTreeList1cxTreeListColumn1: TcxTreeListColumn
+    object cxTreeList2cxTreeListColumn1: TcxTreeListColumn
       Caption.Text = #24207#21495
       DataBinding.ValueType = 'String'
-      Options.Editing = False
-      Width = 64
+      Width = 34
       Position.ColIndex = 0
       Position.RowIndex = 0
       Position.BandIndex = 0
     end
-    object cxTreeList1cxTreeListColumn2: TcxTreeListColumn
-      Caption.Text = #39550#39542#21592#22995#21517
+    object cxTreeList2cxTreeListColumn2: TcxTreeListColumn
+      Caption.Text = #19978#25253#36710#36742
       DataBinding.ValueType = 'String'
-      Options.Editing = False
-      Width = 125
+      Width = 63
+      Position.ColIndex = 1
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+    end
+    object cxTreeList2cxTreeListColumn3: TcxTreeListColumn
+      Caption.Text = #29366#24577
+      DataBinding.ValueType = 'String'
+      Width = 38
       Position.ColIndex = 2
       Position.RowIndex = 0
       Position.BandIndex = 0
     end
-    object cxTreeList1cxTreeListColumn3: TcxTreeListColumn
-      Caption.Text = #20174#19994#36164#26684#35777#32534#30721
+    object cxTreeList2cxTreeListColumn4: TcxTreeListColumn
+      Caption.Text = #26102#38388
       DataBinding.ValueType = 'String'
-      Options.Editing = False
-      Width = 159
-      Position.ColIndex = 4
-      Position.RowIndex = 0
-      Position.BandIndex = 0
-    end
-    object cxTreeList1cxTreeListColumn4: TcxTreeListColumn
-      Caption.Text = #21457#35777#26426#26500#21517#31216
-      DataBinding.ValueType = 'String'
-      Options.Editing = False
-      Width = 338
-      Position.ColIndex = 5
-      Position.RowIndex = 0
-      Position.BandIndex = 0
-    end
-    object cxTreeList1cxTreeListColumn5: TcxTreeListColumn
-      Caption.Text = #39550#39542#21592#36523#20221#35777#32534#30721
-      DataBinding.ValueType = 'String'
-      Options.Editing = False
-      Width = 153
+      Width = 108
       Position.ColIndex = 3
       Position.RowIndex = 0
       Position.BandIndex = 0
     end
-    object cxTreeList1cxTreeListColumn6: TcxTreeListColumn
-      Caption.Text = #19978#25253#36710#36742
+    object cxTreeList2cxTreeListColumn5: TcxTreeListColumn
+      Caption.Text = 'IC'#21345#35835#21462#32467#26524
       DataBinding.ValueType = 'String'
-      Options.Editing = False
-      Position.ColIndex = 1
+      Width = 155
+      Position.ColIndex = 4
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+    end
+    object cxTreeList2cxTreeListColumn6: TcxTreeListColumn
+      Caption.Text = #39550#39542#21592#22995#21517
+      DataBinding.ValueType = 'String'
+      Width = 74
+      Position.ColIndex = 5
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+    end
+    object cxTreeList2cxTreeListColumn7: TcxTreeListColumn
+      Caption.Text = #20174#19994#36164#26684#35777#32534#30721
+      DataBinding.ValueType = 'String'
+      Width = 134
+      Position.ColIndex = 6
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+    end
+    object cxTreeList2cxTreeListColumn8: TcxTreeListColumn
+      Caption.Text = #21457#35777#26426#26500#21517#31216
+      DataBinding.ValueType = 'String'
+      Width = 141
+      Position.ColIndex = 7
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+    end
+    object cxTreeList2cxTreeListColumn9: TcxTreeListColumn
+      Caption.Text = #35777#20214#26377#25928#26399
+      DataBinding.ValueType = 'String'
+      Width = 70
+      Position.ColIndex = 8
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+    end
+    object cxTreeList2cxTreeListColumn10: TcxTreeListColumn
+      Caption.Text = #39550#39542#21592#36523#20221#35777#32534#30721
+      DataBinding.ValueType = 'String'
+      Width = 120
+      Position.ColIndex = 9
       Position.RowIndex = 0
       Position.BandIndex = 0
     end

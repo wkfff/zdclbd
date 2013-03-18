@@ -493,8 +493,8 @@ object Frm_AllArea: TFrm_AllArea
           TabOrder = 5
         end
         object CheckBox7: TCheckBox
-          Left = 344
-          Top = 186
+          Left = 360
+          Top = 98
           Width = 47
           Height = 17
           Caption = #21271#32428
@@ -505,8 +505,8 @@ object Frm_AllArea: TFrm_AllArea
           OnClick = CheckBox7Click
         end
         object CheckBox8: TCheckBox
-          Left = 344
-          Top = 207
+          Left = 360
+          Top = 119
           Width = 47
           Height = 17
           Caption = #19996#32463
@@ -646,6 +646,30 @@ object Frm_AllArea: TFrm_AllArea
               TabOrder = 1
             end
           end
+        end
+        object CheckBox9: TCheckBox
+          Left = 168
+          Top = 186
+          Width = 129
+          Height = 17
+          Caption = #31105#27490#24320#38376
+          TabOrder = 17
+        end
+        object CheckBox10: TCheckBox
+          Left = 168
+          Top = 210
+          Width = 169
+          Height = 17
+          Caption = #36827#21306#22495#20851#38381#36890#20449#27169#22359
+          TabOrder = 18
+        end
+        object CheckBox11: TCheckBox
+          Left = 168
+          Top = 234
+          Width = 209
+          Height = 17
+          Caption = #36827#21306#22495#37319#38598'GNSS'#35814#32454#23450#20301#25968#25454
+          TabOrder = 19
         end
       end
       object GroupBox4: TGroupBox

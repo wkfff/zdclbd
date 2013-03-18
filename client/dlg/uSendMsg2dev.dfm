@@ -239,8 +239,7 @@ object sendMsg2dev: TsendMsg2dev
               Text = #24191#21578#23631#26174#31034
             end
             item
-              Enabled = False
-              Text = #20445#30041
+              Text = 'CAN'#25925#38556#30721#20449#24687
             end
             item
               Enabled = False
@@ -270,7 +269,7 @@ object sendMsg2dev: TsendMsg2dev
             #35831#24744#36895#19982#24744#30340#23478#20013#32852#31995#65281)
         end
         object btnSign: TBitBtn
-          Left = 42
+          Left = 90
           Top = 81
           Width = 41
           Height = 28

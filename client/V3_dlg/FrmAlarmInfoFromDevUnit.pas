@@ -297,10 +297,49 @@ end;
 
 procedure TfrmAlarmFromDev.DoOnGpsDataAlarmInfo(dev: TDevice;
   alarmType: Integer);
+  function IsAlarm(alarmType: Byte): Boolean;
+  begin
+    Result := False;
+    case alarmType of
+      0: Result := True;//'紧急报警';
+      1: Result := True;//'超速报警';
+      2: Result := True;//'疲劳驾驶';
+      3: Result := True;//'预警';
+//      4: Result := 'GNSS模块发生故障';
+//      5: Result := 'GNSS天线未接或被剪断';
+//      6: Result := 'GNSS天线短路';
+//      7: Result := '终端主电源欠压';
+//      8: Result := '终端主电源掉电';
+//      9: Result := '终端LCD或显示器故障';
+//     10: Result := 'TTS模块故障';
+//     11: Result := '摄像头故障';
+//     12: Result := '道路运输证IC卡模块故障';
+//     13: Result := '超速预警';
+     14: Result := True;//'疲劳驾驶预警';
+     
+     18: Result := True;//'当天累计驾驶超时';
+     19: Result := True;//'超时停车';
+     20: Result := True;//'进出区域';
+     21: Result := True;//'进出路线';
+     22: Result := True;//'路段行驶时间不足/过长';
+     23: Result := True;//'路线偏离报警';
+//     24: Result := '车辆VSS故障';
+//     25: Result := '车辆油量异常';
+     26: Result := True;//'车辆被盗报警';
+     27: Result := True;//'车辆非法点火';
+     28: Result := True;//'车辆非法位移';
+     29: Result := True;//'碰撞侧翻报警';
+     30: Result := True;//'侧翻预警';
+     31: Result := True;//'非法开门报警';
+    end;
+  end;  
 var
   alarmTypeName: string;
   alarmInfo: TAlarmInfoFromDev;
 begin
+  if not IsAlarm(alarmType) then
+    Exit;//只列出报警信息，故障类信息不加入列表
+    
   alarmTypeName := GetGpsDataAlarmTypeName(alarmType);
 
   checkCxTreeListCount;
